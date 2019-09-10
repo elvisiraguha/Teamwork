@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Rigister</title>
+  <title>Register</title>
   <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
@@ -12,39 +12,58 @@
   <main class="register-main flex">
     <section class="register flex">
       <div class="register--header flex">
-        <button class="btn-top">Sign Up</button>
-        <button class="btn-top">Sign In</button>
+        <button class="btn-top btn-top--signup btn__highlight">Sign Up</button>
+        <button class="btn-top btn-top--signin">Sign In</button>
       </div>
-      <div class="register--signup flex">
+      <div class="register--signup flex ">
         <div class="signup-container flex">
           <h3 class="create-account">Create Teamwork Account</h3>
           <form action="" class="form">
             <div class="flex form-element email-container">
               <p>Email:</p>
-              <input type="email" class="form--input" required>
+              <input type="email" class="form--input" placeholder="Email" required>
             </div>
             <div class="flex form-element username-container">
               <p>Username:</p>
-              <input type="text" class="form--input" required>
+              <input type="text" class="form--input" placeholder="Username" required>
             </div>
             <div class="flex form-element password-container">
               <p>Password:</p>
-              <input type="password" class="form--input" required>
+              <input type="password" class="form--input" placeholder="Password" required>
             </div>
             <div class="flex form-element confirm-password-container">
               <p>Confirm Password:</p>
-              <input type="password" class="form--input" required>
+              <input type="password" class="form--input" placeholder="Re-type Password" required>
             </div>
             <div class="action-btns flex">
               <button class="form-btn btn-cancel" type="reset">Cancel</button>
-              <button class="form-btn btn-signup" type="submit">Sign Up</button>
+              <button class="form-btn btn-submit" type="submit">Sign Up</button>
             </div>
           </form>
         </div>
       </div>
-      <div class="register--signin"></div>
+      <div class="register--signin hidden">
+        <div class="signin-container flex">
+          <h3 class="account-signin">Sign In to your Teamwork Account</h3>
+          <form action="" class="form">
+            <div class="flex form-element email-container">
+              <p>Email:</p>
+              <input type="email" class="form--input" placeholder="Email" required>
+            </div>
+            <div class="flex form-element password-container">
+              <p>Password:</p>
+              <input type="password" class="form--input" placeholder="Password" required>
+            </div>
+            <div class="action-btns flex">
+              <button class="form-btn btn-cancel" type="reset">Cancel</button>
+              <button class="form-btn btn-submit" type="submit">Sign In</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
   <footer></footer>
+  <script src="../script/register.js"></script>
 </body>
 </html>
