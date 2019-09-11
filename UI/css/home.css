@@ -100,13 +100,15 @@ body {
   text-decoration: none;
 }
 .btn-share,
-.btn-update {
+.btn-update,
+.btn-comment {
   color: #fff;
   background: #448c30;
   padding: 10px 20px;
 }
 .btn-share:hover,
-.btn-update:hover {
+.btn-update:hover,
+.btn-comment:hover {
   color: #448c30;
   background: #fff;
 }
@@ -192,7 +194,8 @@ body {
   background: #fff;
 }
 .modal-edit,
-.modal-delete {
+.modal-delete,
+.modal-comment {
   flex-direction: column;
 }
 .modal-textarea {
