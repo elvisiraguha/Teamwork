@@ -30,6 +30,13 @@ selectAll('.delete-article').forEach(element => {
   });
 });
 
+selectAll('.comment-article').forEach(element => {
+  element.addEventListener('click', () => {
+    show('.modal');
+    show('.modal-comment');
+  });
+});
+
 selectAll('.btn-close-modal').forEach(element => {
   element.addEventListener('click', () => {
     hide('.modal');
