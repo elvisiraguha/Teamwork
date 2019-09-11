@@ -1,33 +1,55 @@
 const select = (element) => {
   return document.querySelector(element);
 };
+
 const selectAll = (elements) => {
   return [...document.querySelectorAll(elements)];
 };
+
+const hide = (selector) => {
+  const element = select(selector);
+  return element.classList.remove('flex'), element.classList.add('hidden');
+};
+
+const show = (selector) => {
+  const element = select(selector);
+  return element.classList.remove('hidden'), element.classList.add('flex');
+};
+
 selectAll('.edit-article').forEach(element => {
   element.addEventListener('click', () => {
-    select('.modal').classList.remove('hidden');
-    select('.modal').classList.add('flex');
-
-    select('.modal-edit').classList.remove('hidden');
-    select('.modal-edit').classList.add('flex');
+    show('.modal');
+    show('.modal-edit');
   });
 });
+
 selectAll('.delete-article').forEach(element => {
   element.addEventListener('click', () => {
-    select('.modal').classList.remove('hidden');
-    select('.modal').classList.add('flex');
-
-    select('.modal-delete').classList.remove('hidden');
-    select('.modal-delete').classList.add('flex');
+    show('.modal');
+    show('.modal-delete');
   });
 });
+
 selectAll('.btn-close-modal').forEach(element => {
   element.addEventListener('click', () => {
-    select('.modal').classList.remove('flex');
-    select('.modal').classList.add('hidden');
-
-    select('.modal-delete').classList.add('hidden');
-    select('.modal-edit').classList.add('hidden');
+    hide('.modal');
+    hide('.modal-delete');
+    hide('.modal-edit');
   });
+});
+
+select('.btn-my-articles').addEventListener('click', ({target}) => {
+  hide('.other-articles');
+  show('.my-articles');
+
+  target.classList.add('btn__highlight');
+  select('.btn-other-articles').classList.remove('btn__highlight');
+});
+
+select('.btn-other-articles').addEventListener('click', ({target}) => {
+  hide('.my-articles');
+  show('.other-articles');
+  
+  target.classList.add('btn__highlight');
+  select('.btn-my-articles').classList.remove('btn__highlight');
 });
