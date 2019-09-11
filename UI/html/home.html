@@ -35,8 +35,8 @@
             </datalist>
           </div>
           <div class="action-btns flex">
-              <button class="write-btn btn-cancel">Cancel</button>
-              <button class="write-btn btn-share">Share</button>
+              <button class="action-btn btn-cancel">Cancel</button>
+              <button class="action-btn btn-share">Share</button>
           </div>
         </div>
       </div>
@@ -58,9 +58,13 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, vitae doloremque officiis enim quasi magni, modi, quo quaerat fuga expedita saepe asperiores cumque nobis exercitationem perferendis vero atque distinctio eum.
               </p>
               <div class="article-controls flex">
-                <figure title="Edit article" class="edit-article">
+                <figure title="Edit article" class="edit-article flex article-control">
                   <img src="../images/edit.png" width="40" height="40" alt="edit article">
                   <figcaption class="figcaption">Edit</figcaption>
+                </figure>
+                <figure title="Delete article" class="delete-article flex article-control">
+                  <img src="../images/delete.png" width="40" height="40" alt="delete article">
+                  <figcaption class="figcaption">Delete</figcaption>
                 </figure>
               </div>
             </div>
@@ -205,14 +209,23 @@
     <section class="other-articles hidden"></section>
     <section class="modal hidden">
       <div class="modal-content">
-        <textarea cols="80" rows="12" class="modal-textarea">
+        <div class="modal-edit hidden">
+          <textarea cols="80" rows="12" class="modal-textarea">
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem possimus labore modi aspernatur porro magnam! Similique ducimus exercitationem odio iure aliquam quas beatae, incidunt itaque, accusantium tempore, in numquam qui.
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem possimus labore modi aspernatur porro magnam! Similique ducimus exercitationem odio iure aliquam quas beatae, incidunt itaque, accusantium tempore, in numquam qui.
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem possimus labore modi aspernatur porro magnam! Similique ducimus exercitationem odio iure aliquam quas beatae, incidunt itaque, accusantium tempore, in numquam qui.
-        </textarea>
-        <div class="action-btns flex">
-            <button class="write-btn btn-cancel btn-close-modal">Cancel</button>
-            <button class="write-btn btn-update">Update</button>
+          </textarea>
+          <div class="action-btns flex">
+              <button class="action-btn btn-cancel btn-close-modal">Cancel</button>
+              <button class="action-btn btn-update btn-close-modal">Update</button>
+          </div>
+        </div>
+        <div class="modal-delete hidden">
+          <p>Are you sure want to delete this article?</p>
+          <div class="action-btns flex">
+              <button class="action-btn btn-cancel btn-close-modal">Cancel</button>
+              <button class="action-btn btn-delete btn-close-modal">Delete</button>
+          </div>
         </div>
       </div>
     </section>
