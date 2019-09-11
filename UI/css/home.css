@@ -134,7 +134,6 @@ body {
   font-size: .8em;
   width: 40%;
 }
-/*  */
 .author-box {
   margin-bottom: 20px;
 }
@@ -183,7 +182,4 @@ body {
 }
 .modal-textarea {
   font: inherit;
-}
-* {
-  /* border: 1px solid; */
 }

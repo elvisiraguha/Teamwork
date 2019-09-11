@@ -4,7 +4,6 @@ const select = (element) => {
 const selectAll = (elements) => {
   return [...document.querySelectorAll(elements)];
 };
-
 selectAll('.edit-article').forEach(element => {
   element.addEventListener('click', () => {
     select('.modal').classList.remove('hidden');
