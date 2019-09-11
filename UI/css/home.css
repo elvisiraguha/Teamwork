@@ -73,7 +73,8 @@ body {
 .my-articles {
   width: 100%;
 }
-.write-container {
+.write-container,
+.explore-container {
   padding: 10px 5px;
   width: 25%;
 }
@@ -101,14 +102,16 @@ body {
 }
 .btn-share,
 .btn-update,
-.btn-comment {
+.btn-comment,
+.btn-search {
   color: #fff;
   background: #448c30;
   padding: 10px 20px;
 }
 .btn-share:hover,
 .btn-update:hover,
-.btn-comment:hover {
+.btn-comment:hover,
+.btn-search:hover {
   color: #448c30;
   background: #fff;
 }
@@ -136,11 +139,11 @@ body {
 .article-content {
   padding: 4px;
   border-right: 4px solid #367dd9;
-  width: 56%;
+  width: 66%;
 }
 .article-comments {
   font-size: .8em;
-  width: 40%;
+  width: 30%;
 }
 .author-box {
   margin-bottom: 20px;
@@ -152,6 +155,10 @@ body {
 .author {
   font-weight: bold;
   line-height: 1.5;
+}
+.article-title {
+  margin-bottom: 10px;
+  text-align: center;
 }
 .article-controls {
   justify-content: flex-end;
@@ -174,6 +181,7 @@ body {
   color: #00000060;
 }
 .comment {
+  margin: 20px 0;
   color: #040950;
   justify-content: space-between;
   align-items: flex-end;
@@ -198,7 +206,7 @@ body {
 .modal-comment {
   flex-direction: column;
 }
-.modal-textarea {
+.text-input {
   font: inherit;
 }
 .btn-delete {
