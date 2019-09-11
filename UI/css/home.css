@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
+body {
+  font: 20px Arial;
+}
+.flex {
+  display: flex;
+}
+.hidden {
+  display: none;
+}
+.home-header {
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  background: #367dd9;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header-top {
+  padding: 0 10px;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.btn-signout:link,
+.btn-signout:visited {
+  background: #448c30;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 4px;
+}
+.btn-signout:hover {
+  color: #448c30;
+  background: #fff;
+}
+.header-controls {
+  height: 30px;
+  justify-content: space-between;
+}
+.btn-top {
+  color: #ffffffb0;
+  border: 0;
+  font: inherit;
+  background: #82b8d960;
+  width: 50%;
+}
+.btn-top:first-child {
+  border-right: 3px solid #367dd9;
+}
+.btn-top:hover {
+  color: #fff;
+  font-size: 1.4em;
+}
+.home-main {
+  position: relative;
+  top: 100px;
+  width: 100%;
+  background: #82b8d9;
+}
+.my-articles {
+  width: 100%;
+}
+.write-container {
+  padding: 10px 5px;
+  width: 30%;
+}
+.my-articles-container {
+  width: 70%;
+}
+.action-btns {
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.write-btn {
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+}
+.btn-cancel {
+  background: 0;
+  text-decoration: underline;
+}
+.btn-cancel:hover {
+  color: #f00;
+  text-decoration: none;
+}
+.btn-share {
+  color: #fff;
+  background: #448c30;
+  padding: 10px 20px;
+}
+.btn-share:hover {
+  color: #448c30;
+  background: #fff;
+}

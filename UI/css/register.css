@@ -43,21 +43,23 @@ body {
   align-items: center;
 }
 .btn-top {
-  color: #fff;
+  color: #ffffffb0;
   border: 0;
-  background: #448c30;
   font: inherit;
+  background: #82b8d960;
   width: 50%;
 }
 .btn-top:hover {
+  color: #fff;
   font-size: 1.4em;
 }
 .btn-top:first-child {
   border-right: 3px solid #367dd9;
 }
 .btn__highlight {
+  color: #fff;
   font-size: 1.4em;
-  background: #82b8d960;
+  background: #448c30;
 }
 .signup-container,
 .signin-container {

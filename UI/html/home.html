@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+  <link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+  <header class="home-header flex">
+    <div class="header-top flex">
+      <h1 class="header__title">Teamwork</h1>
+      <a href="./index.html" class="btn btn-signout">Sign Out</a>
+    </div>
+    <section class="header-controls flex">
+      <button class="btn-top btn-my-articles">My Articles</button>
+      <button class="btn-top btn-other-articles">Other Articles</button>
+    </section>
+  </header>
+  <main class="home-main flex">
+    <section class="my-articles flex">
+      <div class="write-container">
+        <div class="write-article">
+          <h4>Write and share your article</h4>
+          <textarea name="" id="" cols="40" rows="20"></textarea>
+          <div class="choose-category flex">
+            <p>Choose a category:</p>
+            <input type="text" list="categories">
+            <datalist name="" id="categories">
+              <option value="Nature"></option>
+              <option value="Love"></option>
+              <option value="Technology"></option>
+              <option value="Art"></option>
+            </datalist>
+          </div>
+          <div class="action-btns flex">
+              <button class="write-btn btn-cancel">Cancel</button>
+              <button class="write-btn btn-share">Share</button>
+          </div>
+        </div>
+      </div>
+      <div class="my-articles-container"></div>
+    </section>
+    <section class="other-articles hidden"></section>
+  </main>
+  <footer class="footer-main"></footer>
+</body>
+</html>
