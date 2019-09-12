@@ -106,7 +106,8 @@ body {
 .btn-search {
   color: #fff;
   background: #448c30;
-  padding: 10px 20px;
+  padding: 8px 20px;
+  margin: 4px;
 }
 .btn-share:hover,
 .btn-update:hover,
@@ -147,6 +148,17 @@ body {
 }
 .author-box {
   margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+.category-tag {
+  font-size: .8em;
+  color: #040950;
+  flex-direction: column;
+  align-items: center;
+}
+.category-title {
+  font-style: italic;
 }
 .author-avatar {
   background: #fff;
@@ -207,6 +219,7 @@ body {
   flex-direction: column;
 }
 .text-input {
+  padding: 4px;
   font: inherit;
 }
 .btn-delete {
@@ -217,4 +230,13 @@ body {
 .btn-delete:hover {
   color: #ff0000;
   background: #ff000040;
+}
+.explore-container {
+  flex-direction: column;
+}
+.search-article,
+.category-container {
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 20px;
 }
