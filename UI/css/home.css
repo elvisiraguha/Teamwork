@@ -215,19 +215,22 @@ body {
 }
 .modal-edit,
 .modal-delete,
-.modal-comment {
+.modal-comment,
+.modal-flag {
   flex-direction: column;
 }
 .text-input {
   padding: 4px;
   font: inherit;
 }
-.btn-delete {
+.btn-delete,
+.btn-flag {
   color: #fff;
   background: #f00;
   padding: 10px 20px;
 }
-.btn-delete:hover {
+.btn-delete:hover,
+.btn-flag:hover {
   color: #ff0000;
   background: #ff000040;
 }
