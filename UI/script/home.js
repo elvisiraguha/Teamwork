@@ -37,12 +37,20 @@ selectAll('.comment-article').forEach(element => {
   });
 });
 
+selectAll('.flag').forEach(element => {
+  element.addEventListener('click', () => {
+    show('.modal');
+    show('.modal-flag');
+  });
+});
+
 selectAll('.btn-close-modal').forEach(element => {
   element.addEventListener('click', () => {
     hide('.modal');
     hide('.modal-delete');
     hide('.modal-edit');
     hide('.modal-comment');
+    hide('.modal-flag');
   });
 });
 
