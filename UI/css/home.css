@@ -29,7 +29,9 @@ body {
 
 }
 .btn-signout:link,
-.btn-signout:visited {
+.btn-signout:visited,
+.btn-admin:link,
+.btn-admin:visited {
   background: #448c30;
   color: #fff;
   text-decoration: none;
@@ -37,18 +39,20 @@ body {
   border: 0;
   border-radius: 4px;
 }
-.btn-signout:hover {
+.btn-signout:hover,
+.btn-admin:hover {
   color: #448c30;
   background: #fff;
 }
 .header-controls {
-  height: 30px;
+  height: 40px;
   justify-content: space-between;
 }
 .btn-top {
-  color: #ffffffb0;
-  border: 0;
   font: inherit;
+  border: 0;
+  padding: 4px;
+  color: #ffffffb0;
   background: #82b8d960;
   width: 50%;
 }
@@ -136,6 +140,7 @@ body {
   justify-content: space-between;
   border: 2px solid #367dd9;
   border-radius: 4px;
+  margin: 10px 0;
 }
 .article-content {
   padding: 4px;
@@ -242,4 +247,19 @@ body {
   flex-direction: column;
   align-items: flex-end;
   margin-bottom: 20px;
+}
+.flagged-articles-container {
+  width: 50%;
+}
+.flagged-comments-container {
+  width: 50%;
+}
+.flagged {
+  width: 100%;
+  border: 0;
+}
+.flagged-comment {
+  padding: 4px;
+  border: 2px solid #367dd9;
+  border-radius: 4px;
 }
