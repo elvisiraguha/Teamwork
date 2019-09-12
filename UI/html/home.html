@@ -31,7 +31,7 @@
             <input type="text" list="categories">
             <datalist name="" id="categories">
               <option value="Nature"></option>
-              <option value="Love"></option>
+              <option value="Life"></option>
               <option value="Technology"></option>
               <option value="Art"></option>
             </datalist>
@@ -48,9 +48,15 @@
           <article class="article flex">
             <div class="article-content">
               <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>10 minutes ago</time>
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>10 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Why Technology is increasing so fast?</h3>
               <p>
@@ -117,10 +123,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>20 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>20 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Love</p>
+                </div>
               </div>
               <h3 class="article-title">The need to be perfect</h3>
               <p>
@@ -187,10 +199,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>30 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>30 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Starting software development career</h3>
               <p>
@@ -257,10 +275,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>40 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>40 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Do you think you know javascript? Take a look at these infamous tricks</h3>
               <p>
@@ -327,10 +351,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>40 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>40 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Programming and future jobs</h3>
               <p>
@@ -397,10 +427,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>30 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>30 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Incredible CSS tricks to improve your design</h3>
               <p>
@@ -470,9 +506,14 @@
     </section>
     <section class="other-articles flex">
       <div class="explore-container flex">
-        <div class="write-article">
+        <div class="search-article flex">
           <h4>Search a specific article</h4>
           <input type="search" class="text-input">
+          <button class="action-btn btn-search">Search</button>
+        </div>
+        <div class="category-container flex">
+          <label>Choose a category</label>
+          <input type="text" class="text-input" list="categories">
           <button class="action-btn btn-search">Search</button>
         </div>
       </div>
@@ -481,10 +522,16 @@
           <h2 class="articles-title">Latest Articles:</h2>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Elvis Iraguha</p>
-                <time>20 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Elvis Iraguha</p>
+                  <time>20 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Why Technology is increasing so fast?</h3>
               <p>
@@ -547,10 +594,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/girl.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Alice Jughead</p>
-                <time>30 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/girl.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Alice Jughead</p>
+                  <time>30 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Life</p>
+                </div>
               </div>
               <h3 class="article-title">Interesting facts about Life</h3>
               <p>
@@ -613,10 +666,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/girl.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">Alice Jughead</p>
-                <time>40 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/girl.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">Alice Jughead</p>
+                  <time>40 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">HTML tricks that will boost your productivity</h3>
               <p>
@@ -679,10 +738,16 @@
           </article>
           <article class="article flex">
             <div class="article-content">
-              <div class="author-box">
-                <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
-                <p class="author">John Doe</p>
-                <time>50 minutes ago</time>
+              <div class="author-box flex">
+                <div>
+                  <img src="../images/man.png" width="60px" height="60px" class="author-avatar" alt="author">
+                  <p class="author">John Doe</p>
+                  <time>50 minutes ago</time>
+                </div>
+                <div class="category-tag flex">
+                  <h2 class="category-title">category/tag:</h2>
+                  <p>Technology</p>
+                </div>
               </div>
               <h3 class="article-title">Introducing the famous "Hello World!"</h3>
               <p>

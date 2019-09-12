@@ -42,6 +42,7 @@ selectAll('.btn-close-modal').forEach(element => {
     hide('.modal');
     hide('.modal-delete');
     hide('.modal-edit');
+    hide('.modal-comment');
   });
 });
 
