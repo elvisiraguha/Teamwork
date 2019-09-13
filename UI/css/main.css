@@ -1,33 +1,57 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
+
+/* removing defaults for every element */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* font for other elements */
+
 body {
   font: 20px 'Montserrat';
 }
+
+/* for flex class elements */
+
 .flex {
   display: flex;
 }
+
+/* an exception font for title class */
+
 .title {
   font-family: 'Poiret One', cursive;
 }
+
+/* top header */
+
 .landing-header {
   height: 20vh;
   background: #367dd9;
 }
+
+/* the main content */
+
 .landing-main {
   padding: 20px;
   height: 70vh;
   background: #82b8d9;
 }
+
+/* styles for footer */
+
 .landing-footer {
   justify-content: center;
   align-items: center;
   height: 10vh;
   background: #367dd9;
 }
+
+/* intro section */
+
 .intro {
   font-size: 1.4em;
   flex-direction: column;
@@ -39,6 +63,9 @@ body {
   text-align: center;
   width: 100%;
 }
+
+/* link to register */
+
 .register {
   width: 50%;
   justify-content: center;

@@ -1,6 +1,11 @@
+
+// selection function
+
 const select = (element) => {
   return document.querySelector(element);
 };
+
+// hide and show functions
 
 const hide = (selector) => {
   const element = select(selector);
@@ -12,14 +17,14 @@ const show = (selector) => {
   return element.classList.remove('hidden'), element.classList.add('flex');
 };
 
-select('.btn-top--signup').addEventListener('click', ({target}) => {
+select('.btn-top--signup').addEventListener('click', ({ target }) => {
   hide('.register--signin');
   show('.register--signup');
 
   target.classList.add('btn__highlight');
   select('.btn-top--signin').classList.remove('btn__highlight');
 });
-select('.btn-top--signin').addEventListener('click', ({target}) => {
+select('.btn-top--signin').addEventListener('click', ({ target }) => {
   show('.register--signin');
   hide('.register--signup');
 
