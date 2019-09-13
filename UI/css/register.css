@@ -1,23 +1,41 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
+
+/* removing defaults for every element */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   outline: 0;
 }
+
+/* font for other elements */
+
 body {
   font: 20px 'Montserrat';
   background-image: linear-gradient(to left, #82b8d9, #367dd9);
 }
+
+/* for flex class elements */
+
 .flex {
   display: flex;
 }
+
+/* for hidden class elements */
+
 .hidden {
   display: none;
 }
+
+/* an exception font for title class */
+
 .title {
   font: 600 1.4em 'Poiret One', cursive;
 }
+
+/* register box */
+
 .register-main {
   margin: 20px 0;
   justify-content: center;
@@ -33,6 +51,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+/* top register tabs */
+
 .register--header {
   justify-content: center;
   height: 10%;
@@ -46,6 +67,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/* style for buttons */
+
 .btn-top {
   color: #ffffffb0;
   border: 0;
@@ -65,22 +89,6 @@ body {
   font-size: 1.4em;
   background: #448c30;
 }
-.signup-container,
-.signin-container {
-  width: 90%;
-  height: 90%;
-  flex-direction: column;
-  justify-content: center;
-}
-.form {
-  margin-top: 40px;
-}
-.form-element {
-  color: #fff;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 4px;
-}
 .action-btns {
   margin-top: 30px;
   justify-content: space-between;
@@ -89,16 +97,6 @@ body {
   border: 0;
   border-radius: 4px;
   font: inherit;
-}
-.form--input {
-  background: #ffffff40;
-  font-size: 1em;
-  padding: 4px;
-  border: 0;
-  border-radius: 4px;
-}
-.form--input::placeholder {
-  color: #00000090;
 }
 .btn-cancel {
   background: 0;
@@ -116,6 +114,38 @@ body {
 .btn-submit:hover {
   color: #448c30;
   background: #fff;
+}
+
+/* containers for signin and signup */
+
+.signup-container,
+.signin-container {
+  width: 90%;
+  height: 90%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* styles for form and form elements */
+
+.form {
+  margin-top: 40px;
+}
+.form-element {
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+}
+.form--input {
+  background: #ffffff40;
+  font-size: 1em;
+  padding: 4px;
+  border: 0;
+  border-radius: 4px;
+}
+.form--input::placeholder {
+  color: #00000090;
 }
 
 /* responsive for tablets */

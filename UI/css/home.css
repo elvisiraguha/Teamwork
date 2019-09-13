@@ -1,22 +1,40 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
+
+/* removing defaults for every element */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   outline: 0;
 }
+
+/* font for other elements */
+
 body {
   font: 20px 'Montserrat', sans-serif;
 }
+
+/* for flex class elements */
+
 .flex {
   display: flex;
 }
+
+/* for hidden class elements */
+
 .hidden {
   display: none;
 }
+
+/* an exception font for title class */
+
 .title {
   font-family: 'Poiret One', cursive;
 }
+
+/* top header */
+
 .home-header {
   position: fixed;
   width: 100%;
@@ -31,6 +49,9 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+/* buttons in header */
+
 .btn-signout:link,
 .btn-signout:visited,
 .btn-admin:link,
@@ -47,6 +68,9 @@ body {
   color: #448c30;
   background: #fff;
 }
+
+/* top tabs */
+
 .header-controls {
   height: 40px;
   justify-content: space-between;
@@ -68,22 +92,39 @@ body {
   font-size: 1.4em;
   background: #448c30;
 }
+
+/* the main content */
+
 .home-main {
   position: relative;
   top: 100px;
   width: 100%;
   background: #82b8d9;
 }
+
+/* styles for footer */
+
+.footer-home {
+  position: relative;
+  top: 100px;
+  height: 40px;
+  width: 100%;
+  background: #367dd9;
+  text-align: center;
+}
+
+/* my articles tab */
+
 .my-articles {
   width: 100%;
 }
+
+/* section for writing article */
+
 .write-container,
 .explore-container {
   padding: 10px 5px;
   width: 25%;
-}
-.latest-articles-container {
-  width: 75%;
 }
 .compose-article {
   width: 100%;
@@ -98,11 +139,22 @@ body {
 .share-btns {
   width: 100%;
 }
+ /* section for my articles */
+
 .my-articles-container {
   padding-left: 10px;
   border-left: 1px solid #448c30;
   width: 75%;
 }
+
+/* section for latest articles */
+
+.latest-articles-container {
+  width: 75%;
+}
+
+/* styles for buttons */
+
 .action-btns {
   margin-top: 20px;
   justify-content: space-between;
@@ -136,14 +188,19 @@ body {
   color: #448c30;
   background: #fff;
 }
-.footer-home {
-  position: relative;
-  top: 100px;
-  height: 40px;
-  width: 100%;
-  background: #367dd9;
-  text-align: center;
+.btn-delete,
+.btn-flag {
+  color: #fff;
+  background: #f00;
+  padding: 10px 20px;
 }
+.btn-delete:hover,
+.btn-flag:hover {
+  color: #ff0000;
+}
+
+/* styles for articles */
+
 .articles-title {
   margin-left: 10px;
 }
@@ -219,6 +276,9 @@ body {
   justify-content: space-between;
   align-items: flex-end;
 }
+
+/* styles for feedback modal */
+
 .modal {
   position: fixed;
   top: 0;
@@ -230,7 +290,7 @@ body {
   background: #00000060;
 }
 .modal-contents {
-  padding: 10px;
+  border: 4px solid #367dd9;
   border-radius: 10px;
   background: #fff;
 }
@@ -238,6 +298,7 @@ body {
 .modal-delete,
 .modal-comment,
 .modal-flag {
+  padding: 10px;
   flex-direction: column;
 }
 .text-input {
@@ -245,16 +306,9 @@ body {
   padding: 4px;
   font: inherit;
 }
-.btn-delete,
-.btn-flag {
-  color: #fff;
-  background: #f00;
-  padding: 10px 20px;
-}
-.btn-delete:hover,
-.btn-flag:hover {
-  color: #ff0000;
-}
+
+/* exploring and searching for articles */
+
 .explore-container {
   flex-direction: column;
 }
@@ -264,6 +318,9 @@ body {
   align-items: flex-end;
   margin-bottom: 20px;
 }
+
+/* section for flagged articles */
+
 .flagged-articles-container {
   width: 50%;
 }
@@ -285,9 +342,6 @@ body {
   display: none;
   padding: 5px 10px;
   align-self: flex-end;
-}
-* {
-  /* border: 1px solid; */
 }
 
 /* responsive for tablets */
@@ -335,6 +389,9 @@ body {
 /* responsive for mobiles */
 
 @media screen and (max-width: 730px) {
+  body {
+    font-size: .8em;
+  }
   .my-articles,
   .other-articles,
   .flagged-articles {
