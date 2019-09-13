@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +6,7 @@
   outline: 0;
 }
 body {
-  font: 20px Arial;
+  font: 20px 'Montserrat';
   background-image: linear-gradient(to left, #82b8d9, #367dd9);
 }
 .flex {
@@ -13,6 +14,9 @@ body {
 }
 .hidden {
   display: none;
+}
+.title {
+  font: 600 1.4em 'Poiret One', cursive;
 }
 .register-main {
   margin: 20px 0;

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -5,14 +6,16 @@
   outline: 0;
 }
 body {
-  width: 100vw;
-  font: 20px Arial;
+  font: 20px 'Montserrat', sans-serif;
 }
 .flex {
   display: flex;
 }
 .hidden {
   display: none;
+}
+.title {
+  font-family: 'Poiret One', cursive;
 }
 .home-header {
   position: fixed;
@@ -32,7 +35,7 @@ body {
 .btn-signout:visited,
 .btn-admin:link,
 .btn-admin:visited {
-  background: #448c30;
+  background: #448c3090;
   color: #fff;
   text-decoration: none;
   padding: 5px 10px;
@@ -79,6 +82,9 @@ body {
   padding: 10px 5px;
   width: 25%;
 }
+.latest-articles-container {
+  width: 75%;
+}
 .compose-article {
   width: 100%;
 }
@@ -93,7 +99,7 @@ body {
   width: 100%;
 }
 .my-articles-container {
-  margin-left: 10px;
+  padding-left: 10px;
   border-left: 1px solid #448c30;
   width: 75%;
 }
@@ -280,6 +286,9 @@ body {
   padding: 5px 10px;
   align-self: flex-end;
 }
+* {
+  /* border: 1px solid; */
+}
 
 /* responsive for tablets */
 
@@ -354,5 +363,13 @@ body {
   }
   .link-to-comments {
     display: inline-block;
+  }
+  .header-top-btns {
+    font-size: .8em;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .btn-signout {
+    margin-bottom: 4px;
   }
 }
