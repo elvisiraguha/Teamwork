@@ -14,10 +14,13 @@ body {
   background: #367dd9;
 }
 .landing-main {
+  padding: 20px;
   height: 70vh;
   background: #82b8d9;
 }
 .landing-footer {
+  justify-content: center;
+  align-items: center;
   height: 10vh;
   background: #367dd9;
 }
@@ -45,4 +48,21 @@ body {
 .register--link:hover {
   background: #fff;
   color: #448c30;
+}
+
+/* responsive for mobiles */
+
+@media screen and (max-width: 750px) {
+  .landing-main {
+    flex-direction: column;
+  }
+  .intro {
+    height: 70%;
+    width: 90%;
+  }
+  .register {
+    height: 30%;
+    width: 90%;
+    align-items: flex-end;
+  }
 }

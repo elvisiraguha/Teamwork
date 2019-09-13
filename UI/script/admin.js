@@ -56,18 +56,30 @@ selectAll('.btn-close-modal').forEach(element => {
 
 select('.btn-my-articles').addEventListener('click', ({target}) => {
   hide('.other-articles');
+  hide('.flagged-articles');
   show('.my-articles');
   
   target.classList.add('btn__highlight');
   select('.btn-other-articles').classList.remove('btn__highlight');
+  select('.btn-flagged').classList.remove('btn__highlight');
 });
 
 select('.btn-other-articles').addEventListener('click', ({target}) => {
   hide('.my-articles');
+  hide('.flagged-articles');
   show('.other-articles');
   
   target.classList.add('btn__highlight');
   select('.btn-my-articles').classList.remove('btn__highlight');
+  select('.btn-flagged').classList.remove('btn__highlight');
 });
 
-
+select('.btn-flagged').addEventListener('click', ({target}) => {
+  hide('.my-articles');
+  hide('.other-articles');
+  show('.flagged-articles');
+  
+  target.classList.add('btn__highlight');
+  select('.btn-other-articles').classList.remove('btn__highlight');
+  select('.btn-my-articles').classList.remove('btn__highlight');
+});

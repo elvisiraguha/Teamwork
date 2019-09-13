@@ -14,8 +14,8 @@
     <div class="header-top flex">
       <h1 class="header__title">Teamwork</h1>
       <div class="header-top-btns">
-      <a href="./index.html" class="btn btn-signout">Sign Out</a>
-      <a href="./admin.html" class="btn btn-admin">Admin</a>
+        <a href="./index.html" class="btn btn-signout">Sign Out</a>
+        <a href="./admin.html" class="btn btn-admin">Admin</a>
       </div>
     </div>
     <section class="header-controls flex">
@@ -25,10 +25,10 @@
   </header>
   <main class="home-main flex">
     <section class="my-articles hidden">
-      <div class="write-container">
-        <div class="write-article">
+      <div class="write-container container-main">
+        <div class="write-article flex">
           <h4>Write and share your article</h4>
-          <textarea name="" id="" cols="40" rows="20"></textarea>
+          <textarea class="text-input compose-article" cols="30" rows="10"></textarea>
           <div class="choose-category flex">
             <p>Category:</p>
             <input type="text" list="categories">
@@ -39,13 +39,13 @@
               <option value="Art"></option>
             </datalist>
           </div>
-          <div class="action-btns flex">
+          <div class="action-btns share-btns flex">
             <button class="action-btn btn-cancel">Cancel</button>
             <button class="action-btn btn-share">Share</button>
           </div>
         </div>
       </div>
-      <div class="my-articles-container flex">
+      <div class="my-articles-container container-main flex">
         <section class="articles flex">
           <h2 class="articles-title">My articles:</h2>
           <article class="article flex">
@@ -580,7 +580,7 @@
       </div>
     </section>
     <section class="other-articles flex">
-      <div class="explore-container flex">
+      <div class="explore-container container-main flex">
         <div class="search-article flex">
           <h4>Search a specific article</h4>
           <input type="search" class="text-input">
@@ -592,7 +592,7 @@
           <button class="action-btn btn-search">Search</button>
         </div>
       </div>
-      <div class="latest-articles-container flex">
+      <div class="latest-articles-container container-main flex">
         <section class="articles flex">
           <h2 class="articles-title">Latest Articles:</h2>
           <article class="article flex">

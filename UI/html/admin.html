@@ -24,9 +24,9 @@
   <main class="home-main flex">
     <section class="my-articles hidden">
       <div class="write-container">
-        <div class="write-article">
+        <div class="write-article flex">
           <h4>Write and share your article</h4>
-          <textarea name="" id="" cols="40" rows="20"></textarea>
+          <textarea class="text-input compose-article" cols="30" rows="10"></textarea>
           <div class="choose-category flex">
             <p>Category:</p>
             <input type="text" list="categories">
@@ -933,7 +933,8 @@
       </div>
     </section>
     <section class="flagged-articles hidden">
-      <div class="flagged-articles-container flex">
+      <a href="#flagged-comments" class="link-to-comments">Go to flagged comments &#8595;</a>
+      <div class="flagged-articles-container container-main flex">
         <section class="articles flex">
           <h2 class="articles-title">Flagged Articles:</h2>
           <article class="article flex">
@@ -1014,7 +1015,7 @@
           </article>
         </section>
       </div>
-      <div class="flagged-comments-container flex">
+      <div id="flagged-comments" class="flagged-comments-container container-main flex">
         <div class="articles flex">
           <h2 class="articles-title">Flagged Comments:</h2>
           <div class="comment flagged-comment flex">
@@ -1245,7 +1246,7 @@
   <footer class="footer-home">
     &copy; Teamwork 2019
   </footer>
-  <script src="../script/home.js"></script>
+  <script src="../script/admin.js"></script>
 </body>
 
 </html>

@@ -6,6 +6,7 @@
 }
 body {
   font: 20px Arial;
+  background-image: linear-gradient(to left, #82b8d9, #367dd9);
 }
 .flex {
   display: flex;
@@ -14,19 +15,17 @@ body {
   display: none;
 }
 .register-main {
-  background-image: linear-gradient(to left, #82b8d9, #367dd9);
+  margin: 20px 0;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
-  z-index: -1;
 }
 .register {
   background: #82b8d960;
   width: 40%;
-  height: 70%;
+  height: 80%;
   border: 0;
-  border-radius: 20px;
+  border-radius: 4px;
   flex-direction: column;
   align-items: center;
 }
@@ -37,6 +36,7 @@ body {
 }
 .register--signup,
 .register--signin {
+  margin: 20px;
   height: 90%;
   width: 100%;
   justify-content: center;
@@ -74,6 +74,7 @@ body {
 .form-element {
   color: #fff;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 4px;
 }
 .action-btns {
@@ -111,4 +112,35 @@ body {
 .btn-submit:hover {
   color: #448c30;
   background: #fff;
+}
+
+/* responsive for tablets */
+
+@media screen and (max-width: 1024px) {
+  .register {
+    height: 90%;
+    width: 60%;
+  }
+}
+
+/* responsive for mobiles up 425px*/
+
+@media screen and (max-width: 700px) {
+  .register {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* responsive for mobiles below 425px*/
+
+@media screen and (max-width: 424px) {
+  body {
+    font: 18px Arial;
+  }
+  .form-element {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
