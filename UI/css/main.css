@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
-  font: 20px Arial;
+  font: 20px 'Montserrat';
 }
 .flex {
   display: flex;
+}
+.title {
+  font-family: 'Poiret One', cursive;
 }
 .landing-header {
   height: 20vh;
@@ -25,10 +29,15 @@ body {
   background: #367dd9;
 }
 .intro {
+  font-size: 1.4em;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 50%;
+}
+.intro--body {
+  text-align: center;
+  width: 100%;
 }
 .register {
   width: 50%;
@@ -57,12 +66,13 @@ body {
     flex-direction: column;
   }
   .intro {
+    font-size: 1em;
     height: 70%;
-    width: 90%;
+    width: 100%;
   }
   .register {
     height: 30%;
-    width: 90%;
+    width: 100%;
     align-items: flex-end;
   }
 }
