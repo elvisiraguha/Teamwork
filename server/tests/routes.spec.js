@@ -5,7 +5,7 @@ import app from '../server';
 chai.use(chaiHttp);
 
 describe('POST /api/v1/auth/signup', () => {
-  it('test response given all required information', () => {
+  it('test response given all required information', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -25,9 +25,10 @@ describe('POST /api/v1/auth/signup', () => {
         expect(body.message).to.have.lengthOf.at.least(10);
         expect(body.data).to.be.an('object');
       });
+    done();
   });
 
-  it('test response given incomplete information or no information', () => {
+  it('test response given incomplete information or no information', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -40,5 +41,6 @@ describe('POST /api/v1/auth/signup', () => {
         expect(body.message).to.have.lengthOf.at.least(10);
         expect(body.message).to.be.a('string');
       });
+    done();
   });
 });
