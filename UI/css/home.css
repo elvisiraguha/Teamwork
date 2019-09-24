@@ -197,6 +197,7 @@ body {
 .btn-delete:hover,
 .btn-flag:hover {
   color: #ff0000;
+  background: #fff;
 }
 
 /* styles for articles */
