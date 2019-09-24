@@ -1,7 +1,7 @@
 import express from 'express';
 import usersArray from '../models/usersArray';
-import helper from '../helper/helper';
-import User from '../helper/User';
+import helper from '../helpers/helper';
+import User from '../helpers/User';
 
 const router = express.Router();
 
