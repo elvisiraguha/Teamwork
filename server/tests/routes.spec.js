@@ -32,11 +32,6 @@ describe('POST /api/v1/auth/signup', () => {
       .post('/api/v1/auth/signup')
       .send({
         firstName: 'Elvis',
-        lastName: 'Iraguha',
-        gender: 'Male',
-        jobRole: 'Student',
-        email: 'iraguhaelvis@gmail.com',
-        department: 'Construction Managment',
       })
       .end((err, res) => {
         const { body } = res;
