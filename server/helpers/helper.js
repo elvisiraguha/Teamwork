@@ -5,7 +5,7 @@ import { config } from 'dotenv';
 import userArray from '../models/usersArray';
 
 config(0);
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || 'themostsecretkey';
 const helper = {
   generateToken(id) {
     return jwt.sign({ id }, secret, { expiresIn: '2d' });

@@ -6,7 +6,8 @@ chai.use(chaiHttp);
 
 describe('POST /api/v1/auth/signup', () => {
   it('test response given all required information', (done) => {
-    chai.request(app)
+    chai
+      .request(app)
       .post('/api/v1/auth/signup')
       .send({
         firstName: 'Elvis',
@@ -29,7 +30,8 @@ describe('POST /api/v1/auth/signup', () => {
   });
 
   it('test response given incomplete information or no information', (done) => {
-    chai.request(app)
+    chai
+      .request(app)
       .post('/api/v1/auth/signup')
       .send({
         firstName: 'Elvis',
