@@ -1,7 +1,6 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import usersArray from '../models/usersArray';
 
 chai.use(chaiHttp);
 
@@ -62,9 +61,6 @@ describe('POST /api/v1/auth/signup', () => {
         expect(body.error).to.equals('User with given email already exists');
       });
     done();
-  });
-  it('how many users', () => {
-    console.log(usersArray.storageArray);
   });
 });
 
