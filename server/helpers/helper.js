@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Joi from '@hapi/joi';
+import moment from 'moment';
 import { config } from 'dotenv';
 
 config(0);
@@ -30,6 +31,7 @@ const helper = {
       department: Joi.string().required(),
       address: Joi.string().required(),
     });
+
     return schema.validate(body);
   },
 
@@ -38,7 +40,21 @@ const helper = {
       email: Joi.string().required(),
       password: Joi.string().required(),
     });
+
     return schema.validate(body);
+  },
+
+  joiArticleSchema(content) {
+    const schema = Joi.object({
+      title: Joi.string().required().min(10).max(50),
+      article: Joi.string().required().min(20).max(1000),
+    });
+
+    return schema.validate(content);
+  },
+
+  getDate() {
+    return moment().format('MMMM Do YYYY, h:mm:ss a');
   },
 };
 

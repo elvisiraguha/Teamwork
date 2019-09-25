@@ -10,7 +10,7 @@ class User {
     this.jobRole = user.jobRole;
     this.department = user.department;
     this.address = user.address;
-    this.createdAt = new Date();
+    this.createdAt = helper.getDate();
     this.articles = [];
   }
 
@@ -20,6 +20,14 @@ class User {
 
   setToken(email) {
     this.token = helper.generateToken(email);
+  }
+
+  addArticle(article) {
+    this.articles.push(article);
+  }
+
+  getArticles() {
+    return this.articles;
   }
 }
 
