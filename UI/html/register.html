@@ -1,72 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Register</title>
-  <link rel="stylesheet" href="../css/register.css">
-</head>
-
-<body>
-  <header></header>
-  <main class="register-main flex">
-    <section class="register flex">
-      <div class="register--header flex">
-        <button class="btn-top btn-top--signup btn__highlight">Sign Up</button>
-        <button class="btn-top btn-top--signin">Sign In</button>
-      </div>
-      <div class="register--signup flex ">
-        <div class="signup-container flex">
-          <h3 class="create-account title">Create a Teamwork Account</h3>
-          <form action="./home.html" class="form">
-            <div class="flex form-element email-container">
-              <p>Email:</p>
-              <input type="email" class="form--input" placeholder="Email" required>
-            </div>
-            <div class="flex form-element username-container">
-              <p>Username:</p>
-              <input type="text" class="form--input" placeholder="Username" required>
-            </div>
-            <div class="flex form-element password-container">
-              <p>Password:</p>
-              <input type="password" class="form--input" placeholder="Password" required>
-            </div>
-            <div class="flex form-element confirm-password-container">
-              <p>Confirm Password:</p>
-              <input type="password" class="form--input" placeholder="Re-type Password" required>
-            </div>
-            <div class="action-btns flex">
-              <a href="./index.html" class="form-btn btn-cancel" type="reset">Cancel</a>
-              <button class="form-btn btn-submit" type="submit">Sign Up</button>
-            </div>
-          </form>
+  <body>
+    <header></header>
+    <main class="register-main flex">
+      <section class="register flex">
+        <div class="register--header flex">
+          <button class="btn-top btn-top--signup btn__highlight">
+            Sign Up
+          </button>
+          <button class="btn-top btn-top--signin">Sign In</button>
         </div>
-      </div>
-      <div class="register--signin hidden">
-        <div class="signin-container flex">
-          <h3 class="account-signin title">Sign In to your Teamwork Account</h3>
-          <form action="./home.html" class="form">
-            <div class="flex form-element email-container">
-              <p>Email:</p>
-              <input type="email" class="form--input" placeholder="Email" required>
-            </div>
-            <div class="flex form-element password-container">
-              <p>Password:</p>
-              <input type="password" class="form--input" placeholder="Password" required>
-            </div>
-            <div class="action-btns flex">
-              <a href="./index.html" class="form-btn btn-cancel" type="reset">Cancel</a>
-              <button class="form-btn btn-submit" type="submit">Sign In</button>
-            </div>
-          </form>
+        <div class="register--signup flex ">
+          <div class="signup-container flex">
+            <h3 class="create-account title">Create a Teamwork Account</h3>
+            <form action="./home.html" class="form">
+              <div class="flex form-element firstname-container">
+                <p>First Name:</p>
+                <input
+                  type="text"
+                  class="form--input"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="flex form-element lastname-container">
+                <p>Last Name:</p>
+                <input
+                  type="text"
+                  class="form--input"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+              <div class="flex form-element email-container">
+                <p>Email:</p>
+                <input
+                  type="email"
+                  class="form--input"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="flex form-element password-container">
+                <p>Password:</p>
+                <input
+                  type="password"
+                  class="form--input"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="flex form-element username-container">
+                <p>Gender:</p>
+                <input
+                  type="text"
+                  class="form--input"
+                  placeholder="Gender"
+                  list="gender-list"
+                  required
+                />
+                <datalist id="gender-list">
+                  <option>Female</option>
+                  <option>Male</option>
+                </datalist>
+              </div>
+              <div class="flex form-element jobrole-container">
+                <p>Job Role:</p>
+                <input
+                  type="text"
+                  class="form--input"
+                  placeholder="Job Role"
+                  required
+                />
+              </div>
+              <div class="flex form-element department-container">
+                <p>Department:</p>
+                <input
+                  type="text"
+                  class="form--input"
+                  placeholder="Department"
+                  required
+                />
+              </div>
+              <div class="flex form-element address-container">
+                <p>Adrress:</p>
+                <input
+                  type="text"
+                  class="form--input"
+                  placeholder="Adrress"
+                  required
+                />
+              </div>
+              <div class="action-btns flex">
+                <a href="./index.html" class="form-btn btn-cancel" type="reset"
+                  >Cancel</a
+                >
+                <button class="form-btn btn-submit" type="submit">
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <footer></footer>
-  <script src="../js/register.js"></script>
-</body>
-
+        <div class="register--signin hidden">
+          <div class="signin-container flex">
+            <h3 class="account-signin title">
+              Sign In to your Teamwork Account
+            </h3>
+            <form action="./home.html" class="form">
+              <div class="flex form-element email-container">
+                <p>Email:</p>
+                <input
+                  type="email"
+                  class="form--input"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="flex form-element password-container">
+                <p>Password:</p>
+                <input
+                  type="password"
+                  class="form--input"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="action-btns flex">
+                <a href="./index.html" class="form-btn btn-cancel" type="reset"
+                  >Cancel</a
+                >
+                <button class="form-btn btn-submit" type="submit">
+                  Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer></footer>
+    <script src="../js/register.js"></script>
+  </body>
 </html>

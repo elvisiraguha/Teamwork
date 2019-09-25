@@ -1,20 +1,20 @@
 
 // selection function
 
-const select = (element) => {
-  return document.querySelector(element);
-};
+const select = element => document.querySelector(element);
 
 // hide and show functions
 
-const hide = (selector) => {
+const hide = selector => {
   const element = select(selector);
-  return element.classList.remove('flex'), element.classList.add('hidden');
+  element.classList.remove('flex');
+  element.classList.add('hidden');
 };
 
-const show = (selector) => {
+const show = selector => {
   const element = select(selector);
-  return element.classList.remove('hidden'), element.classList.add('flex');
+  element.classList.remove('hidden');
+  element.classList.add('flex');
 };
 
 select('.btn-top--signup').addEventListener('click', ({ target }) => {
