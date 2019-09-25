@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap");
 
 /* removing defaults for every element */
 
@@ -12,7 +12,7 @@
 /* font for other elements */
 
 body {
-  font: 20px 'Montserrat';
+  font: 20px "Montserrat";
   background-image: linear-gradient(to left, #82b8d9, #367dd9);
 }
 
@@ -31,13 +31,13 @@ body {
 /* an exception font for title class */
 
 .title {
-  font: 600 1.4em 'Poiret One', cursive;
+  font: 600 1.4em "Poiret One", cursive;
 }
 
 /* register box */
 
 .register-main {
-  margin: 20px 0;
+  margin: 10px 0 0 0;
   justify-content: center;
   align-items: center;
   width: 100vw;
@@ -62,7 +62,7 @@ body {
 .register--signup,
 .register--signin {
   margin: 20px;
-  height: 90%;
+  height: 100%;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -159,18 +159,21 @@ body {
 
 /* responsive for mobiles up 425px*/
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 760px) {
   .register {
     height: 100%;
     width: 100%;
+  }
+  .register-main {
+    margin: 0;
   }
 }
 
 /* responsive for mobiles below 425px*/
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 467px) {
   body {
-    font: 18px Arial;
+    font: 20px Arial;
   }
   .form-element {
     width: 100%;

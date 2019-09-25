@@ -1,24 +1,22 @@
 
 // selection functions
 
-const select = (element) => {
-  return document.querySelector(element);
-};
+const select = element => document.querySelector(element);
 
-const selectAll = (elements) => {
-  return [...document.querySelectorAll(elements)];
-};
+const selectAll = elements => [...document.querySelectorAll(elements)];
 
 // hide and show functions
 
-const hide = (selector) => {
+const hide = selector => {
   const element = select(selector);
-  return element.classList.remove('flex'), element.classList.add('hidden');
+  element.classList.remove('flex');
+  element.classList.add('hidden');
 };
 
-const show = (selector) => {
+const show = selector => {
   const element = select(selector);
-  return element.classList.remove('hidden'), element.classList.add('flex');
+  element.classList.remove('hidden');
+  element.classList.add('flex');
 };
 
 // show edit box when admin clicks on edit
