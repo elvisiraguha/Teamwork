@@ -126,8 +126,8 @@ describe('POST /api/v1/auth/signin', () => {
       })
       .end((err, res) => {
         const { body } = res;
-        expect(res).to.have.status(400);
-        expect(body.status).to.equals(400);
+        expect(res).to.have.status(401);
+        expect(body.status).to.equals(401);
         expect(body.error).to.equals('Given password is incorrect');
       });
     done();
