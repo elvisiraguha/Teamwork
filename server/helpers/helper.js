@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Joi from '@hapi/joi';
 import { config } from 'dotenv';
-import userArray from '../models/usersArray';
 
 config(0);
 const secret = process.env.SECRET || 'themostsecretkey';
+
 const helper = {
   generateToken(id) {
     return jwt.sign({ id }, secret, { expiresIn: '2d' });
@@ -19,7 +19,7 @@ const helper = {
     return bcrypt.compareSync(password, hashedPassword);
   },
 
-  joiSchema(body) {
+  joiSignupSchema(body) {
     const schema = Joi.object({
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
@@ -33,8 +33,12 @@ const helper = {
     return schema.validate(body);
   },
 
-  findUser(email) {
-    return userArray.find((user) => user.email === email);
+  joiSigninSchema(body) {
+    const schema = Joi.object({
+      email: Joi.string().required(),
+      password: Joi.string().required(),
+    });
+    return schema.validate(body);
   },
 };
 

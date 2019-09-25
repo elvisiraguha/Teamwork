@@ -1,14 +1,13 @@
 import express from 'express';
-import usersArray from '../models/usersArray';
 import helper from '../helpers/helper';
-import User from '../helpers/User';
+import usersArray from '../models/usersArray';
 
 const router = express.Router();
 
 // eslint-disable-next-line consistent-return
 router.post('/', (req, res) => {
   const { body } = req;
-  const { value, error } = helper.joiSignupSchema(body);
+  const { error } = helper.joiSigninSchema(body);
 
   if (error) {
     const errorMessage = error.details[0].message;
@@ -20,24 +19,30 @@ router.post('/', (req, res) => {
 
   const matchUser = usersArray.findUser(body.email);
 
-  if (matchUser) {
-    return res.status(401).json({
-      status: 401,
-      error: 'User with given email already exists',
+  if (!matchUser) {
+    return res.status(400).json({
+      status: 400,
+      error: 'User with given email does not exists',
     });
   }
 
-  const createdUser = new User(value);
-  usersArray.addUser(createdUser);
+  const isValidPassword = helper.comparePassword(body.password, matchUser.password);
+
+  if (!isValidPassword) {
+    return res.status(401).json({
+      status: 401,
+      error: 'Given password is incorrect',
+    });
+  }
 
   const token = ((email) => {
-    createdUser.setToken(email);
-    return createdUser.getToken();
-  })(createdUser.email);
+    matchUser.setToken(email);
+    return matchUser.getToken();
+  })(matchUser.email);
 
-  res.status(201).json({
-    status: 201,
-    message: 'User created successfully',
+  res.status(200).json({
+    status: 200,
+    message: 'User is successfully logged in',
     data: {
       token,
     },

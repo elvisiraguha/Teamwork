@@ -11,8 +11,15 @@ class User {
     this.department = user.department;
     this.address = user.address;
     this.createdAt = new Date();
-    this.token = helper.generateToken(this.email);
     this.articles = [];
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  setToken(email) {
+    this.token = helper.generateToken(email);
   }
 }
 
