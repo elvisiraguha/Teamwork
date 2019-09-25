@@ -1,10 +1,11 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
+import usersArray from '../models/usersArray';
+import User from '../helpers/User';
 
 chai.use(chaiHttp);
-
-const signupPayload = {
+const payload = {
   firstName: 'Elvis',
   lastName: 'Iraguha',
   password: 'iraguha',
@@ -15,54 +16,8 @@ const signupPayload = {
   department: 'Production',
 };
 
-describe('POST /api/v1/auth/signup', () => {
-  it('test response given all required information', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/auth/signup')
-      .send(signupPayload)
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(201);
-        expect(body.status).to.equals(201);
-        expect(body.message).to.equal('User created successfully');
-        expect(body.data).to.be.an('object');
-        expect(body.data.token).to.be.a('string');
-      });
-    done();
-  });
-
-  it('test response given incomplete information or no information', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/auth/signup')
-      .send({
-        firstName: 'Elvis',
-      })
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(400);
-        expect(body.status).to.equals(400);
-        expect(body.error).to.be.a('string');
-        expect(body.error).to.have.lengthOf.at.least(10);
-      });
-    done();
-  });
-
-  it('test response given the used email address', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/auth/signup')
-      .send(signupPayload)
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(401);
-        expect(body.status).to.equals(401);
-        expect(body.error).to.equals('User with given email already exists');
-      });
-    done();
-  });
-});
+const fakeUser = new User(payload);
+usersArray.storageArray.push(fakeUser);
 
 describe('POST /api/v1/auth/signin', () => {
   it('test response given all required information they are correct', (done) => {
@@ -129,6 +84,7 @@ describe('POST /api/v1/auth/signin', () => {
         expect(res).to.have.status(401);
         expect(body.status).to.equals(401);
         expect(body.error).to.equals('Given password is incorrect');
+        usersArray.storageArray.pop();
       });
     done();
   });
