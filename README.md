@@ -4,4 +4,29 @@
 
 # Teamwork
 
-Visit the page [here](https://elvisiraguha.github.io/Teamwork/UI/html/)
+## UI
+
+Visit [Teamwork](https://elvisiraguha.github.io/Teamwork/UI/html/)
+
+## SERVER
+
+### Introduction
+
+Teamwork is an ​ internal social network for organizations’ employees. The goal of this application is to facilitate more interaction between colleagues and facilitate team bonding.
+
+### Overview
+
+all requests must be given in json format
+
+### Success Codes
+
+200: Ok
+201: Created
+
+### Error Codes
+
+400: Bad request
+
+401: Unothorized
+
+404: Not found

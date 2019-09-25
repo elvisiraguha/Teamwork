@@ -13,7 +13,7 @@ const signupPayload = {
   gender: 'Male',
   jobRole: 'Student',
   email: 'iraguhaelvis@gmail.com',
-  department: 'Construction Managment',
+  department: 'Production',
 };
 
 describe('POST /api/v1/auth/signup', () => {
