@@ -51,6 +51,7 @@ all requests must be given in json format
 ### Success Codes
 
 200: Ok
+
 201: Created
 
 ### Error Codes
@@ -61,4 +62,4 @@ all requests must be given in json format
 
 404: Not found
 
-### Full API Documentation [Here](https://documenter.getpostman.com/view/8269028/SVn2Nvfh?version=latest)
+### Read Full API Documentation [Here](https://documenter.getpostman.com/view/8269028/SVn2Nvfh?version=latest)

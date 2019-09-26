@@ -17,7 +17,7 @@ const payload = {
 };
 
 const fakeUser = new User(payload);
-usersArray.storageArray.push(fakeUser);
+usersArray.addUser(fakeUser);
 
 describe('POST /api/v1/auth/signin', () => {
   it('test response given all required information they are correct', (done) => {
@@ -64,8 +64,8 @@ describe('POST /api/v1/auth/signin', () => {
       })
       .end((err, res) => {
         const { body } = res;
-        expect(res).to.have.status(400);
-        expect(body.status).to.equals(400);
+        expect(res).to.have.status(404);
+        expect(body.status).to.equals(404);
         expect(body.error).to.equals('User with given email does not exists');
       });
     done();
@@ -84,7 +84,7 @@ describe('POST /api/v1/auth/signin', () => {
         expect(res).to.have.status(401);
         expect(body.status).to.equals(401);
         expect(body.error).to.equals('Given password is incorrect');
-        usersArray.storageArray.pop();
+        usersArray.removeUser(payload.email);
       });
     done();
   });

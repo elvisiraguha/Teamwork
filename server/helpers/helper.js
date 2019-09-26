@@ -5,11 +5,10 @@ import moment from 'moment';
 import { config } from 'dotenv';
 
 config(0);
-const secret = process.env.SECRET || 'themostsecretkey';
 
 const helper = {
   generateToken(id) {
-    return jwt.sign({ id }, secret, { expiresIn: '2d' });
+    return jwt.sign({ id }, process.env.SECRET, { expiresIn: '2d' });
   },
 
   hashPassword(password) {
@@ -56,6 +55,7 @@ const helper = {
   getDate() {
     return moment().format('MMMM Do YYYY, h:mm:ss a');
   },
+
 };
 
 export default helper;
