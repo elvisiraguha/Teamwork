@@ -4,7 +4,6 @@ import usersArray from '../models/usersArray';
 
 const router = express.Router();
 
-// eslint-disable-next-line consistent-return
 router.post('/', (req, res) => {
   const { body } = req;
   const { error } = helper.joiSigninSchema(body);
@@ -20,8 +19,8 @@ router.post('/', (req, res) => {
   const matchUser = usersArray.findUser(body.email);
 
   if (!matchUser) {
-    return res.status(400).json({
-      status: 400,
+    return res.status(404).json({
+      status: 404,
       error: 'User with given email does not exists',
     });
   }
@@ -40,7 +39,7 @@ router.post('/', (req, res) => {
     return matchUser.getToken();
   })(matchUser.email);
 
-  res.status(200).json({
+  return res.status(200).json({
     status: 200,
     message: 'User is successfully logged in',
     data: {

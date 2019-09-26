@@ -1,12 +1,12 @@
 import express from 'express';
 import helper from '../helpers/helper';
 import usersArray from '../models/usersArray';
-import Article from '../helpers/Article';
 
 const router = express.Router();
 
-// eslint-disable-next-line consistent-return
-router.post('/', (req, res) => {
+router.patch('/:id', (req, res) => {
+  const { body } = req;
+  const { id } = req.params;
   const { token } = req.headers;
 
   if (!token) {
@@ -25,7 +25,23 @@ router.post('/', (req, res) => {
     });
   }
 
-  const { body } = req;
+  if (!author.getArticles()) {
+    return res.status(404).json({
+      status: 404,
+      error: `Dear ${author.lastName} you have not created any articles yet!`,
+    });
+  }
+
+  const matchArticle = author.getArticleById(id);
+
+  if (!matchArticle) {
+    return res.status(404).json({
+      status: 404,
+      error: 'Article with given id does not exists',
+    });
+  }
+
+
   const { value, error } = helper.joiArticleSchema(body);
 
   if (error) {
@@ -36,16 +52,13 @@ router.post('/', (req, res) => {
     });
   }
 
-  const createdArticle = new Article(value);
+  matchArticle.title = value.title || matchArticle.title;
+  matchArticle.title = value.body || matchArticle.body;
 
-  author.addArticle(createdArticle);
-
-  res.status(201).json({
-    status: 201,
-    message: 'article successfully created',
-    data: {
-      createdArticle,
-    },
+  return res.status(200).json({
+    status: 200,
+    message: 'article successfully edited',
+    data: matchArticle,
   });
 });
 

@@ -1,7 +1,10 @@
+import uuid from 'uuid';
 import helper from './helper';
+import articlesArray from '../models/articlesArray';
 
 class User {
   constructor(user) {
+    this.id = uuid();
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.email = user.email;
@@ -11,7 +14,6 @@ class User {
     this.department = user.department;
     this.address = user.address;
     this.createdAt = helper.getDate();
-    this.articles = [];
   }
 
   getToken() {
@@ -22,12 +24,15 @@ class User {
     this.token = helper.generateToken(email);
   }
 
-  addArticle(article) {
-    this.articles.push(article);
+  getArticles() {
+    const articles = articlesArray.storageArray.filter(article => article.authorId === this.id);
+    return articles.length ? articles : null;
   }
 
-  getArticles() {
-    return this.articles;
+  getArticleById(id) {
+    const articles = this.getArticles();
+    const matchArticle = articles.find(article => article.id === id);
+    return matchArticle;
   }
 }
 
