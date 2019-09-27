@@ -5,7 +5,7 @@ import usersArray from '../models/usersArray';
 
 chai.use(chaiHttp);
 
-const payload = {
+const userPayload = {
   firstName: 'Elvis',
   lastName: 'Iraguha',
   password: 'iraguha',
@@ -16,12 +16,27 @@ const payload = {
   department: 'Production',
 };
 
-describe('POST /api/v1/auth/signup', () => {
+export default describe('POST /api/v1/auth/signup', () => {
+  it('test response given incomplete information or no information', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({})
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(400);
+        expect(body.status).to.equals(400);
+        expect(body.error).to.be.a('string');
+        expect(body.error).to.have.lengthOf.at.least(10);
+      });
+    done();
+  });
+
   it('test response given all required information', (done) => {
     chai
       .request(app)
       .post('/api/v1/auth/signup')
-      .send(payload)
+      .send(userPayload)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(201);
@@ -33,34 +48,17 @@ describe('POST /api/v1/auth/signup', () => {
     done();
   });
 
-  it('test response given incomplete information or no information', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/auth/signup')
-      .send({
-        firstName: 'Elvis',
-      })
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(400);
-        expect(body.status).to.equals(400);
-        expect(body.error).to.be.a('string');
-        expect(body.error).to.have.lengthOf.at.least(10);
-      });
-    done();
-  });
-
   it('test response given the used email address', (done) => {
     chai
       .request(app)
       .post('/api/v1/auth/signup')
-      .send(payload)
+      .send(userPayload)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(401);
         expect(body.status).to.equals(401);
         expect(body.error).to.equals('User with given email already exists');
-        usersArray.storageArray.pop();
+        usersArray.resetStorage();
       });
     done();
   });

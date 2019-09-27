@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
     return matchUser.getToken();
   })(matchUser.email);
 
-  return res.status(200).json({
+  res.status(200).json({
     status: 200,
     message: 'User is successfully logged in',
     data: {

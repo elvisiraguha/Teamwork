@@ -5,7 +5,8 @@ import usersArray from '../models/usersArray';
 import User from '../helpers/User';
 
 chai.use(chaiHttp);
-const payload = {
+
+const userPayload = {
   firstName: 'Elvis',
   lastName: 'Iraguha',
   password: 'iraguha',
@@ -16,29 +17,14 @@ const payload = {
   department: 'Production',
 };
 
-const fakeUser = new User(payload);
-usersArray.addUser(fakeUser);
+const signinPayload = {
+  password: 'iraguha',
+  email: 'iraguhaelvis@gmail.com',
+};
 
-describe('POST /api/v1/auth/signin', () => {
-  it('test response given all required information they are correct', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/auth/signin')
-      .send({
-        password: 'iraguha',
-        email: 'iraguhaelvis@gmail.com',
-      })
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(200);
-        expect(body.status).to.equals(200);
-        expect(body.message).to.equal('User is successfully logged in');
-        expect(body.data).to.be.an('object');
-        expect(body.data.token).to.be.a('string');
-      });
-    done();
-  });
+const fakeUser = new User(userPayload);
 
+export default describe('POST /api/v1/auth/signin', () => {
   it('test response given incomplete information', (done) => {
     chai
       .request(app)
@@ -58,25 +44,23 @@ describe('POST /api/v1/auth/signin', () => {
     chai
       .request(app)
       .post('/api/v1/auth/signin')
-      .send({
-        password: 'iraguha',
-        email: 'iraguhaelvis@gmail.net',
-      })
+      .send(signinPayload)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(404);
         expect(body.status).to.equals(404);
         expect(body.error).to.equals('User with given email does not exists');
+        usersArray.addUser(fakeUser);
       });
     done();
   });
 
-  it('test response given wrong password', (done) => {
+  it('test response given invalid password', (done) => {
     chai
       .request(app)
       .post('/api/v1/auth/signin')
       .send({
-        password: 'iragha',
+        password: 'invalid',
         email: 'iraguhaelvis@gmail.com',
       })
       .end((err, res) => {
@@ -84,7 +68,22 @@ describe('POST /api/v1/auth/signin', () => {
         expect(res).to.have.status(401);
         expect(body.status).to.equals(401);
         expect(body.error).to.equals('Given password is incorrect');
-        usersArray.removeUser(payload.email);
+      });
+    done();
+  });
+  it('test response given all required information they are correct', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signin')
+      .send(signinPayload)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(200);
+        expect(body.status).to.equals(200);
+        expect(body.message).to.equal('User is successfully logged in');
+        expect(body.data).to.be.an('object');
+        expect(body.data.token).to.be.a('string');
+        usersArray.resetStorage();
       });
     done();
   });
