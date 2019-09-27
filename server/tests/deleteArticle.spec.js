@@ -32,7 +32,7 @@ const token = ((email) => {
   return fakeUser.getToken();
 })(fakeUser.email);
 
-describe('DELETE /articles/<articleId>', () => {
+export default describe('DELETE /articles/<articleId>', () => {
   it('test response given no token', (done) => {
     chai
       .request(app)

@@ -31,7 +31,7 @@ const articlePayload = {
     Thank you for reading hope to see you next time`,
 };
 
-describe('POST /api/v1/articles', () => {
+export default describe('POST /api/v1/articles', () => {
   it('test response given no token', (done) => {
     chai
       .request(app)

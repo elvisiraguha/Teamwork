@@ -5,7 +5,6 @@ import User from '../helpers/User';
 
 const router = express.Router();
 
-// eslint-disable-next-line consistent-return
 router.post('/', (req, res) => {
   const { body } = req;
   const { value, error } = helper.joiSignupSchema(body);

@@ -16,7 +16,7 @@ const userPayload = {
   department: 'Production',
 };
 
-describe('POST /api/v1/auth/signup', () => {
+export default describe('POST /api/v1/auth/signup', () => {
   it('test response given incomplete information or no information', (done) => {
     chai
       .request(app)

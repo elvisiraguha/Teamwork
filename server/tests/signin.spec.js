@@ -24,7 +24,7 @@ const signinPayload = {
 
 const fakeUser = new User(userPayload);
 
-describe('POST /api/v1/auth/signin', () => {
+export default describe('POST /api/v1/auth/signin', () => {
   it('test response given incomplete information', (done) => {
     chai
       .request(app)
