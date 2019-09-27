@@ -1,11 +1,10 @@
 import express from 'express';
-import helper from '../helpers/helper';
 import usersArray from '../models/usersArray';
+import articlesArray from '../models/articlesArray';
 
 const router = express.Router();
 
-router.patch('/:id', (req, res) => {
-  const { body } = req;
+router.delete('/:id', (req, res) => {
   const { id } = req.params;
   const { token } = req.headers;
 
@@ -35,31 +34,12 @@ router.patch('/:id', (req, res) => {
   const matchArticle = author.getArticleById(id);
 
   if (!matchArticle) {
-    return res.status(404).json({
-      status: 404,
-      error: 'Article with given id does not exists',
-    });
+    return res.status(404);
   }
 
+  articlesArray.removeArticle(matchArticle);
 
-  const { value, error } = helper.joiArticleSchema(body);
-
-  if (error) {
-    const errorMessage = error.details[0].message;
-    return res.status(400).json({
-      status: 400,
-      error: errorMessage,
-    });
-  }
-
-  matchArticle.title = value.title || matchArticle.title;
-  matchArticle.title = value.body || matchArticle.body;
-
-  res.status(200).json({
-    status: 200,
-    message: 'article successfully edited',
-    data: matchArticle,
-  });
+  res.status(204);
 });
 
 export default router;
