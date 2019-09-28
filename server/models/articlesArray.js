@@ -1,32 +1,36 @@
 const articlesArray = {
   storageArray: [
     {
-      id: 'fd0430e7-bf0d-4c83-94ee-4e913ea90d3f',
+      id: 1,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'September 28th 2019, 12:58:18 pm',
       authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
+      dateToSort: 1569638137705,
     },
     {
-      id: 'fd0430e7-bf0d-4c83-94ee-4e913ea90d4f',
+      id: 2,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'September 28th 2019, 12:58:18 pm',
       authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
+      dateToSort: 1569698337705,
     },
     {
-      id: 'fd0430e7-bf0d-4c83-94ee-4e913ea90d5f',
+      id: 3,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'September 28th 2019, 12:58:18 pm',
       authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
+      dateToSort: 1569698137705,
     },
     {
-      id: 'fd0430e7-bf0d-4c83-94ee-4e913ea90d6f',
+      id: 4,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'September 28th 2019, 12:58:18 pm',
       authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      dateToSort: 1569698133705,
     },
   ],
 
@@ -50,6 +54,12 @@ const articlesArray = {
 
   removeArticle(article) {
     return this.storageArray.splice(article, 1);
+  },
+
+  getLatest() {
+    const latestArticles = this.storageArray.sort((a, b) => a.dateToSort - b.dateToSort);
+
+    return latestArticles;
   },
 };
 

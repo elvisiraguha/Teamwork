@@ -7,7 +7,7 @@ const router = express.Router();
 router.patch('/:id', (req, res) => {
   const { body } = req;
   const { author } = req;
-  const { id } = req.params;
+  const id = parseInt(req.params.id, 10);
 
   const authorsArticles = articlesArray.getArticles('authorId', author.id);
 

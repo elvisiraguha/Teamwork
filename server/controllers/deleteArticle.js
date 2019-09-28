@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.delete('/:id', (req, res) => {
   const { author } = req;
-  const { id } = req.params;
+  const id = parseInt(req.params.id, 10);
 
   const authorsArticles = articlesArray.getArticles('authorId', author.id);
 
