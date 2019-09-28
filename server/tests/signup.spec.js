@@ -6,17 +6,17 @@ import usersArray from '../models/usersArray';
 chai.use(chaiHttp);
 
 const userPayload = {
-  firstName: 'Elvis',
-  lastName: 'Iraguha',
-  password: 'iraguha',
+  firstName: 'Iraguha',
+  lastName: 'Elvis',
+  password: 'monkey',
   address: 'Kigali/Rwanda',
   gender: 'Male',
   jobRole: 'Student',
-  email: 'iraguhaelvis@gmail.com',
+  email: 'elvis@student.edu',
   department: 'Production',
 };
 
-export default describe('POST /api/v1/auth/signup', () => {
+const signupSpec = () => {
   it('test response given incomplete information or no information', (done) => {
     chai
       .request(app)
@@ -58,8 +58,9 @@ export default describe('POST /api/v1/auth/signup', () => {
         expect(res).to.have.status(401);
         expect(body.status).to.equals(401);
         expect(body.error).to.equals('User with given email already exists');
-        usersArray.resetStorage();
       });
     done();
   });
-});
+};
+
+export default signupSpec;

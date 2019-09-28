@@ -1,26 +1,28 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import helper from '../helpers/helper';
 import usersArray from '../models/usersArray';
+import helper from '../helpers/helper';
+import articlesArray from '../models/articlesArray';
 
 chai.use(chaiHttp);
 
-const articlePayload = {
-  title: 'My first Article',
-  article: `This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting,
-    Thank you for reading hope to see you next time`,
+const commentPayload = {
+  comment: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time',
 };
 
-const fakeUser = usersArray.storageArray[1];
+const fakeUser = usersArray.storageArray[0];
 const token = helper.generateToken(fakeUser);
+const fakeArticle = articlesArray.storageArray[3];
 
-const createArticleSpec = () => {
+const route = `/api/v1/articles/${fakeArticle.id}/comments`;
+
+const addCommentSpec = () => {
   it('test response given no token', (done) => {
     chai
       .request(app)
-      .post('/api/v1/articles')
-      .send(articlePayload)
+      .post(route)
+      .send(commentPayload)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(401);
@@ -33,9 +35,9 @@ const createArticleSpec = () => {
   it('test response given invalid token', (done) => {
     chai
       .request(app)
-      .post('/api/v1/articles')
+      .post(route)
       .set('x-access-token', 'invalid')
-      .send(articlePayload)
+      .send(commentPayload)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(404);
@@ -45,10 +47,25 @@ const createArticleSpec = () => {
     done();
   });
 
+  it('test response if there is no article matching the given id', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/articles/invalidId/comments')
+      .set('x-access-token', token)
+      .send(commentPayload)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(404);
+        expect(body.status).to.equals(404);
+        expect(body.error).to.equal('Article with given id does not exists');
+      });
+    done();
+  });
+
   it('test response given incomplete information', (done) => {
     chai
       .request(app)
-      .post('/api/v1/articles')
+      .post(route)
       .set('x-access-token', token)
       .send({})
       .end((err, res) => {
@@ -64,18 +81,18 @@ const createArticleSpec = () => {
   it('test response given all required information', (done) => {
     chai
       .request(app)
-      .post('/api/v1/articles')
+      .post(route)
       .set('x-access-token', token)
-      .send(articlePayload)
+      .send(commentPayload)
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(201);
         expect(body.status).to.equals(201);
-        expect(body.message).to.equal('article successfully created');
+        expect(body.message).to.equal('comment successfully added');
         expect(body.data).to.be.an('object');
       });
     done();
   });
 };
 
-export default createArticleSpec;
+export default addCommentSpec;
