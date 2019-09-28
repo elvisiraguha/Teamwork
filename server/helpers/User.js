@@ -1,6 +1,5 @@
 import uuid from 'uuid';
 import helper from './helper';
-import articlesArray from '../models/articlesArray';
 
 class User {
   constructor(user) {

@@ -1,7 +1,6 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import usersArray from '../models/usersArray';
 
 chai.use(chaiHttp);
 

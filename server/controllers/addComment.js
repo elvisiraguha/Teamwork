@@ -2,12 +2,13 @@ import express from 'express';
 import helper from '../helpers/helper';
 import Comment from '../helpers/Comment';
 import articlesArray from '../models/articlesArray';
+import commentsArray from '../models/commentsArray';
 
 const router = express.Router();
 
 router.post('/:id/comments/', (req, res) => {
   const { body, author } = req;
-  const { id } = req.params;
+  const id = parseInt(req.params.id, 10);
 
   const { comment, error } = helper.joiCommentSchema(body);
 
@@ -29,6 +30,8 @@ router.post('/:id/comments/', (req, res) => {
   }
 
   const createdComment = new Comment(comment, matchArticle, author);
+
+  commentsArray.addComment(createdComment);
 
   res.status(201).json({
     status: 201,
