@@ -7,7 +7,7 @@ import { config } from 'dotenv';
 config(0);
 
 const helper = {
-  generateToken(id) {
+  generateToken({ id }) {
     return jwt.sign({ id }, process.env.SECRET, { expiresIn: '2d' });
   },
 
@@ -50,6 +50,14 @@ const helper = {
     });
 
     return schema.validate(content);
+  },
+
+  joiCommentSchema(comment) {
+    const schema = Joi.object({
+      comment: Joi.string().required().min(10).max(1000),
+    });
+
+    return schema.validate(comment);
   },
 
   getDate() {

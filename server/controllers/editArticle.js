@@ -1,38 +1,24 @@
 import express from 'express';
 import helper from '../helpers/helper';
-import usersArray from '../models/usersArray';
+import articlesArray from '../models/articlesArray';
 
 const router = express.Router();
 
 router.patch('/:id', (req, res) => {
   const { body } = req;
+  const { author } = req;
   const { id } = req.params;
-  const { token } = req.headers;
 
-  if (!token) {
-    return res.status(400).json({
-      status: 400,
-      error: 'You need to have a token',
-    });
-  }
+  const authorsArticles = articlesArray.getArticles('authorId', author.id);
 
-  const author = token ? usersArray.findAuthor(token) : null;
-
-  if (!author) {
-    return res.status(404).json({
-      status: 404,
-      error: 'Your token is invalid or have expired',
-    });
-  }
-
-  if (!author.getArticles()) {
+  if (!authorsArticles) {
     return res.status(404).json({
       status: 404,
       error: `Dear ${author.lastName} you have not created any articles yet!`,
     });
   }
 
-  const matchArticle = author.getArticleById(id);
+  const matchArticle = articlesArray.getArticleById(id);
 
   if (!matchArticle) {
     return res.status(404).json({
@@ -41,6 +27,14 @@ router.patch('/:id', (req, res) => {
     });
   }
 
+  const isAuthor = articlesArray.checkAuthor(matchArticle, author);
+
+  if (!isAuthor) {
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized: An article you are trying to delete is not yours',
+    });
+  }
 
   const { value, error } = helper.joiArticleSchema(body);
 

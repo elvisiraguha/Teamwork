@@ -1,30 +1,10 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import usersArray from '../models/usersArray';
-import User from '../helpers/User';
 
 chai.use(chaiHttp);
 
-const userPayload = {
-  firstName: 'Elvis',
-  lastName: 'Iraguha',
-  password: 'iraguha',
-  address: 'Kigali/Rwanda',
-  gender: 'Male',
-  jobRole: 'Student',
-  email: 'iraguhaelvis@gmail.com',
-  department: 'Production',
-};
-
-const signinPayload = {
-  password: 'iraguha',
-  email: 'iraguhaelvis@gmail.com',
-};
-
-const fakeUser = new User(userPayload);
-
-export default describe('POST /api/v1/auth/signin', () => {
+const signinSpec = () => {
   it('test response given incomplete information', (done) => {
     chai
       .request(app)
@@ -44,13 +24,15 @@ export default describe('POST /api/v1/auth/signin', () => {
     chai
       .request(app)
       .post('/api/v1/auth/signin')
-      .send(signinPayload)
+      .send({
+        password: 'iraguha',
+        email: 'iraguhaelvis@student.com',
+      })
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(404);
         expect(body.status).to.equals(404);
         expect(body.error).to.equals('User with given email does not exists');
-        usersArray.addUser(fakeUser);
       });
     done();
   });
@@ -75,7 +57,10 @@ export default describe('POST /api/v1/auth/signin', () => {
     chai
       .request(app)
       .post('/api/v1/auth/signin')
-      .send(signinPayload)
+      .send({
+        password: 'iraguha',
+        email: 'iraguhaelvis@gmail.com',
+      })
       .end((err, res) => {
         const { body } = res;
         expect(res).to.have.status(200);
@@ -83,8 +68,9 @@ export default describe('POST /api/v1/auth/signin', () => {
         expect(body.message).to.equal('User is successfully logged in');
         expect(body.data).to.be.an('object');
         expect(body.data.token).to.be.a('string');
-        usersArray.resetStorage();
       });
     done();
   });
-});
+};
+
+export default signinSpec;

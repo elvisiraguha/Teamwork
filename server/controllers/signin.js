@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
     });
   }
 
-  const matchUser = usersArray.findUser(body.email);
+  const matchUser = usersArray.findUser('email', body.email);
 
   if (!matchUser) {
     return res.status(404).json({
@@ -34,10 +34,7 @@ router.post('/', (req, res) => {
     });
   }
 
-  const token = ((email) => {
-    matchUser.setToken(email);
-    return matchUser.getToken();
-  })(matchUser.email);
+  const token = helper.generateToken(matchUser);
 
   res.status(200).json({
     status: 200,
