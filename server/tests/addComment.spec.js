@@ -40,8 +40,8 @@ const addCommentSpec = () => {
       .send(commentPayload)
       .end((err, res) => {
         const { body } = res;
-        expect(res).to.have.status(404);
-        expect(body.status).to.equals(404);
+        expect(res).to.have.status(400);
+        expect(body.status).to.equals(400);
         expect(body.error).to.equals('Your token is invalid or have expired');
       });
     done();

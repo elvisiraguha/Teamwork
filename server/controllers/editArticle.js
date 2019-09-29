@@ -30,9 +30,9 @@ router.patch('/:id', (req, res) => {
   const isAuthor = articlesArray.checkAuthor(matchArticle, author);
 
   if (!isAuthor) {
-    return res.status(401).json({
-      status: 401,
-      error: 'Unauthorized: An article you are trying to delete is not yours',
+    return res.status(403).json({
+      status: 403,
+      error: 'Forbidden: An article you are trying to delete is not yours',
     });
   }
 

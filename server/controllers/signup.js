@@ -20,8 +20,8 @@ router.post('/', (req, res) => {
   const matchUser = usersArray.findUser('email', body.email);
 
   if (matchUser) {
-    return res.status(401).json({
-      status: 401,
+    return res.status(409).json({
+      status: 409,
       error: 'User with given email already exists',
     });
   }

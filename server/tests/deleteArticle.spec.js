@@ -38,8 +38,8 @@ const deleteArticleSpec = () => {
       .set('x-access-token', 'invalid')
       .end((err, res) => {
         const { body } = res;
-        expect(res).to.have.status(404);
-        expect(body.status).to.equals(404);
+        expect(res).to.have.status(400);
+        expect(body.status).to.equals(400);
         expect(body.error).to.equals('Your token is invalid or have expired');
       });
     done();
@@ -80,9 +80,9 @@ const deleteArticleSpec = () => {
       .set('x-access-token', token2)
       .end((err, res) => {
         const { body } = res;
-        expect(res).to.have.status(401);
-        expect(body.status).to.equals(401);
-        expect(body.error).to.equal('Unauthorized: An article you are trying to delete is not yours');
+        expect(res).to.have.status(403);
+        expect(body.status).to.equals(403);
+        expect(body.error).to.equal('Forbidden: An article you are trying to delete is not yours');
       });
     done();
   });

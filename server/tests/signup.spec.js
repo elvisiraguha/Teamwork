@@ -54,8 +54,8 @@ const signupSpec = () => {
       .send(userPayload)
       .end((err, res) => {
         const { body } = res;
-        expect(res).to.have.status(401);
-        expect(body.status).to.equals(401);
+        expect(res).to.have.status(409);
+        expect(body.status).to.equals(409);
         expect(body.error).to.equals('User with given email already exists');
       });
     done();
