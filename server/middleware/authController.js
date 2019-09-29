@@ -19,9 +19,9 @@ const authorize = (req, res, next) => {
     req.author = usersArray.findUser('id', id);
     next();
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       default: err,
-      status: 404,
+      status: 400,
       error: 'Your token is invalid or have expired',
     });
   }

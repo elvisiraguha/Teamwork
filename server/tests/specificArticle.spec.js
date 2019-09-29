@@ -5,12 +5,12 @@ import helper from '../helpers/helper';
 import usersArray from '../models/usersArray';
 
 chai.use(chaiHttp);
-const route = '/api/v1/feeds';
+const route = '/api/v1/articles/2';
 
 const fakeUser = usersArray.storageArray[0];
 const token = helper.generateToken(fakeUser);
 
-const feeds = () => {
+const specificArticleSpec = () => {
   it('test response given no token', (done) => {
     chai
       .request(app)
@@ -38,6 +38,20 @@ const feeds = () => {
     done();
   });
 
+  it('test response if there is no article matching the given id', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/articles/invalidId')
+      .set('x-access-token', token)
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(404);
+        expect(body.status).to.equals(404);
+        expect(body.error).to.equal('Article with given id does not exists');
+      });
+    done();
+  });
+
   it('test reaponse given the correct token', (done) => {
     chai
       .request(app)
@@ -48,10 +62,10 @@ const feeds = () => {
         expect(res).to.have.status(200);
         expect(body.status).to.equals(200);
         expect(body.message).to.equals('success');
-        expect(body.data).to.be.an('array');
+        expect(body.data).to.be.an('object');
       });
     done();
   });
 };
 
-export default feeds;
+export default specificArticleSpec;

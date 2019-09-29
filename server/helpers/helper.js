@@ -54,7 +54,7 @@ const helper = {
 
   joiCommentSchema(comment) {
     const schema = Joi.object({
-      comment: Joi.string().required().min(10).max(1000),
+      comment: Joi.string().required().min(5).max(1000),
     });
 
     return schema.validate(comment);
