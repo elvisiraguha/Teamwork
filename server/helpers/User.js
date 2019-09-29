@@ -1,7 +1,9 @@
+import uuid from 'uuid';
 import helper from './helper';
 
 class User {
   constructor(user) {
+    this.id = uuid();
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.email = user.email;
@@ -10,24 +12,7 @@ class User {
     this.jobRole = user.jobRole;
     this.department = user.department;
     this.address = user.address;
-    this.createdAt = helper.getDate();
-    this.articles = [];
-  }
-
-  getToken() {
-    return this.token;
-  }
-
-  setToken(email) {
-    this.token = helper.generateToken(email);
-  }
-
-  addArticle(article) {
-    this.articles.push(article);
-  }
-
-  getArticles() {
-    return this.articles;
+    this.isAdmin = false;
   }
 }
 

@@ -5,7 +5,6 @@ import User from '../helpers/User';
 
 const router = express.Router();
 
-// eslint-disable-next-line consistent-return
 router.post('/', (req, res) => {
   const { body } = req;
   const { value, error } = helper.joiSignupSchema(body);
@@ -18,11 +17,11 @@ router.post('/', (req, res) => {
     });
   }
 
-  const matchUser = usersArray.findUser(body.email);
+  const matchUser = usersArray.findUser('email', body.email);
 
   if (matchUser) {
-    return res.status(401).json({
-      status: 401,
+    return res.status(409).json({
+      status: 409,
       error: 'User with given email already exists',
     });
   }
@@ -30,10 +29,7 @@ router.post('/', (req, res) => {
   const createdUser = new User(value);
   usersArray.addUser(createdUser);
 
-  const token = ((email) => {
-    createdUser.setToken(email);
-    return createdUser.getToken();
-  })(createdUser.email);
+  const token = helper.generateToken(createdUser);
 
   res.status(201).json({
     status: 201,

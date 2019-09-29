@@ -1,12 +1,17 @@
+<div align='center'>
+
 [![Build Status](https://travis-ci.org/elvisiraguha/Teamwork.svg?branch=develop)](https://travis-ci.org/elvisiraguha/Teamwork)
-[![Coverage Status](https://coveralls.io/repos/github/elvisiraguha/Teamwork/badge.svg?branch=ft-api-create-account-168722969)](https://coveralls.io/github/elvisiraguha/Teamwork?branch=ft-api-create-account-168722969)
+[![Coverage Status](https://coveralls.io/repos/github/elvisiraguha/Teamwork/badge.svg?branch=develop)](https://coveralls.io/github/elvisiraguha/Teamwork?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7876705da70013697d24/maintainability)](https://codeclimate.com/github/elvisiraguha/Teamwork/maintainability)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d15baa1d7de74695b344a5f76131a1d3)](https://www.codacy.com/manual/elvisiraguha/Teamwork?utm_source=github.com&utm_medium=referral&utm_content=elvisiraguha/Teamwork&utm_campaign=Badge_Grade)
 [![Known Vulnerabilities](https://snyk.io//test/github/elvisiraguha/Teamwork/badge.svg?targetFile=package.json)](https://snyk.io//test/github/elvisiraguha/Teamwork?targetFile=package.json)
 
 # TEAMWORK
 
 ## Teamwork UI
+
+<img src='./UI/images/description.gif'>
+
+</div>
 
 ### Project Overview
 
@@ -38,7 +43,11 @@ or just run the link below into your browser
 - On the top right corner there is a button to sign out and another button to take you to admin page.
 - On admin page additionally to functionalities described above for normal users there is additional tab "Flagged Articles" where admin can delete flagged articles or comments.
 
+<div align='center'>
+
 ## Teamwork Server
+
+</div>
 
 ### Introduction
 
@@ -51,7 +60,10 @@ all requests must be given in json format
 ### Success Codes
 
 200: Ok
+
 201: Created
+
+204: Deleted
 
 ### Error Codes
 
@@ -59,6 +71,23 @@ all requests must be given in json format
 
 401: Unothorized
 
+403: Forbidden
+
 404: Not found
 
-### Full Documentation [Here](https://documenter.getpostman.com/view/8269028/SVn2Nvfh?version=latest)
+409: Conflict
+
+### API Endpoints
+
+| Path                                    | Method | Description             |
+| --------------------------------------- | ------ | ----------------------- |
+| /api/v1/auth/signup                     | POST   | create a user account   |
+| /api/v1/auth/signin                     | POST   | sign in existing user   |
+| /api/v1/articles                        | POST   | create article          |
+| /api/v1/aritcles/\<articleId\>          | PATCH  | edit article            |
+| /api/v1/aritcles/\<articleId\>          | DELETE | delete article          |
+| /api/v1/aritcles/\<articleId\>/comments | POST   | add comment on article  |
+| /api/v1/aritcles/                       | GET    | view all articles       |
+| /api/v1/aritcles/\<articleId\>          | GET    | view a specific article |
+
+### Read Full API Documentation [Here](https://documenter.getpostman.com/view/8269028/SVn2Nvfh?version=latest)
