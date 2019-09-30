@@ -6,7 +6,8 @@
   "scripts": {
     "start": "babel-watch server/server.js",
     "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
-    "posttest": "nyc report --reporter=text-lcov | coveralls"
+    "posttest": "nyc report --reporter=text-lcov | coveralls",
+    "build": "babel server -d dist"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,9 @@
     "url": "https://github.com/elvisiraguha/Teamwork/issues"
   },
   "homepage": "https://github.com/elvisiraguha/Teamwork#readme",
+  "engines": {
+    "node": "12.7.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",

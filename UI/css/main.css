@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap");
 
 /* removing defaults for every element */
 
@@ -11,7 +11,11 @@
 /* font for other elements */
 
 body {
-  font: 20px 'Montserrat';
+  font: 20px "Montserrat";
+  background-image: url("../images/background.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #fff;
 }
 
 /* for flex class elements */
@@ -23,22 +27,21 @@ body {
 /* an exception font for title class */
 
 .title {
-  font-family: 'Poiret One', cursive;
+  font-family: "Poiret One", cursive;
 }
 
 /* top header */
 
 .landing-header {
-  height: 20vh;
-  background: #367dd9;
+  height: 10vh;
+  background: #367dd990;
 }
 
 /* the main content */
 
 .landing-main {
   padding: 20px;
-  height: 70vh;
-  background: #82b8d9;
+  height: 80vh;
 }
 
 /* styles for footer */
@@ -47,7 +50,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 10vh;
-  background: #367dd9;
+  background: #367dd990;
 }
 
 /* intro section */
