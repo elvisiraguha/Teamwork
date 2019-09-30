@@ -21,4 +21,25 @@ app.use('/api/v1/articles', authorize, addComment);
 app.use('/api/v1/feeds', authorize, feeds);
 app.use('/api/v1/articles', authorize, specificArticle);
 
+
+app.get('/api/v1/', (req, res) => (
+  res.status(200).json({
+    status: 200,
+    message: 'Welcome to Teamwork API',
+  })
+));
+
+app.get('/', (req, res) => (
+  res.status(200).json({
+    status: 200,
+    message: 'Welcome to Teamwork API, when making routes, please start with /api/v1/',
+  })
+));
+app.use('/*', (req, res) => (
+  res.status(405).json({
+    status: 405,
+    error: 'Method not allowed',
+  })
+));
+
 export default app;
