@@ -97,19 +97,20 @@ body {
   border: 0;
   border-radius: 4px;
   font: inherit;
+  padding: 10px 20px;
 }
 .btn-cancel {
-  background: 0;
-  text-decoration: underline;
+  color: #fff;
+  background: #ff0000d0;
+  text-decoration: none;
 }
 .btn-cancel:hover {
-  color: #f00;
-  text-decoration: none;
+  color: #ff0000d0;
+  background: #fff;
 }
 .btn-submit {
   color: #fff;
   background: #448c30;
-  padding: 10px 20px;
 }
 .btn-submit:hover {
   color: #448c30;
