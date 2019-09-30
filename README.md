@@ -75,6 +75,8 @@ all requests must be given in json format
 
 404: Not found
 
+405: Method not allowed
+
 409: Conflict
 
 ### API Endpoints
@@ -95,17 +97,29 @@ all requests must be given in json format
 ### Tools Used
 
 #### UI:
+
 - html
 - css
 - javascript
+
 #### Backend:
+
 ##### Linting Library:
+
 Eslint
+
 ##### Javascript Style:
+
 Airbnb
+
 ##### Framework:
+
 NodeJs
+
 ##### Library:
+
 ExpressJs
+
 ##### Testing Library:
+
 Mocha
