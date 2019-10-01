@@ -36,7 +36,7 @@ const helper = {
   joiSigninSchema(body) {
     const schema = Joi.object({
       email: Joi.string().required().min(10).trim(),
-      password: Joi.string().required().min(8).trim(),
+      password: Joi.string().required().trim(),
     });
 
     return schema.validate(body);
