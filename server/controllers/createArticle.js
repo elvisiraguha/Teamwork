@@ -8,7 +8,6 @@ const router = express.Router();
 router.post('/', (req, res) => {
   const { author } = req;
   const { body } = req;
-
   const { value, error } = helper.joiArticleSchema(body);
 
   if (error) {
@@ -27,9 +26,7 @@ router.post('/', (req, res) => {
     status: 201,
     message: 'article successfully created',
     data: {
-      id: createdArticle.id,
-      title: createdArticle.title,
-      createdOn: createdArticle.createdOn,
+      info: createdArticle,
     },
   });
 });

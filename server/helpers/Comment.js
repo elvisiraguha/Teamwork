@@ -1,13 +1,8 @@
-import helper from './helper';
-import commentsArray from '../models/commentsArray';
-
 class Comment {
-  constructor(comment, article, author) {
-    this.id = commentsArray.storageArray.length + 1;
-    this.comment = comment;
-    this.article = article.article;
-    this.articleTitle = article.title;
-    this.createdOn = helper.getDate();
+  constructor(value, article, author) {
+    this.id = article.comments.length + 1;
+    this.comment = value.comment;
+    this.createdOn = Date();
     this.authorId = author.id;
   }
 }

@@ -4,33 +4,41 @@ const articlesArray = {
       id: 1,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
-      createdOn: 'September 28th 2019, 12:58:18 pm',
+      createdOn: 'Tue Oct 01 2019 19:59:28 GMT+0200 (Central Africa Time)',
       authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
-      dateToSort: 1569638137705,
+      comments: [],
     },
     {
       id: 2,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
-      createdOn: 'September 28th 2019, 12:58:18 pm',
-      authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
-      dateToSort: 1569698337705,
+      createdOn: 'Tue Oct 01 2019 13:59:28 GMT+0200 (Central Africa Time)',
+      authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      comments: [],
     },
     {
       id: 3,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
-      createdOn: 'September 28th 2019, 12:58:18 pm',
-      authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
-      dateToSort: 1569698137705,
+      createdOn: 'Tue Oct 01 2019 14:59:28 GMT+0200 (Central Africa Time)',
+      authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      comments: [],
     },
     {
       id: 4,
       title: 'My first Article',
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
-      createdOn: 'September 28th 2019, 12:58:18 pm',
+      createdOn: 'Tue Oct 01 2019 15:59:28 GMT+0200 (Central Africa Time)',
+      authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
+      comments: [],
+    },
+    {
+      id: 5,
+      title: 'My first Article',
+      article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
+      createdOn: 'Tue Oct 01 2019 16:59:28 GMT+0200 (Central Africa Time)',
       authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
-      dateToSort: 1569698133705,
+      comments: [],
     },
   ],
 
@@ -53,13 +61,19 @@ const articlesArray = {
   },
 
   removeArticle(article) {
-    return this.storageArray.splice(article, 1);
+    const articleId = this.storageArray.indexOf(article);
+    return this.storageArray.splice(articleId, 1);
   },
 
   getLatest() {
-    const latestArticles = this.storageArray.sort((a, b) => a.dateToSort - b.dateToSort);
-
+    const latestArticles = this.storageArray.sort((a, b) => {
+      return new Date(a.createdOn) - new Date(b.createdOn);
+    });
     return latestArticles;
+  },
+
+  getNewId() {
+    return this.storageArray.length + 1;
   },
 };
 

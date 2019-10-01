@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Joi from '@hapi/joi';
-import moment from 'moment';
 import { config } from 'dotenv';
 
 config(0);
@@ -59,11 +58,6 @@ const helper = {
 
     return schema.validate(comment);
   },
-
-  getDate() {
-    return moment().format('MMMM Do YYYY, h:mm:ss a');
-  },
-
 };
 
 export default helper;

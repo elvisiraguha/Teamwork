@@ -32,7 +32,7 @@ router.patch('/:id', (req, res) => {
   if (!isAuthor) {
     return res.status(403).json({
       status: 403,
-      error: 'Forbidden: An article you are trying to delete is not yours',
+      error: 'Forbidden: An article you are trying to edit is not yours',
     });
   }
 
@@ -47,7 +47,7 @@ router.patch('/:id', (req, res) => {
   }
 
   matchArticle.title = value.title || matchArticle.title;
-  matchArticle.title = value.body || matchArticle.body;
+  matchArticle.article = value.article || matchArticle.article;
 
   res.status(200).json({
     status: 200,

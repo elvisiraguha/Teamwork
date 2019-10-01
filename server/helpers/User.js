@@ -12,7 +12,6 @@ class User {
     this.jobRole = user.jobRole;
     this.department = user.department;
     this.address = user.address;
-    this.isAdmin = false;
   }
 
   dislayUser() {
