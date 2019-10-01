@@ -36,6 +36,7 @@ router.post('/', (req, res) => {
     message: 'User created successfully',
     data: {
       token,
+      info: createdUser.dislayUser(),
     },
   });
 });
