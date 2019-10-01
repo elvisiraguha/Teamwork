@@ -93,7 +93,7 @@ all requests must be given in json format
 | /api/v1/aritcles/\<articleId\>          | GET    | view a specific article |
 
 ### Read Full API Documentation [Here](https://documenter.getpostman.com/view/8269028/SVn2Nvfh?version=latest)
-
+### Hosted App on Heroku <https://teamworkapi.herokuapp.com/>
 ### Tools Used
 
 #### UI:
