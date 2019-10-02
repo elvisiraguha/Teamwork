@@ -20,9 +20,8 @@ const authorize = (req, res, next) => {
     next();
   } catch (err) {
     return res.status(400).json({
-      default: err,
       status: 400,
-      error: 'Your token is invalid or have expired',
+      error: err.message,
     });
   }
 };

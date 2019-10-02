@@ -1,25 +1,19 @@
 import express from 'express';
 import authorize from '../middleware/authController';
-import signup from '../controllers/signup';
-import signin from '../controllers/signin';
-import createArticle from '../controllers/createArticle';
-import editArticle from '../controllers/editArticle';
-import deleteArticle from '../controllers/deleteArticle';
-import addComment from '../controllers/addComment';
-import feeds from '../controllers/feeds';
-import specificArticle from '../controllers/specificArticle';
+import auth from '../controllers/auth';
+import articles from '../controllers/articles';
 
 const app = express();
 app.use(express.json());
 
-app.use('/api/v1/auth/signup', signup);
-app.use('/api/v1/auth/signin', signin);
-app.use('/api/v1/articles', authorize, createArticle);
-app.use('/api/v1/articles', authorize, editArticle);
-app.use('/api/v1/articles', authorize, deleteArticle);
-app.use('/api/v1/articles', authorize, addComment);
-app.use('/api/v1/feeds', authorize, feeds);
-app.use('/api/v1/articles', authorize, specificArticle);
+app.post('/api/v1/auth/signup', auth.signup);
+app.post('/api/v1/auth/signin', auth.signin);
+app.post('/api/v1/articles', authorize, articles.create);
+app.patch('/api/v1/articles/:id', authorize, articles.edit);
+app.delete('/api/v1/articles/:id', authorize, articles.delete);
+app.post('/api/v1/articles/:id/comments', authorize, articles.addComment);
+app.get('/api/v1/feeds', authorize, articles.getAll);
+app.get('/api/v1/articles/:id', authorize, articles.getOne);
 
 
 app.get('/api/v1/', (req, res) => (

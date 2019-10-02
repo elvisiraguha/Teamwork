@@ -12,7 +12,19 @@ class User {
     this.jobRole = user.jobRole;
     this.department = user.department;
     this.address = user.address;
-    this.isAdmin = false;
+  }
+
+  dislayUser() {
+    return {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      gender: this.gender,
+      jobRole: this.jobRole,
+      department: this.department,
+      address: this.address,
+    };
   }
 }
 

@@ -1,14 +1,13 @@
-import helper from './helper';
 import articlesArray from '../models/articlesArray';
 
 class Article {
   constructor(article, author) {
-    this.id = articlesArray.storageArray.length + 1;
+    this.id = articlesArray.getNewId();
     this.title = article.title;
     this.article = article.article;
-    this.createdOn = helper.getDate();
+    this.createdOn = Date();
     this.authorId = author.id;
-    this.dateToSort = Date.now();
+    this.comments = [];
   }
 }
 

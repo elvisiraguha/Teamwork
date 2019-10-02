@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Joi from '@hapi/joi';
-import moment from 'moment';
 import { config } from 'dotenv';
 
 config(0);
@@ -21,14 +20,14 @@ const helper = {
 
   joiSignupSchema(body) {
     const schema = Joi.object({
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
-      email: Joi.string().required(),
-      password: Joi.string().required(),
-      gender: Joi.string().required(),
-      jobRole: Joi.string().required(),
-      department: Joi.string().required(),
-      address: Joi.string().required(),
+      firstName: Joi.string().required().min(3).trim(),
+      lastName: Joi.string().required().min(3).trim(),
+      email: Joi.string().required().min(10).trim(),
+      password: Joi.string().required().min(8).trim(),
+      gender: Joi.string().required().min(4).trim(),
+      jobRole: Joi.string().required().min(4).trim(),
+      department: Joi.string().required().min(4).trim(),
+      address: Joi.string().required().min(4).trim(),
     });
 
     return schema.validate(body);
@@ -36,8 +35,8 @@ const helper = {
 
   joiSigninSchema(body) {
     const schema = Joi.object({
-      email: Joi.string().required(),
-      password: Joi.string().required(),
+      email: Joi.string().required().min(10).trim(),
+      password: Joi.string().required().trim(),
     });
 
     return schema.validate(body);
@@ -59,11 +58,6 @@ const helper = {
 
     return schema.validate(comment);
   },
-
-  getDate() {
-    return moment().format('MMMM Do YYYY, h:mm:ss a');
-  },
-
 };
 
 export default helper;
