@@ -23,7 +23,7 @@ describe('Other routes', () => {
         const { body } = res;
         expect(res).to.have.status(200);
         expect(body.status).to.equals(200);
-        expect(body.message).to.equals('Welcome to Teamwork API, when making routes, please start with /api/v1/');
+        expect(body.message).to.equals('Welcome to Teamwork API, start a path with /api/v1/ when making requests');
       });
     done();
   });

@@ -17,6 +17,14 @@ const authorize = (req, res, next) => {
   try {
     const { id } = jwt.verify(token, process.env.SECRET);
     req.author = usersArray.findUser('id', id);
+
+    if (!req.author) {
+      return res.status(400).json({
+        status: 400,
+        error: 'user not found',
+      });
+    }
+
     next();
   } catch (err) {
     return res.status(400).json({
