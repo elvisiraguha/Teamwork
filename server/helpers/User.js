@@ -15,7 +15,7 @@ class User {
   }
 
   dislayUser() {
-    return {
+    return ({
       id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
@@ -24,7 +24,7 @@ class User {
       jobRole: this.jobRole,
       department: this.department,
       address: this.address,
-    };
+    });
   }
 }
 

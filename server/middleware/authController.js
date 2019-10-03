@@ -18,10 +18,19 @@ const authorize = (req, res, next) => {
     const { id } = jwt.verify(token, process.env.SECRET);
     req.author = usersArray.findUser('id', id);
 
+    if (req.params.id) {
+      if (Number.isNaN(parseInt(req.params.id, 10))) {
+        return res.status(400).json({
+          status: 400,
+          error: 'articleId should be an Integer',
+        });
+      }
+    }
+
     if (!req.author) {
       return res.status(400).json({
         status: 400,
-        error: 'user not found',
+        error: 'user with given token is not found',
       });
     }
 

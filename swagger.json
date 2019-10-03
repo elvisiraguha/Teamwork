@@ -1,0 +1,82 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Teamwork is an internal social network for organizations employees. The goal of this application is to facilitate more interaction between colleagues and facilitate team bonding",
+    "version": "1.0.0",
+    "title": "Teamwork",
+    "contact": {
+      "email": "iraguhaelvis@gmail.com"
+    }
+  },
+  "host": "teamworkapi.herokuapp.com",
+  "basePath": "/api/v1",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Add a new pet to the store",
+        "description": "",
+        "operationId": "authSignup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create a teamwork user account",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "signup": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "jobRole": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
