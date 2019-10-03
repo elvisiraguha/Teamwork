@@ -57,7 +57,7 @@ const articlesArray = {
   },
 
   checkAuthor(article, author) {
-    return (author.id === article.authorId) ? 1 : 0;
+    return (author.id === article.authorId);
   },
 
   removeArticle(article) {
@@ -66,9 +66,9 @@ const articlesArray = {
   },
 
   getLatest() {
-    const latestArticles = this.storageArray.sort((a, b) => {
-      return new Date(a.createdOn) - new Date(b.createdOn);
-    });
+    const latestArticles = this.storageArray.sort((a, b) => (
+      new Date(a.createdOn) - new Date(b.createdOn)
+    ));
     return latestArticles;
   },
 

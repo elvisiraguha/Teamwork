@@ -31,50 +31,109 @@ const token2 = helper.generateToken(fakeUser2);
 const fakeArticle = articlesArray.storageArray[0];
 const fakeArticle2 = articlesArray.storageArray[3];
 
+const stringId = () => {
+  chai
+    .request(app)
+    .patch('/api/v1/articles/invalidId')
+    .set('x-access-token', token2)
+    .send(modifiedArticle)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(400);
+      expect(body.status).to.equals(400);
+      expect(body.error).to.equal('articleId should be an Integer');
+    });
+};
+
+const noArticleByUser = () => {
+  chai
+    .request(app)
+    .patch(`/api/v1/articles/${fakeArticle.id}`)
+    .set('x-access-token', token)
+    .send(modifiedArticle)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(404);
+      expect(body.status).to.equals(404);
+      expect(body.error).to.equal(`Dear ${fakeUser.lastName} you have not created any articles yet!`);
+    });
+};
+
+const givenNoToken = () => {
+  chai
+    .request(app)
+    .patch(`/api/v1/articles/${fakeArticle.id}`)
+    .set('x-access-token', token)
+    .send(modifiedArticle)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(404);
+      expect(body.status).to.equals(404);
+      expect(body.error).to.equal(`Dear ${fakeUser.lastName} you have not created any articles yet!`);
+    });
+};
+
+const givenInvalidToken = () => {
+  chai
+    .request(app)
+    .post('/api/v1/articles')
+    .set('x-access-token', 'invalid')
+    .send(articlePayload)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(400);
+      expect(body.status).to.equals(400);
+      expect(body.error).to.be.a('string');
+    });
+};
+
+const noMatchArticle = () => {
+  chai
+    .request(app)
+    .patch('/api/v1/articles/900')
+    .set('x-access-token', token2)
+    .send(modifiedArticle)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(404);
+      expect(body.status).to.equals(404);
+      expect(body.error).to.equal('Article with given id does not exists');
+    });
+};
+
+const givenIncompleteInfo = () => {
+  chai
+    .request(app)
+    .post('/api/v1/articles')
+    .set('x-access-token', token)
+    .send({})
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(400);
+      expect(body.status).to.equals(400);
+      expect(body.error).to.be.a('string');
+      expect(body.error).to.have.lengthOf.at.least(10);
+    });
+};
+
+const articleNotYours = () => {
+  chai
+    .request(app)
+    .delete(`/api/v1/articles/${fakeArticle.id}`)
+    .set('x-access-token', token2)
+    .end((err, res) => {
+      const { body } = res;
+      expect(res).to.have.status(403);
+      expect(body.status).to.equals(403);
+      expect(body.error).to.equal('Forbidden: An article you are trying to delete is not yours');
+    });
+};
+
 const articlesSpec = {
   create() {
-    it('test response given no token', () => {
-      chai
-        .request(app)
-        .post('/api/v1/articles')
-        .send(articlePayload)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(401);
-          expect(body.status).to.equals(401);
-          expect(body.error).to.equals('Unauthorized: You need to have a token');
-        });
-    });
-
-    it('test response given invalid token', () => {
-      chai
-        .request(app)
-        .post('/api/v1/articles')
-        .set('x-access-token', 'invalid')
-        .send(articlePayload)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-        });
-    });
-
-    it('test response given incomplete information', () => {
-      chai
-        .request(app)
-        .post('/api/v1/articles')
-        .set('x-access-token', token)
-        .send({})
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-          expect(body.error).to.have.lengthOf.at.least(10);
-        });
-    });
-
+    it('test response given no token', givenNoToken);
+    it('test response given invalid token', givenInvalidToken);
+    it('test response given incomplete information', givenIncompleteInfo);
     it('test response given all required information', () => {
       chai
         .request(app)
@@ -91,89 +150,13 @@ const articlesSpec = {
     });
   },
   edit() {
-    it('test response given no token', () => {
-      chai
-        .request(app)
-        .patch(`/api/v1/articles/${fakeArticle.id}`)
-        .send(modifiedArticle)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(401);
-          expect(body.status).to.equals(401);
-          expect(body.error).to.equals('Unauthorized: You need to have a token');
-        });
-    });
-
-    it('test response given invalid token', () => {
-      chai
-        .request(app)
-        .patch(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', 'invalid')
-        .send(modifiedArticle)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-        });
-    });
-
-    it('test response if there is no article by this user', () => {
-      chai
-        .request(app)
-        .patch(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', token)
-        .send(modifiedArticle)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal(`Dear ${fakeUser.lastName} you have not created any articles yet!`);
-        });
-    });
-
-    it('test response if there is no article matching the given id', () => {
-      chai
-        .request(app)
-        .patch('/api/v1/articles/invalidId')
-        .set('x-access-token', token2)
-        .send(modifiedArticle)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal('Article with given id does not exists');
-        });
-    });
-
-    it('test response if you are trying to delete an article which is not yours', () => {
-      chai
-        .request(app)
-        .delete(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', token2)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(403);
-          expect(body.status).to.equals(403);
-          expect(body.error).to.equal('Forbidden: An article you are trying to delete is not yours');
-        });
-    });
-
-    it('test response given incomplete information', () => {
-      chai
-        .request(app)
-        .patch(`/api/v1/articles/${fakeArticle2.id}`)
-        .set('x-access-token', token2)
-        .send({})
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-          expect(body.error).to.have.lengthOf.at.least(10);
-        });
-    });
-
+    it('test response given no token', givenNoToken);
+    it('test response given invalid token', givenInvalidToken);
+    it('test response if there is no article by this user', noArticleByUser);
+    it('test response if articleId is not a number', stringId);
+    it('test response if there is no article matching the given id', noMatchArticle);
+    it('test response if you are trying to delete an article which is not yours', articleNotYours);
+    it('test response given incomplete information', givenIncompleteInfo);
     it('test response given all required information', () => {
       chai
         .request(app)
@@ -190,69 +173,12 @@ const articlesSpec = {
     });
   },
   delete() {
-    it('test response given no token', () => {
-      chai
-        .request(app)
-        .delete(`/api/v1/articles/${fakeArticle.id}`)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(401);
-          expect(body.status).to.equals(401);
-          expect(body.error).to.equals('Unauthorized: You need to have a token');
-        });
-    });
-
-    it('test response given invalid token', () => {
-      chai
-        .request(app)
-        .delete(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', 'invalid')
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-        });
-    });
-
-    it('test response if there is no article by this user', () => {
-      chai
-        .request(app)
-        .delete(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', token)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal(`Dear ${fakeUser.lastName} you have not created any articles yet!`);
-        });
-    });
-
-    it('test response if there is no article matching the given id', () => {
-      chai
-        .request(app)
-        .delete('/api/v1/articles/invalidId')
-        .set('x-access-token', token2)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal('Article with given id does not exists');
-        });
-    });
-
-    it('test response if you are trying to delete an article which is not yours', () => {
-      chai
-        .request(app)
-        .delete(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', token2)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(403);
-          expect(body.status).to.equals(403);
-          expect(body.error).to.equal('Forbidden: An article you are trying to delete is not yours');
-        });
-    });
+    it('test response given no token', givenNoToken);
+    it('test response given invalid token', givenInvalidToken);
+    it('test response if there is no article by this user', noArticleByUser);
+    it('test response if articleId is not a number', stringId);
+    it('test response if there is no article matching the given id', noMatchArticle);
+    it('test response if you are trying to delete an article which is not yours', articleNotYours);
     it('test response if given information are correct', () => {
       chai
         .request(app)
@@ -264,31 +190,8 @@ const articlesSpec = {
     });
   },
   feeds() {
-    it('test response given no token', () => {
-      chai
-        .request(app)
-        .get('/api/v1/feeds')
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(401);
-          expect(body.status).to.equals(401);
-          expect(body.error).to.equals('Unauthorized: You need to have a token');
-        });
-    });
-
-    it('test response given invalid token', () => {
-      chai
-        .request(app)
-        .get('/api/v1/feeds')
-        .set('x-access-token', 'invalid')
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-        });
-    });
-
+    it('test response given no token', givenNoToken);
+    it('test response given invalid token', givenInvalidToken);
     it('test reaponse given the correct token', () => {
       chai
         .request(app)
@@ -304,62 +207,11 @@ const articlesSpec = {
     });
   },
   addComment() {
-    it('test response given no token', () => {
-      chai
-        .request(app)
-        .post(`/api/v1/articles/${fakeArticle.id}/comments`)
-        .send(commentPayload)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(401);
-          expect(body.status).to.equals(401);
-          expect(body.error).to.equals('Unauthorized: You need to have a token');
-        });
-    });
-
-    it('test response given invalid token', () => {
-      chai
-        .request(app)
-        .post(`/api/v1/articles/${fakeArticle.id}/comments`)
-        .set('x-access-token', 'invalid')
-        .send(commentPayload)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-        });
-    });
-
-    it('test response if there is no article matching the given id', () => {
-      chai
-        .request(app)
-        .post('/api/v1/articles/invalidId/comments')
-        .set('x-access-token', token)
-        .send(commentPayload)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal('Article with given id does not exists');
-        });
-    });
-
-    it('test response given incomplete information', () => {
-      chai
-        .request(app)
-        .post(`/api/v1/articles/${fakeArticle.id}/comments`)
-        .set('x-access-token', token)
-        .send({})
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-          expect(body.error).to.have.lengthOf.at.least(10);
-        });
-    });
-
+    it('test response given no token', givenNoToken);
+    it('test response given invalid token', givenInvalidToken);
+    it('test response if articleId is not a number', stringId);
+    it('test response if there is no article matching the given id', noMatchArticle);
+    it('test response given incomplete information', givenIncompleteInfo);
     it('test response given all required information', () => {
       chai
         .request(app)
@@ -376,44 +228,9 @@ const articlesSpec = {
     });
   },
   getOne() {
-    it('test response given no token', () => {
-      chai
-        .request(app)
-        .get('/api/v1/articles/2')
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(401);
-          expect(body.status).to.equals(401);
-          expect(body.error).to.equals('Unauthorized: You need to have a token');
-        });
-    });
-
-    it('test response given invalid token', () => {
-      chai
-        .request(app)
-        .get('/api/v1/articles/2')
-        .set('x-access-token', 'invalid')
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(400);
-          expect(body.status).to.equals(400);
-          expect(body.error).to.be.a('string');
-        });
-    });
-
-    it('test response if there is no article matching the given id', () => {
-      chai
-        .request(app)
-        .get('/api/v1/articles/invalidId')
-        .set('x-access-token', token)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal('Article with given id does not exists');
-        });
-    });
-
+    it('test response given no token', givenNoToken);
+    it('test response given invalid token', givenInvalidToken);
+    it('test response if there is no article matching the given id', noMatchArticle);
     it('test reaponse given the correct token', () => {
       chai
         .request(app)

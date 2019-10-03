@@ -5,8 +5,7 @@ import Comment from '../helpers/Comment';
 
 const articles = {
   create(req, res) {
-    const { author } = req;
-    const { body } = req;
+    const { author, body } = req;
     const { value, error } = helper.joiArticleSchema(body);
 
     if (error) {
@@ -103,8 +102,7 @@ const articles = {
     });
   },
   edit(req, res) {
-    const { body } = req;
-    const { author } = req;
+    const { author, body } = req;
     const id = parseInt(req.params.id, 10);
 
     const authorsArticles = articlesArray.getArticles('authorId', author.id);

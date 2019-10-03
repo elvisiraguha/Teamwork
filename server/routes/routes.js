@@ -26,7 +26,7 @@ app.get('/api/v1/', (req, res) => (
 app.get('/', (req, res) => (
   res.status(200).json({
     status: 200,
-    message: 'Welcome to Teamwork API, when making routes, please start with /api/v1/',
+    message: 'Welcome to Teamwork API, start a path with /api/v1/ when making requests',
   })
 ));
 app.use('/*', (req, res) => (
