@@ -132,18 +132,15 @@ const articles = {
       });
     }
 
-    const { value, error } = helper.joiArticleSchema(body);
-
-    if (error) {
-      const errorMessage = error.details[0].message;
+    if (!body.title && !body.article) {
       return res.status(400).json({
         status: 400,
-        error: errorMessage,
+        error: 'You must provide updted article or title',
       });
     }
 
-    matchArticle.title = value.title || matchArticle.title;
-    matchArticle.article = value.article || matchArticle.article;
+    matchArticle.title = body.title || matchArticle.title;
+    matchArticle.article = body.article || matchArticle.article;
 
     res.status(200).json({
       status: 200,
