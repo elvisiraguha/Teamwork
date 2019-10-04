@@ -28,8 +28,8 @@ const authorize = (req, res, next) => {
     }
 
     if (!req.author) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         error: 'user with given token is not found',
       });
     }

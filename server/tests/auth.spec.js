@@ -32,6 +32,62 @@ const authSpec = {
       done();
     });
 
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/auth/signup')
+        .send(userPayload)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/auth/signup')
+        .send(userPayload)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .put('/api/v1/auth/signup')
+        .send(userPayload)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/auth/signup')
+        .send(userPayload)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
     it('test response given all required information', (done) => {
       chai
         .request(app)
@@ -112,6 +168,75 @@ const authSpec = {
         });
       done();
     });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/auth/signin')
+        .send({
+          password: 'iraguha',
+          email: 'iraguhaelvis@gmail.com',
+        })
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/auth/signin')
+        .send({
+          password: 'iraguha',
+          email: 'iraguhaelvis@gmail.com',
+        })
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/auth/signin')
+        .send({
+          password: 'iraguha',
+          email: 'iraguhaelvis@gmail.com',
+        })
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .put('/api/v1/auth/signin')
+        .send({
+          password: 'iraguha',
+          email: 'iraguhaelvis@gmail.com',
+        })
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
     it('test response given all required information they are correct', (done) => {
       chai
         .request(app)
