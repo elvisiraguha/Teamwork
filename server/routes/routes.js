@@ -1,11 +1,14 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import authorize from '../middleware/authController';
 import auth from '../controllers/auth';
 import articles from '../controllers/articles';
+import swaggerConf from '../../swagger.json';
 
 const app = express();
 app.use(express.json());
 
+app.get('/docs', swaggerUi.serve, swaggerUi.setup(swaggerConf));
 app.post('/api/v1/auth/signup', auth.signup);
 app.post('/api/v1/auth/signin', auth.signin);
 app.post('/api/v1/articles', authorize, articles.create);
@@ -14,7 +17,6 @@ app.delete('/api/v1/articles/:id', authorize, articles.delete);
 app.post('/api/v1/articles/:id/comments', authorize, articles.addComment);
 app.get('/api/v1/feeds', authorize, articles.getAll);
 app.get('/api/v1/articles/:id', authorize, articles.getOne);
-
 
 app.get('/api/v1/', (req, res) => (
   res.status(200).json({
