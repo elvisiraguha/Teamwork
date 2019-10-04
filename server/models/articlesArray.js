@@ -66,8 +66,8 @@ const articlesArray = {
   },
 
   getLatest() {
-    const latestArticles = this.storageArray.sort((a, b) => (
-      new Date(a.createdOn) - new Date(b.createdOn)
+    const latestArticles = this.storageArray.sort((latest, old) => (
+      new Date(old.createdOn) - new Date(latest.createdOn)
     ));
     return latestArticles;
   },
