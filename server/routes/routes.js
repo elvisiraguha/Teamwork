@@ -17,6 +17,7 @@ app.delete('/api/v1/articles/:id', authorize, articles.delete);
 app.post('/api/v1/articles/:id/comments', authorize, articles.addComment);
 app.get('/api/v1/feeds', authorize, articles.getAll);
 app.get('/api/v1/articles/:id', authorize, articles.getOne);
+app.get('/api/v1/articles', authorize, articles.findByCategory);
 
 app.get('/api/v1/', (req, res) => (
   res.status(200).json({

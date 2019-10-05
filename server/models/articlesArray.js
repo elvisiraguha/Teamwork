@@ -6,6 +6,7 @@ const articlesArray = {
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'Tue Oct 01 2019 19:59:28 GMT+0200 (Central Africa Time)',
       authorId: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
+      categories: ['nature', 'technology', 'art'],
       comments: [],
     },
     {
@@ -14,6 +15,7 @@ const articlesArray = {
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'Tue Oct 01 2019 13:59:28 GMT+0200 (Central Africa Time)',
       authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      categories: ['art'],
       comments: [],
     },
     {
@@ -22,6 +24,7 @@ const articlesArray = {
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'Tue Oct 01 2019 14:59:28 GMT+0200 (Central Africa Time)',
       authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      categories: ['art'],
       comments: [],
     },
     {
@@ -30,6 +33,7 @@ const articlesArray = {
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'Tue Oct 01 2019 15:59:28 GMT+0200 (Central Africa Time)',
       authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      categories: ['nature'],
       comments: [],
     },
     {
@@ -38,6 +42,7 @@ const articlesArray = {
       article: 'This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting, Thank you for reading hope to see you next time.',
       createdOn: 'Tue Oct 01 2019 16:59:28 GMT+0200 (Central Africa Time)',
       authorId: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      categories: ['nature'],
       comments: [],
     },
   ],
@@ -49,6 +54,11 @@ const articlesArray = {
   getArticles(key, value) {
     const articles = this.storageArray.filter(article => article[key] === value);
     return articles.length ? articles : null;
+  },
+
+  findByCategory(category) {
+    const articles = this.storageArray.filter(article => article.categories.includes(category));
+    return articles.length ? this.sortLatest(articles) : null;
   },
 
   getArticleById(id) {
@@ -65,11 +75,16 @@ const articlesArray = {
     return this.storageArray.splice(articleId, 1);
   },
 
-  getLatest() {
-    const latestArticles = this.storageArray.sort((latest, old) => (
+  sortLatest(array) {
+    const latestArticles = array.sort((latest, old) => (
       new Date(old.createdOn) - new Date(latest.createdOn)
     ));
+
     return latestArticles;
+  },
+
+  getLatest() {
+    return this.sortLatest(this.storageArray);
   },
 
   getNewId() {

@@ -174,6 +174,31 @@ const articles = {
       data: fetchedArticles,
     });
   },
+  findByCategory(req, res) {
+    const { category } = req.query;
+
+    if (!category) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Provide a category in query please!',
+      });
+    }
+
+    const fetchedArticles = articlesArray.findByCategory(category);
+
+    if (!fetchedArticles) {
+      return res.status(404).json({
+        status: 404,
+        error: 'No article belongs to the category provided',
+      });
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: fetchedArticles,
+    });
+  },
 };
 
 export default articles;
