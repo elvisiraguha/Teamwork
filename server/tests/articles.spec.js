@@ -11,6 +11,7 @@ const articlePayload = {
   title: 'My first Article',
   article: `This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting,
     Thank you for reading hope to see you next time`,
+  categories: ['art'],
 };
 
 const modifiedArticle = {
@@ -72,20 +73,6 @@ const articlesSpec = {
           expect(body.status).to.equals(400);
           expect(body.error).to.be.a('string');
           expect(body.error).to.have.lengthOf.at.least(10);
-        });
-    });
-
-    it('test response given all required information with incorrect method', () => {
-      chai
-        .request(app)
-        .get('/api/v1/articles')
-        .set('x-access-token', token2)
-        .send(articlePayload)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(405);
-          expect(body.status).to.equals(405);
-          expect(body.error).to.equal('Method not allowed');
         });
     });
 
@@ -479,6 +466,116 @@ const articlesSpec = {
       chai
         .request(app)
         .get('/api/v1/feeds')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(200);
+          expect(body.status).to.equals(200);
+          expect(body.message).to.equals('success');
+          expect(body.data).to.be.an('array');
+        });
+    });
+  },
+  findByCategory() {
+    it('test response given no token', () => {
+      chai
+        .request(app)
+        .get('/api/v1/articles?category=art')
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(401);
+          expect(body.status).to.equals(401);
+          expect(body.error).to.equals('Unauthorized: You need to have a token');
+        });
+    });
+
+    it('test response given invalid token', () => {
+      chai
+        .request(app)
+        .get('/api/v1/articles?category=art')
+        .set('x-access-token', 'invalid')
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(400);
+          expect(body.status).to.equals(400);
+          expect(body.error).to.be.a('string');
+        });
+    });
+
+    it('test response given no category in query', () => {
+      chai
+        .request(app)
+        .get('/api/v1/articles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(400);
+          expect(body.status).to.equals(400);
+          expect(body.error).to.equals('Provide a category in query please!');
+        });
+    });
+
+    it('test reaponse when no category matching the queried category', () => {
+      chai
+        .request(app)
+        .get('/api/v1/articles')
+        .query({ category: 'unavailable' })
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(404);
+          expect(body.status).to.equals(404);
+          expect(body.error).to.equals('No article belongs to the category provided');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .put('/api/v1/articles')
+        .query({ category: 'art' })
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .patch('/api/v1/articles')
+        .query({ category: 'art' })
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .delete('/api/v1/articles')
+        .query({ category: 'art' })
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token', () => {
+      chai
+        .request(app)
+        .get('/api/v1/articles')
+        .query({ category: 'art' })
         .set('x-access-token', token)
         .end((err, res) => {
           const { body } = res;

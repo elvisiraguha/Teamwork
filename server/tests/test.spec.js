@@ -13,6 +13,7 @@ describe('PATCH /articles/<articleId>', articles.edit);
 describe('DELETE /articles/<articleId>', articles.delete);
 describe('POST /api/v1/articles/<artilceId>/comments', articles.addComment);
 describe('POST /api/v1/feeds', articles.feeds);
+describe('GET /api/v1/articles', articles.findByCategory);
 
 describe('Other routes', () => {
   it('GET / should return a welcome message', (done) => {
