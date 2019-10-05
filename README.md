@@ -91,7 +91,7 @@ all requests must be given in json format
 | /api/v1/aritcles/\<articleId\>/comments | POST   | add comment on article  |
 | /api/v1/aritcles/                       | GET    | view all articles       |
 | /api/v1/aritcles/\<articleId\>          | GET    | view a specific article |
-| /api/v1/articles?category=<category> | GET | veiw articles belonging to a category |
+| /api/v1/articles?category=<category/tag> | GET | veiw articles belonging to a category |
 
 ### Read Full API Documentation [Here](https://documenter.getpostman.com/view/8269028/SVn2Nvfh?version=latest)
 ### Hosted App on Heroku <https://teamworkapi.herokuapp.com/>
