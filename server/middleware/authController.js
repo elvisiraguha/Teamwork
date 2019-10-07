@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import usersArray from '../models/usersArray';
 import articlesArray from '../models/articlesArray';
+import responseHandler from '../helpers/responses';
 
 config(0);
 
@@ -10,10 +11,7 @@ class Authorize {
     const { 'x-access-token': token } = req.headers;
 
     if (!token) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Unauthorized: You need to have a token',
-      });
+      return responseHandler.error(res, 401, 'Unauthorized: You need to have a token');
     }
 
     try {
@@ -22,26 +20,17 @@ class Authorize {
 
       if (req.params.id) {
         if (Number.isNaN(parseInt(req.params.id, 10))) {
-          return res.status(400).json({
-            status: 400,
-            error: 'articleId should be an Integer',
-          });
+          return responseHandler.error(res, 400, 'articleId should be an Integer');
         }
       }
 
       if (!req.author) {
-        return res.status(404).json({
-          status: 404,
-          error: 'user with given token is not found',
-        });
+        return responseHandler.error(res, 400, 'user with given token is not found');
       }
 
       next();
     } catch (err) {
-      return res.status(400).json({
-        status: 400,
-        error: err.message,
-      });
+      return responseHandler.error(res, 400, err.message);
     }
   }
 
@@ -49,10 +38,7 @@ class Authorize {
     const isAuthor = articlesArray.checkAuthor(req.matchArticle, req.author);
 
     if (!isAuthor) {
-      return res.status(403).json({
-        status: 403,
-        error: 'Forbidden: You are not owner of given article',
-      });
+      return responseHandler.error(res, 403, 'Forbidden: You are not owner of given article');
     }
     next();
   }

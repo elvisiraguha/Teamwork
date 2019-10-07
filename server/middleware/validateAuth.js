@@ -1,5 +1,6 @@
 import Joi from '@hapi/joi';
 import usersArray from '../models/usersArray';
+import responseHandler from '../helpers/responses';
 
 class Validate {
   static signup(req, res, next) {
@@ -18,19 +19,13 @@ class Validate {
 
     if (error) {
       const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
+      return responseHandler.error(res, 400, errorMessage);
     }
 
     const matchUser = usersArray.findUser('email', value.email);
 
     if (matchUser) {
-      return res.status(409).json({
-        status: 409,
-        error: 'User with given email already exists',
-      });
+      return responseHandler.error(res, 409, 'User with given email already exists');
     }
     req.newUser = value;
     next();
@@ -46,10 +41,7 @@ class Validate {
 
     if (error) {
       const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
+      return responseHandler.error(res, 400, errorMessage);
     }
     req.user = value;
     next();

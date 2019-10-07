@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import responseHandler from '../helpers/responses';
 
 class Validate {
   static newArticle(req, res, next) {
@@ -12,10 +13,7 @@ class Validate {
 
     if (error) {
       const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
+      return responseHandler.error(res, 400, errorMessage);
     }
 
     req.newArticle = value;
@@ -25,10 +23,7 @@ class Validate {
   static editArticle(req, res, next) {
     const { body } = req;
     if (!body.title && !body.article) {
-      return res.status(400).json({
-        status: 400,
-        error: 'You must provide updted article or title',
-      });
+      return responseHandler.error(res, 400, 'You must provide updted article or title');
     }
     next();
   }
@@ -42,10 +37,7 @@ class Validate {
 
     if (error) {
       const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
+      return responseHandler.error(res, 400, errorMessage);
     }
     req.comment = value;
     next();

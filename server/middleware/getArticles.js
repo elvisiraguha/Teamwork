@@ -1,4 +1,5 @@
 import articlesArray from '../models/articlesArray';
+import responseHandler from '../helpers/responses';
 
 class GetArticles {
   static getOne(req, res, next) {
@@ -7,10 +8,7 @@ class GetArticles {
     const matchArticle = articlesArray.getArticleById(id);
 
     if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
+      return responseHandler.error(res, 404, 'Article with given id does not exists');
     }
     req.matchArticle = matchArticle;
     next();
@@ -20,10 +18,7 @@ class GetArticles {
     const { category } = req.query;
 
     if (!category) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Provide a category in query please!',
-      });
+      return responseHandler.error(res, 400, 'Provide a category in query please!');
     }
     req.category = category;
     next();
@@ -34,10 +29,7 @@ class GetArticles {
     const authorsArticles = articlesArray.getArticles('authorId', author.id);
 
     if (!authorsArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: 'You have not created any articles Yet',
-      });
+      return responseHandler.error(res, 404, 'You have not created any articles Yet');
     }
     req.myArticles = authorsArticles;
     next();
