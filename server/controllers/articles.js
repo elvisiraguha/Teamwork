@@ -1,204 +1,77 @@
-import helper from '../helpers/helper';
 import Article from '../helpers/Article';
 import articlesArray from '../models/articlesArray';
 import Comment from '../helpers/Comment';
+import responseHandler from '../helpers/responses';
 
-const articles = {
-  create(req, res) {
-    const { author, body } = req;
-    const { value, error } = helper.joiArticleSchema(body);
+class Articles {
+  static create(req, res) {
+    const { newArticle, author } = req;
 
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
-    }
-
-    const createdArticle = new Article(value, author);
+    const createdArticle = new Article(newArticle, author);
 
     articlesArray.addArticle(createdArticle);
 
-    res.status(201).json({
-      status: 201,
-      message: 'article successfully created',
-      data: {
-        info: createdArticle,
-      },
-    });
-  },
-  addComment(req, res) {
-    const { body, author } = req;
-    const id = parseInt(req.params.id, 10);
+    return responseHandler.success(res, 201, 'article successfully created', createdArticle);
+  }
 
-    const { value, error } = helper.joiCommentSchema(body);
-
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
-    }
-
-    const matchArticle = articlesArray.getArticleById(id);
-
-    if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
-    const createdComment = new Comment(value, matchArticle, author);
-    matchArticle.comments.push(createdComment);
-
-    res.status(201).json({
-      status: 201,
-      message: 'comment successfully added',
-      data: {
-        comment: createdComment,
-        articleTitle: matchArticle.title,
-        article: matchArticle.article,
-      },
-    });
-  },
-  delete(req, res) {
-    const { author } = req;
-    const id = parseInt(req.params.id, 10);
-
-    const authorsArticles = articlesArray.getArticles('authorId', author.id);
-
-    if (!authorsArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: `Dear ${author.lastName} you have not created any articles yet!`,
-      });
-    }
-
-    const matchArticle = articlesArray.getArticleById(id);
-
-    if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
-
-    const isAuthor = articlesArray.checkAuthor(matchArticle, author);
-
-    if (!isAuthor) {
-      return res.status(403).json({
-        status: 403,
-        error: 'Forbidden: An article you are trying to delete is not yours',
-      });
-    }
+  static delete(req, res) {
+    const { matchArticle } = req;
 
     articlesArray.removeArticle(matchArticle);
 
-    return res.status(204).json({
-      status: 204,
-      message: 'article successfully deleted',
-    });
-  },
-  edit(req, res) {
-    const { author, body } = req;
-    const id = parseInt(req.params.id, 10);
+    return responseHandler.success(res, 204, 'article successfully deleted');
+  }
 
-    const authorsArticles = articlesArray.getArticles('authorId', author.id);
-
-    if (!authorsArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: `Dear ${author.lastName} you have not created any articles yet!`,
-      });
-    }
-
-    const matchArticle = articlesArray.getArticleById(id);
-
-    if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
-
-    const isAuthor = articlesArray.checkAuthor(matchArticle, author);
-
-    if (!isAuthor) {
-      return res.status(403).json({
-        status: 403,
-        error: 'Forbidden: An article you are trying to edit is not yours',
-      });
-    }
-
-    if (!body.title && !body.article) {
-      return res.status(400).json({
-        status: 400,
-        error: 'You must provide updted article or title',
-      });
-    }
+  static edit(req, res) {
+    const { matchArticle, body } = req;
 
     matchArticle.title = body.title || matchArticle.title;
     matchArticle.article = body.article || matchArticle.article;
 
-    res.status(200).json({
-      status: 200,
-      message: 'article successfully edited',
-      data: matchArticle,
+    return responseHandler.success(res, 200, 'article successfully edited', matchArticle);
+  }
+
+  static addComment(req, res) {
+    const { comment, author, matchArticle } = req;
+
+    const createdComment = new Comment(comment, matchArticle, author);
+    matchArticle.comments.push(createdComment);
+
+    return responseHandler.success(res, 201, 'comment successfully added', {
+      comment: createdComment,
+      articleTitle: matchArticle.title,
+      article: matchArticle.article,
     });
-  },
-  getAll(req, res) {
+  }
+
+  static getAll(req, res) {
     const fetchedArticles = articlesArray.getLatest();
 
-    res.status(200).json({
-      status: 200,
-      message: 'success',
-      data: fetchedArticles,
-    });
-  },
-  getOne(req, res) {
-    const id = parseInt(req.params.id, 10);
-    const fetchedArticles = articlesArray.getArticleById(id);
+    return responseHandler.success(res, 200, 'success', fetchedArticles);
+  }
 
-    if (!fetchedArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
+  static getOne(req, res) {
+    const { matchArticle } = req;
 
-    res.status(200).json({
-      status: 200,
-      message: 'success',
-      data: fetchedArticles,
-    });
-  },
-  findByCategory(req, res) {
-    const { category } = req.query;
+    return responseHandler.success(res, 200, 'success', matchArticle);
+  }
 
-    if (!category) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Provide a category in query please!',
-      });
-    }
+  static findByCategory(req, res) {
+    const { category } = req;
 
     const fetchedArticles = articlesArray.findByCategory(category);
 
     if (!fetchedArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: 'No article belongs to the category provided',
-      });
+      return responseHandler.error(res, 404, 'No article belongs to the category provided');
     }
 
-    res.status(200).json({
-      status: 200,
-      message: 'success',
-      data: fetchedArticles,
-    });
-  },
-};
+    return responseHandler.success(res, 200, 'success', fetchedArticles);
+  }
 
-export default articles;
+  static myArticles(req, res) {
+    const { myArticles } = req;
+    return responseHandler.success(res, 200, 'success', myArticles);
+  }
+}
+
+export default Articles;

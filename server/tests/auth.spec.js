@@ -1,19 +1,9 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
+import data from './mockData/users';
 
 chai.use(chaiHttp);
-
-const userPayload = {
-  firstName: 'Iraguha',
-  lastName: 'Elvis',
-  password: 'monkey123',
-  address: 'Kigali/Rwanda',
-  gender: 'Male',
-  jobRole: 'Student',
-  email: 'elvis@student.edu',
-  department: 'Production',
-};
 
 const authSpec = {
   signup() {
@@ -36,7 +26,7 @@ const authSpec = {
       chai
         .request(app)
         .get('/api/v1/auth/signup')
-        .send(userPayload)
+        .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -50,7 +40,7 @@ const authSpec = {
       chai
         .request(app)
         .patch('/api/v1/auth/signup')
-        .send(userPayload)
+        .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -64,7 +54,7 @@ const authSpec = {
       chai
         .request(app)
         .put('/api/v1/auth/signup')
-        .send(userPayload)
+        .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -78,7 +68,7 @@ const authSpec = {
       chai
         .request(app)
         .delete('/api/v1/auth/signup')
-        .send(userPayload)
+        .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -92,7 +82,7 @@ const authSpec = {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
-        .send(userPayload)
+        .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(201);
@@ -108,7 +98,7 @@ const authSpec = {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
-        .send(userPayload)
+        .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(409);
@@ -139,10 +129,7 @@ const authSpec = {
       chai
         .request(app)
         .post('/api/v1/auth/signin')
-        .send({
-          password: 'iraguha',
-          email: 'iraguhaelvis@student.com',
-        })
+        .send(data.nonExistingUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(404);
@@ -156,10 +143,7 @@ const authSpec = {
       chai
         .request(app)
         .post('/api/v1/auth/signin')
-        .send({
-          password: 'invalid',
-          email: 'iraguhaelvis@gmail.com',
-        })
+        .send(data.existingUserPasswdIncorrect)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(401);
@@ -173,10 +157,7 @@ const authSpec = {
       chai
         .request(app)
         .get('/api/v1/auth/signin')
-        .send({
-          password: 'iraguha',
-          email: 'iraguhaelvis@gmail.com',
-        })
+        .send(data.existingUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -190,10 +171,7 @@ const authSpec = {
       chai
         .request(app)
         .delete('/api/v1/auth/signin')
-        .send({
-          password: 'iraguha',
-          email: 'iraguhaelvis@gmail.com',
-        })
+        .send(data.existingUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -207,10 +185,7 @@ const authSpec = {
       chai
         .request(app)
         .patch('/api/v1/auth/signin')
-        .send({
-          password: 'iraguha',
-          email: 'iraguhaelvis@gmail.com',
-        })
+        .send(data.existingUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -224,10 +199,7 @@ const authSpec = {
       chai
         .request(app)
         .put('/api/v1/auth/signin')
-        .send({
-          password: 'iraguha',
-          email: 'iraguhaelvis@gmail.com',
-        })
+        .send(data.existingUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -241,10 +213,7 @@ const authSpec = {
       chai
         .request(app)
         .post('/api/v1/auth/signin')
-        .send({
-          password: 'iraguha',
-          email: 'iraguhaelvis@gmail.com',
-        })
+        .send(data.existingUser)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(200);
