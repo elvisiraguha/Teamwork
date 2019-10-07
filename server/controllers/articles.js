@@ -1,22 +1,12 @@
-import helper from '../helpers/helper';
 import Article from '../helpers/Article';
 import articlesArray from '../models/articlesArray';
 import Comment from '../helpers/Comment';
 
-const articles = {
-  create(req, res) {
-    const { author, body } = req;
-    const { value, error } = helper.joiArticleSchema(body);
+class Articles {
+  static create(req, res) {
+    const { newArticle, author } = req;
 
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
-    }
-
-    const createdArticle = new Article(value, author);
+    const createdArticle = new Article(newArticle, author);
 
     articlesArray.addArticle(createdArticle);
 
@@ -27,30 +17,36 @@ const articles = {
         info: createdArticle,
       },
     });
-  },
-  addComment(req, res) {
-    const { body, author } = req;
-    const id = parseInt(req.params.id, 10);
+  }
 
-    const { value, error } = helper.joiCommentSchema(body);
+  static delete(req, res) {
+    const { matchArticle } = req;
 
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
-    }
+    articlesArray.removeArticle(matchArticle);
 
-    const matchArticle = articlesArray.getArticleById(id);
+    return res.status(204).json({
+      status: 204,
+      message: 'article successfully deleted',
+    });
+  }
 
-    if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
-    const createdComment = new Comment(value, matchArticle, author);
+  static edit(req, res) {
+    const { matchArticle, body } = req;
+
+    matchArticle.title = body.title || matchArticle.title;
+    matchArticle.article = body.article || matchArticle.article;
+
+    res.status(200).json({
+      status: 200,
+      message: 'article successfully edited',
+      data: matchArticle,
+    });
+  }
+
+  static addComment(req, res) {
+    const { comment, author, matchArticle } = req;
+
+    const createdComment = new Comment(comment, matchArticle, author);
     matchArticle.comments.push(createdComment);
 
     res.status(201).json({
@@ -62,93 +58,9 @@ const articles = {
         article: matchArticle.article,
       },
     });
-  },
-  delete(req, res) {
-    const { author } = req;
-    const id = parseInt(req.params.id, 10);
+  }
 
-    const authorsArticles = articlesArray.getArticles('authorId', author.id);
-
-    if (!authorsArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: `Dear ${author.lastName} you have not created any articles yet!`,
-      });
-    }
-
-    const matchArticle = articlesArray.getArticleById(id);
-
-    if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
-
-    const isAuthor = articlesArray.checkAuthor(matchArticle, author);
-
-    if (!isAuthor) {
-      return res.status(403).json({
-        status: 403,
-        error: 'Forbidden: An article you are trying to delete is not yours',
-      });
-    }
-
-    articlesArray.removeArticle(matchArticle);
-
-    return res.status(204).json({
-      status: 204,
-      message: 'article successfully deleted',
-    });
-  },
-  edit(req, res) {
-    const { author, body } = req;
-    const id = parseInt(req.params.id, 10);
-
-    const authorsArticles = articlesArray.getArticles('authorId', author.id);
-
-    if (!authorsArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: `Dear ${author.lastName} you have not created any articles yet!`,
-      });
-    }
-
-    const matchArticle = articlesArray.getArticleById(id);
-
-    if (!matchArticle) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
-
-    const isAuthor = articlesArray.checkAuthor(matchArticle, author);
-
-    if (!isAuthor) {
-      return res.status(403).json({
-        status: 403,
-        error: 'Forbidden: An article you are trying to edit is not yours',
-      });
-    }
-
-    if (!body.title && !body.article) {
-      return res.status(400).json({
-        status: 400,
-        error: 'You must provide updted article or title',
-      });
-    }
-
-    matchArticle.title = body.title || matchArticle.title;
-    matchArticle.article = body.article || matchArticle.article;
-
-    res.status(200).json({
-      status: 200,
-      message: 'article successfully edited',
-      data: matchArticle,
-    });
-  },
-  getAll(req, res) {
+  static getAll(req, res) {
     const fetchedArticles = articlesArray.getLatest();
 
     res.status(200).json({
@@ -156,33 +68,20 @@ const articles = {
       message: 'success',
       data: fetchedArticles,
     });
-  },
-  getOne(req, res) {
-    const id = parseInt(req.params.id, 10);
-    const fetchedArticles = articlesArray.getArticleById(id);
+  }
 
-    if (!fetchedArticles) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Article with given id does not exists',
-      });
-    }
+  static getOne(req, res) {
+    const { matchArticle } = req;
 
     res.status(200).json({
       status: 200,
       message: 'success',
-      data: fetchedArticles,
+      data: matchArticle,
     });
-  },
-  findByCategory(req, res) {
-    const { category } = req.query;
+  }
 
-    if (!category) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Provide a category in query please!',
-      });
-    }
+  static findByCategory(req, res) {
+    const { category } = req;
 
     const fetchedArticles = articlesArray.findByCategory(category);
 
@@ -198,7 +97,17 @@ const articles = {
       message: 'success',
       data: fetchedArticles,
     });
-  },
-};
+  }
 
-export default articles;
+  static myArticles(req, res) {
+    const { myArticles } = req;
+
+    res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: myArticles,
+    });
+  }
+}
+
+export default Articles;

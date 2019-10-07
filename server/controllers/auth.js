@@ -2,29 +2,9 @@ import helper from '../helpers/helper';
 import User from '../helpers/User';
 import usersArray from '../models/usersArray';
 
-const auth = {
-  signup(req, res) {
-    const { body } = req;
-    const { value, error } = helper.joiSignupSchema(body);
-
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
-    }
-
-    const matchUser = usersArray.findUser('email', body.email);
-
-    if (matchUser) {
-      return res.status(409).json({
-        status: 409,
-        error: 'User with given email already exists',
-      });
-    }
-
-    const createdUser = new User(value);
+class Auth {
+  static signup(req, res) {
+    const createdUser = new User(req.newUser);
     usersArray.addUser(createdUser);
 
     const token = helper.generateToken(createdUser);
@@ -34,23 +14,12 @@ const auth = {
       message: 'User created successfully',
       data: {
         token,
-        info: createdUser.dislayUser(),
       },
     });
-  },
-  signin(req, res) {
-    const { body } = req;
-    const { error } = helper.joiSigninSchema(body);
+  }
 
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return res.status(400).json({
-        status: 400,
-        error: errorMessage,
-      });
-    }
-
-    const matchUser = usersArray.findUser('email', body.email);
+  static signin(req, res) {
+    const matchUser = usersArray.findUser('email', req.user.email);
 
     if (!matchUser) {
       return res.status(404).json({
@@ -59,7 +28,7 @@ const auth = {
       });
     }
 
-    const isValidPassword = helper.comparePassword(body.password, matchUser.password);
+    const isValidPassword = helper.comparePassword(req.user.password, matchUser.password);
 
     if (!isValidPassword) {
       return res.status(401).json({
@@ -77,7 +46,7 @@ const auth = {
         token,
       },
     });
-  },
-};
+  }
+}
 
-export default auth;
+export default Auth;

@@ -14,6 +14,7 @@ describe('DELETE /articles/<articleId>', articles.delete);
 describe('POST /api/v1/articles/<artilceId>/comments', articles.addComment);
 describe('POST /api/v1/feeds', articles.feeds);
 describe('GET /api/v1/articles', articles.findByCategory);
+describe('GET /api/v1/myarticles', articles.myarticles);
 
 describe('Other routes', () => {
   it('any others routes which are not specified', (done) => {

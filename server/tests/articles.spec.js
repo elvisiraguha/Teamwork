@@ -1,36 +1,19 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import helper from '../helpers/helper';
-import usersArray from '../models/usersArray';
-import articlesArray from '../models/articlesArray';
+import data from './mockData/articles';
 
 chai.use(chaiHttp);
 
-const articlePayload = {
-  title: 'My first Article',
-  article: `This is the very beginning of my writing journey, Although it seems to be hard I will keep fighting,
-    Thank you for reading hope to see you next time`,
-  categories: ['art'],
-};
-
-const modifiedArticle = {
-  title: 'My first Article',
-  article: 'This is a modified version of my article',
-};
-
-const commentPayload = {
-  comment: 'Thank you very much for this article',
-};
-
-const fakeUser = usersArray.storageArray[0];
-const fakeUser2 = usersArray.storageArray[1];
-
-const token = helper.generateToken(fakeUser);
-const token2 = helper.generateToken(fakeUser2);
-
-const fakeArticle = articlesArray.storageArray[0];
-const fakeArticle2 = articlesArray.storageArray[3];
+const {
+  article,
+  modifiedArticle,
+  comment,
+  fakeArticle,
+  fakeArticle2,
+  token,
+  token2,
+} = data;
 
 const articlesSpec = {
   create() {
@@ -38,7 +21,7 @@ const articlesSpec = {
       chai
         .request(app)
         .post('/api/v1/articles')
-        .send(articlePayload)
+        .send(article)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(401);
@@ -52,7 +35,7 @@ const articlesSpec = {
         .request(app)
         .post('/api/v1/articles')
         .set('x-access-token', 'invalid')
-        .send(articlePayload)
+        .send(article)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(400);
@@ -81,7 +64,7 @@ const articlesSpec = {
         .request(app)
         .put('/api/v1/articles')
         .set('x-access-token', token2)
-        .send(articlePayload)
+        .send(article)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -95,7 +78,7 @@ const articlesSpec = {
         .request(app)
         .patch('/api/v1/articles')
         .set('x-access-token', token2)
-        .send(articlePayload)
+        .send(article)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -109,7 +92,7 @@ const articlesSpec = {
         .request(app)
         .delete('/api/v1/articles')
         .set('x-access-token', token2)
-        .send(articlePayload)
+        .send(article)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -123,7 +106,7 @@ const articlesSpec = {
         .request(app)
         .post('/api/v1/articles')
         .set('x-access-token', token2)
-        .send(articlePayload)
+        .send(article)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(201);
@@ -158,20 +141,6 @@ const articlesSpec = {
           expect(res).to.have.status(400);
           expect(body.status).to.equals(400);
           expect(body.error).to.be.a('string');
-        });
-    });
-
-    it('test response if there is no article by this user', () => {
-      chai
-        .request(app)
-        .patch(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', token)
-        .send(modifiedArticle)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal(`Dear ${fakeUser.lastName} you have not created any articles yet!`);
         });
     });
 
@@ -212,7 +181,7 @@ const articlesSpec = {
           const { body } = res;
           expect(res).to.have.status(403);
           expect(body.status).to.equals(403);
-          expect(body.error).to.equal('Forbidden: An article you are trying to delete is not yours');
+          expect(body.error).to.equal('Forbidden: You are not owner of given article');
         });
     });
 
@@ -300,19 +269,6 @@ const articlesSpec = {
         });
     });
 
-    it('test response if there is no article by this user', () => {
-      chai
-        .request(app)
-        .delete(`/api/v1/articles/${fakeArticle.id}`)
-        .set('x-access-token', token)
-        .end((err, res) => {
-          const { body } = res;
-          expect(res).to.have.status(404);
-          expect(body.status).to.equals(404);
-          expect(body.error).to.equal(`Dear ${fakeUser.lastName} you have not created any articles yet!`);
-        });
-    });
-
     it('test response if the articleId is not a number', () => {
       chai
         .request(app)
@@ -348,7 +304,7 @@ const articlesSpec = {
           const { body } = res;
           expect(res).to.have.status(403);
           expect(body.status).to.equals(403);
-          expect(body.error).to.equal('Forbidden: An article you are trying to delete is not yours');
+          expect(body.error).to.equal('Forbidden: You are not owner of given article');
         });
     });
 
@@ -591,7 +547,7 @@ const articlesSpec = {
       chai
         .request(app)
         .post(`/api/v1/articles/${fakeArticle.id}/comments`)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(401);
@@ -605,7 +561,7 @@ const articlesSpec = {
         .request(app)
         .post(`/api/v1/articles/${fakeArticle.id}/comments`)
         .set('x-access-token', 'invalid')
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(400);
@@ -619,7 +575,7 @@ const articlesSpec = {
         .request(app)
         .post('/api/v1/articles/r/comments')
         .set('x-access-token', token2)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(400);
@@ -633,7 +589,7 @@ const articlesSpec = {
         .request(app)
         .post('/api/v1/articles/900/comments')
         .set('x-access-token', token)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(404);
@@ -662,7 +618,7 @@ const articlesSpec = {
         .request(app)
         .get(`/api/v1/articles/${fakeArticle.id}/comments`)
         .set('x-access-token', token)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -676,7 +632,7 @@ const articlesSpec = {
         .request(app)
         .put(`/api/v1/articles/${fakeArticle.id}/comments`)
         .set('x-access-token', token)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -690,7 +646,7 @@ const articlesSpec = {
         .request(app)
         .patch(`/api/v1/articles/${fakeArticle.id}/comments`)
         .set('x-access-token', token)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -704,7 +660,7 @@ const articlesSpec = {
         .request(app)
         .delete(`/api/v1/articles/${fakeArticle.id}/comments`)
         .set('x-access-token', token)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
@@ -718,7 +674,7 @@ const articlesSpec = {
         .request(app)
         .post(`/api/v1/articles/${fakeArticle.id}/comments`)
         .set('x-access-token', token)
-        .send(commentPayload)
+        .send(comment)
         .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(201);
@@ -820,6 +776,111 @@ const articlesSpec = {
           expect(body.status).to.equals(200);
           expect(body.message).to.equals('success');
           expect(body.data).to.be.an('object');
+        });
+    });
+  },
+  myarticles() {
+    it('test response given no token', () => {
+      chai
+        .request(app)
+        .get('/api/v1/myarticles')
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(401);
+          expect(body.status).to.equals(401);
+          expect(body.error).to.equals('Unauthorized: You need to have a token');
+        });
+    });
+
+    it('test response given invalid token', () => {
+      chai
+        .request(app)
+        .get('/api/v1/myarticles')
+        .set('x-access-token', 'invalid')
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(400);
+          expect(body.status).to.equals(400);
+          expect(body.error).to.be.a('string');
+        });
+    });
+
+    it('test response when there are no articles by user', () => {
+      chai
+        .request(app)
+        .get('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(404);
+          expect(body.status).to.equals(404);
+          expect(body.error).to.equals('You have not created any articles Yet');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .post('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .put('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .patch('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .delete('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token', () => {
+      chai
+        .request(app)
+        .get('/api/v1/myarticles')
+        .set('x-access-token', token2)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(200);
+          expect(body.status).to.equals(200);
+          expect(body.message).to.equals('success');
+          expect(body.data).to.be.an('array');
         });
     });
   },
