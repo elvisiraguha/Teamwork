@@ -5,13 +5,13 @@ import articlesRouter from './articles';
 const router = express.Router();
 router.use(express.json());
 
-router.use('/auth', authRouter);
-router.use('/', articlesRouter);
+router.use('/api/v1/auth', authRouter);
+router.use('/api/v1/', articlesRouter);
 
-router.get('/', (req, res) => (
-  res.status(200).json({
-    status: 200,
-    message: 'Welcome to Teamwork API',
+router.use('/*', (req, res) => (
+  res.status(405).json({
+    status: 405,
+    error: 'Method not allowed',
   })
 ));
 
