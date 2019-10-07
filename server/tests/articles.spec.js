@@ -724,7 +724,9 @@ const articlesSpec = {
           expect(res).to.have.status(201);
           expect(body.status).to.equals(201);
           expect(body.message).to.equal('comment successfully added');
-          expect(body.data).to.be.an('object');
+          expect(body.data.comment).to.be.an('object');
+          expect(body.data.articleTitle).to.be.a('string');
+          expect(body.data.article).to.be.a('string');
         });
     });
   },
