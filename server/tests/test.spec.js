@@ -16,32 +16,6 @@ describe('POST /api/v1/feeds', articles.feeds);
 describe('GET /api/v1/articles', articles.findByCategory);
 
 describe('Other routes', () => {
-  it('GET / should return a welcome message', (done) => {
-    chai
-      .request(app)
-      .get('/')
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(200);
-        expect(body.status).to.equals(200);
-        expect(body.message).to.equals('Welcome to Teamwork API, start a path with /api/v1/ when making requests');
-      });
-    done();
-  });
-
-  it('GEt /api/v1 should return a welcome message', (done) => {
-    chai
-      .request(app)
-      .get('/api/v1/')
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(200);
-        expect(body.status).to.equals(200);
-        expect(body.message).to.equals('Welcome to Teamwork API');
-      });
-    done();
-  });
-
   it('any others routes which are not specified', (done) => {
     chai
       .request(app)

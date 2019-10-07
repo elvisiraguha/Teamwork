@@ -1,7 +1,7 @@
 const usersArray = {
   storageArray: [
     {
-      id: '1964ec18-8458-40af-9f2d-9d034665e6a4',
+      id: '1',
       firstName: 'Elvis',
       lastName: 'Iraguha',
       email: 'iraguhaelvis@gmail.com',
@@ -13,7 +13,7 @@ const usersArray = {
       isAdmin: true,
     },
     {
-      id: '538bdd77-38af-4928-9bb0-d02461c7da34',
+      id: '2',
       firstName: 'Olivier',
       lastName: 'Nshimiyimana',
       email: 'nshimiye@student.edu',
@@ -25,7 +25,7 @@ const usersArray = {
       isAdmin: false,
     },
     {
-      id: 'dd7f21c1-b92c-4703-a6d9-3ec03eef4da9',
+      id: '3',
       firstName: 'Seth',
       lastName: 'Bizimana',
       email: 'bizimana@student.edu',
@@ -44,6 +44,10 @@ const usersArray = {
 
   findUser(key, value) {
     return this.storageArray.find(user => user[key] === value);
+  },
+
+  getNextId() {
+    return this.storageArray.length + 1;
   },
 };
 

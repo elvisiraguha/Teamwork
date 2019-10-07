@@ -1,9 +1,9 @@
-import uuid from 'uuid';
 import helper from './helper';
+import usersArray from '../models/usersArray';
 
 class User {
   constructor(user) {
-    this.id = uuid();
+    this.id = usersArray.getNextId();
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.email = user.email;
