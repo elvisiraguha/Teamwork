@@ -1,5 +1,5 @@
-import usersArray from '../../models/usersArray';
-import articlesArray from '../../models/articlesArray';
+import usersArray from '../../models/dataStructure/usersArray';
+import articlesArray from '../../models/dataStructure/articlesArray';
 import helper from '../../helpers/helper';
 
 const data = {

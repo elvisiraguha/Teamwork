@@ -1,5 +1,5 @@
-import articlesArray from '../models/articlesArray';
-import responseHandler from '../helpers/responses';
+import articlesArray from '../../models/dataStructure/articlesArray';
+import responseHandler from '../../helpers/responses';
 
 class GetArticles {
   static getOne(req, res, next) {

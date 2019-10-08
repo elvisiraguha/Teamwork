@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import usersArray from '../models/usersArray';
-import articlesArray from '../models/articlesArray';
-import responseHandler from '../helpers/responses';
+import usersArray from '../../models/dataStructure/usersArray';
+import articlesArray from '../../models/dataStructure/articlesArray';
+import responseHandler from '../../helpers/responses';
 
 config(0);
 

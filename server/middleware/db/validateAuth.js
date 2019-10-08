@@ -1,9 +1,9 @@
 import Joi from '@hapi/joi';
-import usersArray from '../models/usersArray';
-import responseHandler from '../helpers/responses';
+import responseHandler from '../../helpers/responses';
+import connect from '../../models/db/connectToDB';
 
 class Validate {
-  static signup(req, res, next) {
+  static signupSchema(req, res, next) {
     const schema = Joi.object({
       firstName: Joi.string().required().min(3).trim(),
       lastName: Joi.string().required().min(3).trim(),
@@ -22,28 +22,19 @@ class Validate {
       return responseHandler.error(res, 400, errorMessage);
     }
 
-    const matchUser = usersArray.findUser('email', value.email);
-
-    if (matchUser) {
-      return responseHandler.error(res, 409, 'User with given email already exists');
-    }
     req.newUser = value;
     next();
   }
 
-  static signin(req, res, next) {
-    const schema = Joi.object({
-      email: Joi.string().required().min(10).trim(),
-      password: Joi.string().required().trim(),
-    });
-
-    const { value, error } = schema.validate(req.body);
-
-    if (error) {
-      const errorMessage = error.details[0].message;
-      return responseHandler.error(res, 400, errorMessage);
+  static async isUserExist(req, res, next) {
+    const dbQuery = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values: [req.newUser.email],
+    };
+    const matchUser = await connect.connectToDB(dbQuery);
+    if (matchUser) {
+      return responseHandler.error(res, 409, 'User with given email already exists');
     }
-    req.user = value;
     next();
   }
 }

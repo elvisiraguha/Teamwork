@@ -1,7 +1,7 @@
-import helper from '../helpers/helper';
-import User from '../helpers/User';
-import usersArray from '../models/usersArray';
-import responseHandler from '../helpers/responses';
+import helper from '../../helpers/helper';
+import User from '../../helpers/dataStructure/User';
+import usersArray from '../../models/dataStructure/usersArray';
+import responseHandler from '../../helpers/responses';
 
 class Auth {
   static signup(req, res) {

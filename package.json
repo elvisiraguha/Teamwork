@@ -4,11 +4,12 @@
   "description": "Teamwork is an internal social network for organizations employees.",
   "main": "server/server.js",
   "scripts": {
-    "start": "babel-watch server/server.js",
-    "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
+    "start": "nodemon --exec babel-node server/server.js",
+    "pretest": "babel-node server/models/db/createTables",
+    "test": "nyc mocha --require babel-polyfill --require @babel/register server/tests/test.spec.js --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server -d dist",
-    "create:tables": "babel-node server/database/createTables"
+    "create:tables": "babel-node server/models/db/createTables"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "@babel/core": "7.6.2",
     "@babel/preset-env": "7.6.2",
     "@babel/register": "7.6.2",
+    "babel-polyfill": "6.26.0",
     "babel-watch": "7.0.0",
     "braces": "3.0.2",
     "chai": "4.2.0",

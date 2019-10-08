@@ -5,7 +5,7 @@ config();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 const users = () => {
-  const queryString = `
+  const queryString = `DROP TABLE users;
   CREATE TABLE IF NOT EXISTS users
   (
     id SERIAL PRIMARY KEY,
@@ -16,12 +16,13 @@ const users = () => {
     gender VARCHAR(128) NOT NULL,
     jobRole VARCHAR(128) NOT NULL,
     address VARCHAR(128) NOT NULL,
-    department VARCHAR(128) NOT NULL
+    department VARCHAR(128) NOT NULL,
+    isAdmin BOOLEAN
   )`;
 
   pool.query(queryString)
-    .then((result) => console.log(result))
-    .catch((error) => console.log(error))
+    .then((result) => result)
+    .catch((error) => error)
     .finally(() => pool.end());
 };
 
