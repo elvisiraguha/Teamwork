@@ -6,9 +6,9 @@
   "scripts": {
     "start": "nodemon --exec babel-node server/server.js",
     "pretest": "babel-node server/models/db/createTables",
-    "test": "nyc mocha --require @babel/polyfill --require @babel/register server/tests/test.spec.js --exit",
+    "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel --require @babel/polyfill server -d dist",
+    "build": "babel server -d dist",
     "create:tables": "babel-node server/models/db/createTables",
     "migrate": "node dist/models/db/createTables"
   },
@@ -45,7 +45,8 @@
   },
   "dependencies": {
     "@babel/cli": "7.6.2",
-    "@babel/polyfill": "^7.6.0",
+    "@babel/plugin-transform-runtime": "7.6.2",
+    "@babel/runtime": "7.6.2",
     "@hapi/joi": "16.1.4",
     "bcrypt": "3.0.6",
     "dotenv": "8.1.0",
