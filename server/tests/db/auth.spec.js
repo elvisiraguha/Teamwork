@@ -6,8 +6,8 @@ import data from '../mockData/users';
 chai.use(chaiHttp);
 
 const baseURL = '/api/v2/auth';
-const authSpec = {
-  signup() {
+class AuthSpec {
+  static signup() {
     it('test response given incomplete information or no information', (done) => {
       chai
         .request(app)
@@ -95,7 +95,7 @@ const authSpec = {
       done();
     });
 
-    it('test response given the used email address', (done) => {
+    it.skip('test response given the used email address', (done) => {
       chai
         .request(app)
         .post(`${baseURL}/signup`)
@@ -108,7 +108,124 @@ const authSpec = {
         });
       done();
     });
-  },
-};
+  }
 
-export default authSpec;
+  static signin() {
+    it('test response given incomplete information', (done) => {
+      chai
+        .request(app)
+        .post(`${baseURL}/signin`)
+        .send({})
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(400);
+          expect(body.status).to.equals(400);
+          expect(body.error).to.be.a('string');
+          expect(body.error).to.have.lengthOf.at.least(10);
+        });
+      done();
+    });
+
+    it('test response given email address which dont exist', (done) => {
+      chai
+        .request(app)
+        .post(`${baseURL}/signin`)
+        .send(data.nonExistingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(404);
+          expect(body.status).to.equals(404);
+          expect(body.error).to.equals('User with given email does not exists');
+        });
+      done();
+    });
+
+    it('test response given invalid password', (done) => {
+      chai
+        .request(app)
+        .post(`${baseURL}/signin`)
+        .send(data.existingUserPasswdIncorrect)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(401);
+          expect(body.status).to.equals(401);
+          expect(body.error).to.equals('Given password is incorrect');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .get(`${baseURL}/signin`)
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .delete(`${baseURL}/signin`)
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .patch(`${baseURL}/signin`)
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .put(`${baseURL}/signin`)
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct', (done) => {
+      chai
+        .request(app)
+        .post(`${baseURL}/signin`)
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(200);
+          expect(body.status).to.equals(200);
+          expect(body.message).to.equal('User is successfully logged in');
+          expect(body.data).to.be.an('object');
+          expect(body.data.token).to.be.a('string');
+        });
+      done();
+    });
+  }
+}
+
+export default AuthSpec;

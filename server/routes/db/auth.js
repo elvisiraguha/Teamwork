@@ -11,5 +11,11 @@ router.post(
   validate.isUserExist,
   auth.signup,
 );
+router.post(
+  '/signin',
+  validate.signinSchema,
+  validate.isAUser,
+  auth.signin,
+);
 
 export default router;
