@@ -26,9 +26,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
+    "@babel/node": "7.6.2",
     "@babel/preset-env": "7.6.2",
     "@babel/register": "7.6.2",
-    "babel-node": "0.0.1-security",
     "babel-polyfill": "6.26.0",
     "babel-watch": "7.0.0",
     "braces": "3.0.2",
@@ -39,6 +39,7 @@
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
     "mocha": "6.2.0",
+    "nodemon": "1.19.3",
     "nyc": "14.1.1"
   },
   "dependencies": {
