@@ -1,4 +1,4 @@
-import articlesArray from '../models/articlesArray';
+import articlesArray from '../../models/dataStructure/articlesArray';
 
 class Article {
   constructor(article, author) {

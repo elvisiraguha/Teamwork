@@ -16,6 +16,20 @@ const helper = {
   comparePassword(password, hashedPassword) {
     return bcrypt.compareSync(password, hashedPassword);
   },
+
+  destructureNewUser(newUser) {
+    return [
+      newUser.firstName,
+      newUser.lastName,
+      newUser.email,
+      this.hashPassword(newUser.password),
+      newUser.gender,
+      newUser.jobRole,
+      newUser.address,
+      newUser.department,
+      false,
+    ];
+  },
 };
 
 export default helper;

@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../controllers/auth';
-import validate from '../middleware/validateAuth';
+import auth from '../../controllers/dataStructure/auth';
+import validate from '../../middleware/dataStructure/validateAuth';
 
 const router = express.Router();
 router.use(express.json());

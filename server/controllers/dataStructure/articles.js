@@ -1,7 +1,7 @@
-import Article from '../helpers/Article';
-import articlesArray from '../models/articlesArray';
-import Comment from '../helpers/Comment';
-import responseHandler from '../helpers/responses';
+import Article from '../../helpers/dataStructure/Article';
+import articlesArray from '../../models/dataStructure/articlesArray';
+import Comment from '../../helpers/dataStructure/Comment';
+import responseHandler from '../../helpers/responses';
 
 class Articles {
   static create(req, res) {

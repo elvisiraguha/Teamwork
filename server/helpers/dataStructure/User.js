@@ -1,5 +1,5 @@
-import helper from './helper';
-import usersArray from '../models/usersArray';
+import helper from '../helper';
+import usersArray from '../../models/dataStructure/usersArray';
 
 class User {
   constructor(user) {

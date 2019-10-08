@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
-import usersArray from '../models/usersArray';
-import responseHandler from '../helpers/responses';
+import usersArray from '../../models/dataStructure/usersArray';
+import responseHandler from '../../helpers/responses';
 
 class Validate {
   static signup(req, res, next) {

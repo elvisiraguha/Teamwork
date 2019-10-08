@@ -1,8 +1,9 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import auth from './auth.spec';
-import articles from './articles.spec';
+import auth from './dataStructure/auth.spec';
+import authDB from './db/auth.spec';
+import articles from './dataStructure/articles.spec';
 
 chai.use(chaiHttp);
 
@@ -15,6 +16,7 @@ describe('POST /api/v1/articles/<artilceId>/comments', articles.addComment);
 describe('POST /api/v1/feeds', articles.feeds);
 describe('GET /api/v1/articles', articles.findByCategory);
 describe('GET /api/v1/myarticles', articles.myarticles);
+describe('POST /api/v2/auth/signup', authDB.signup);
 
 describe('Other routes', () => {
   it('any others routes which are not specified', (done) => {
