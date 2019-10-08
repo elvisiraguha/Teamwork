@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import responseHandler from '../../helpers/responses';
-import connect from '../../models/db/connectToDB';
+import connectToDB from '../../models/db/connectToDB';
 
 class Validate {
   static signupSchema(req, res, next) {
@@ -27,11 +27,7 @@ class Validate {
   }
 
   static async isUserExist(req, res, next) {
-    const dbQuery = {
-      text: 'SELECT * FROM users WHERE email = $1',
-      values: [req.newUser.email],
-    };
-    const matchUser = await connect.connectToDB(dbQuery);
+    const matchUser = await connectToDB.select('users', 'email', req.newUser.email);
     if (matchUser) {
       return responseHandler.error(res, 409, 'User with given email already exists');
     }

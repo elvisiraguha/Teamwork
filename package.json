@@ -6,9 +6,9 @@
   "scripts": {
     "start": "nodemon --exec babel-node server/server.js",
     "pretest": "babel-node server/models/db/createTables",
-    "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
+    "test": "nyc mocha --require @babel/polyfill --require @babel/register server/tests/test.spec.js --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel server -d dist",
+    "build": "babel --require @babel/polyfill server -d dist",
     "create:tables": "babel-node server/models/db/createTables",
     "migrate": "node dist/models/db/createTables"
   },
