@@ -3,9 +3,6 @@ import articlesArray from '../../models/dataStructure/articlesArray';
 import helper from '../../helpers/helper';
 
 const data = {
-  fakeUser: usersArray.storageArray[0],
-  fakeUser2: usersArray.storageArray[1],
-
   token: helper.generateToken(usersArray.storageArray[0]),
   token2: helper.generateToken(usersArray.storageArray[1]),
 
