@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon --exec babel-node server/server.js",
-    "pretest": "babel-node server/models/db/createTables",
+    "pretest-": "npm run create:tables",
     "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server -d dist",

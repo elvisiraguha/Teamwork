@@ -14,13 +14,8 @@ class Auth {
   }
 
   static signin(req, res) {
-    const matchUser = usersArray.findUser('email', req.user.email);
-
-    if (!matchUser) {
-      return responseHandler.error(res, 404, 'User with given email does not exists');
-    }
-
-    const isValidPassword = helper.comparePassword(req.user.password, matchUser.password);
+    const { matchUser, user } = req;
+    const isValidPassword = helper.comparePassword(user.password, matchUser.password);
 
     if (!isValidPassword) {
       return responseHandler.error(res, 401, 'Given password is incorrect');
