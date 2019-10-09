@@ -9,7 +9,7 @@
     "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server -d dist",
-    "create": "babel-node server/models/db/createTables && babel-node server/models/db/createTables",
+    "create:tables": "babel-node server/models/db/createTables && babel-node server/models/db/createTables",
     "migrate": "node dist/models/db/createTables"
   },
   "repository": {
