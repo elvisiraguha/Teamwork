@@ -26,6 +26,11 @@ router.delete(
   getArticle.isAuthor,
   articles.delete,
 );
+router.get(
+  '/feeds',
+  authorize.haveCorrectToken,
+  articles.feeds,
+);
 
 
 export default router;
