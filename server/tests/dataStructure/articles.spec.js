@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
-import data from '../mockData/articles';
+import data from './mockData/articles';
 
 chai.use(chaiHttp);
 
@@ -15,8 +15,8 @@ const {
   token2,
 } = data;
 
-class ArticlesSpec {
-  static create() {
+const articlesSpec = {
+  create() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -73,6 +73,34 @@ class ArticlesSpec {
         });
     });
 
+    it('test response given all required information with incorrect method', () => {
+      chai
+        .request(app)
+        .patch('/api/v1/articles')
+        .set('x-access-token', token2)
+        .send(article)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+    });
+
+    it('test response given all required information with incorrect method', () => {
+      chai
+        .request(app)
+        .delete('/api/v1/articles')
+        .set('x-access-token', token2)
+        .send(article)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+    });
+
     it('test response given all required information', () => {
       chai
         .request(app)
@@ -87,9 +115,8 @@ class ArticlesSpec {
           expect(body.data).to.be.an('object');
         });
     });
-  }
-
-  static edit() {
+  },
+  edit() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -180,7 +207,20 @@ class ArticlesSpec {
         .set('x-access-token', token2)
         .send(modifiedArticle)
         .end((err, res) => {
-          console.log(res)
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+    });
+
+    it('test response given all required information with incorrect method', () => {
+      chai
+        .request(app)
+        .put(`/api/v1/articles/${fakeArticle2.id}`)
+        .set('x-access-token', token2)
+        .send(modifiedArticle)
+        .end((err, res) => {
           const { body } = res;
           expect(res).to.have.status(405);
           expect(body.status).to.equals(405);
@@ -202,9 +242,8 @@ class ArticlesSpec {
           expect(body.data).to.be.an('object');
         });
     });
-  }
-
-  static delete() {
+  },
+  delete() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -280,6 +319,17 @@ class ArticlesSpec {
         });
     });
 
+    it('test response if given information are correct with incorrect method', () => {
+      chai
+        .request(app)
+        .put(`/api/v1/articles/${fakeArticle2.id}`)
+        .set('x-access-token', token2)
+        .end((err, res) => {
+          expect(res).to.have.status(405);
+          expect(res.body.error).to.equals('Method not allowed');
+        });
+    });
+
     it('test response if given information are correct', () => {
       chai
         .request(app)
@@ -289,9 +339,8 @@ class ArticlesSpec {
           expect(res).to.have.status(204);
         });
     });
-  }
-
-  static feeds() {
+  },
+  feeds() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -330,6 +379,45 @@ class ArticlesSpec {
         });
     });
 
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .put('/api/v1/feeds')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .patch('/api/v1/feeds')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .delete('/api/v1/feeds')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
     it('test reaponse given the correct token', () => {
       chai
         .request(app)
@@ -343,9 +431,8 @@ class ArticlesSpec {
           expect(body.data).to.be.an('array');
         });
     });
-  }
-
-  static findByCategory() {
+  },
+  findByCategory() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -412,6 +499,34 @@ class ArticlesSpec {
         });
     });
 
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .patch('/api/v1/articles')
+        .query({ category: 'art' })
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .delete('/api/v1/articles')
+        .query({ category: 'art' })
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
     it('test reaponse given the correct token', () => {
       chai
         .request(app)
@@ -426,9 +541,8 @@ class ArticlesSpec {
           expect(body.data).to.be.an('array');
         });
     });
-  }
-
-  static addComment() {
+  },
+  addComment() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -513,6 +627,48 @@ class ArticlesSpec {
         });
     });
 
+    it('test response given all required information with incorrect method', () => {
+      chai
+        .request(app)
+        .put(`/api/v1/articles/${fakeArticle.id}/comments`)
+        .set('x-access-token', token)
+        .send(comment)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+    });
+
+    it('test response given all required information with incorrect method', () => {
+      chai
+        .request(app)
+        .patch(`/api/v1/articles/${fakeArticle.id}/comments`)
+        .set('x-access-token', token)
+        .send(comment)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+    });
+
+    it('test response given all required information with incorrect method', () => {
+      chai
+        .request(app)
+        .delete(`/api/v1/articles/${fakeArticle.id}/comments`)
+        .set('x-access-token', token)
+        .send(comment)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+    });
+
     it('test response given all required information', () => {
       chai
         .request(app)
@@ -529,9 +685,8 @@ class ArticlesSpec {
           expect(body.data.article).to.be.a('string');
         });
     });
-  }
-
-  static getOne() {
+  },
+  getOne() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -597,6 +752,19 @@ class ArticlesSpec {
         });
     });
 
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .put('/api/v1/articles/2')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
     it('test reaponse given the correct token', () => {
       chai
         .request(app)
@@ -610,9 +778,8 @@ class ArticlesSpec {
           expect(body.data).to.be.an('object');
         });
     });
-  }
-
-  static myarticles() {
+  },
+  myarticles() {
     it('test response given no token', () => {
       chai
         .request(app)
@@ -664,6 +831,45 @@ class ArticlesSpec {
         });
     });
 
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .put('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .patch('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
+    it('test reaponse given the correct token with incorrect method', () => {
+      chai
+        .request(app)
+        .delete('/api/v1/myarticles')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equals('Method not allowed');
+        });
+    });
+
     it('test reaponse given the correct token', () => {
       chai
         .request(app)
@@ -677,7 +883,8 @@ class ArticlesSpec {
           expect(body.data).to.be.an('array');
         });
     });
-  }
-}
+  },
+};
 
-export default ArticlesSpec;
+
+export default articlesSpec;

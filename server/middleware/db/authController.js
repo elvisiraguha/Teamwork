@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import connect from '../models/db/connectToDB';
-import responseHandler from '../helpers/responses';
+import connect from '../../models/db/connectToDB';
+import responseHandler from '../../helpers/responses';
 
 config();
 

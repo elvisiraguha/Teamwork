@@ -1,6 +1,6 @@
-import usersArray from '../../models/dataStructure/usersArray';
-import articlesArray from '../../models/dataStructure/articlesArray';
-import helper from '../../helpers/helper';
+import usersArray from '../../../models/dataStructure/usersArray';
+import articlesArray from '../../../models/dataStructure/articlesArray';
+import helper from '../../../helpers/helper';
 
 const data = {
   token: helper.generateToken(usersArray.storageArray[0]),

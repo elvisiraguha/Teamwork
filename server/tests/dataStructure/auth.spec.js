@@ -1,12 +1,12 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../server';
-import data from '../mockData/users';
+import data from './mockData/users';
 
 chai.use(chaiHttp);
 
-class AuthSpec {
-  static signup() {
+const authSpec = {
+  signup() {
     it('test response given incomplete information or no information', (done) => {
       chai
         .request(app)
@@ -26,6 +26,48 @@ class AuthSpec {
       chai
         .request(app)
         .get('/api/v1/auth/signup')
+        .send(data.newUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/auth/signup')
+        .send(data.newUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .put('/api/v1/auth/signup')
+        .send(data.newUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information with incorrect method', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/auth/signup')
         .send(data.newUser)
         .end((err, res) => {
           const { body } = res;
@@ -65,9 +107,9 @@ class AuthSpec {
         });
       done();
     });
-  }
+  },
 
-  static signin() {
+  signin() {
     it('test response given incomplete information', (done) => {
       chai
         .request(app)
@@ -125,6 +167,48 @@ class AuthSpec {
       done();
     });
 
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/auth/signin')
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/auth/signin')
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
+    it('test response given all required information they are correct with incorrect method', (done) => {
+      chai
+        .request(app)
+        .put('/api/v1/auth/signin')
+        .send(data.existingUser)
+        .end((err, res) => {
+          const { body } = res;
+          expect(res).to.have.status(405);
+          expect(body.status).to.equals(405);
+          expect(body.error).to.equal('Method not allowed');
+        });
+      done();
+    });
+
     it('test response given all required information they are correct', (done) => {
       chai
         .request(app)
@@ -140,7 +224,7 @@ class AuthSpec {
         });
       done();
     });
-  }
-}
+  },
+};
 
-export default AuthSpec;
+export default authSpec;

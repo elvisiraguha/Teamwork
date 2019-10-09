@@ -4,7 +4,7 @@ import authDBRouter from './db/auth';
 import articlesRouter from './dataStructure/articles';
 import articlesDBRouter from './db/articles';
 import responseHandler from '../helpers/responses';
-import authorize from '../middleware/authController';
+import authorize from '../middleware/db/authController';
 
 const router = express.Router();
 router.use(express.json());
