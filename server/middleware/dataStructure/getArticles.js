@@ -4,7 +4,9 @@ import responseHandler from '../../helpers/responses';
 class GetArticles {
   static getOne(req, res, next) {
     const id = parseInt(req.params.id, 10);
-
+    if (Number.isNaN(id)) {
+      return responseHandler.error(res, 400, 'articleId should be an Integer');
+    }
     const matchArticle = articlesArray.getArticleById(id);
 
     if (!matchArticle) {
@@ -32,6 +34,15 @@ class GetArticles {
       return responseHandler.error(res, 404, 'You have not created any articles Yet');
     }
     req.myArticles = authorsArticles;
+    next();
+  }
+
+  static isAuthor(req, res, next) {
+    const isAuthor = articlesArray.checkAuthor(req.matchArticle, req.author);
+
+    if (!isAuthor) {
+      return responseHandler.error(res, 403, 'Forbidden: You are not owner of given article');
+    }
     next();
   }
 }

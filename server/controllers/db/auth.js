@@ -14,6 +14,20 @@ class Auth {
       return responseHandler.error(res, 400, error.message, { error });
     }
   }
+
+  static signin(req, res) {
+    const { user, matchUser } = req;
+
+    const isValidPassword = helper.comparePassword(user.password, matchUser.password);
+
+    if (!isValidPassword) {
+      return responseHandler.error(res, 401, 'Given password is incorrect');
+    }
+
+    const token = helper.generateToken(matchUser);
+
+    return responseHandler.success(res, 200, 'User is successfully logged in', { token });
+  }
 }
 
 export default Auth;

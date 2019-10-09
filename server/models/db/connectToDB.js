@@ -14,7 +14,7 @@ class connectToDB {
       const result = await pool.query(dbQuery);
       return result.rows[0];
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 
@@ -27,7 +27,7 @@ class connectToDB {
       const result = await pool.query(dbQuery);
       return result.rows[0];
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 }

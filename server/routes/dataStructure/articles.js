@@ -1,5 +1,5 @@
 import express from 'express';
-import authorize from '../../middleware/dataStructure/authController';
+import authorize from '../../middleware/authController';
 import articles from '../../controllers/dataStructure/articles';
 import validate from '../../middleware/validateArticles';
 import getArticle from '../../middleware/dataStructure/getArticles';
@@ -15,7 +15,7 @@ router.patch(
   '/articles/:id',
   authorize.haveCorrectToken,
   getArticle.getOne,
-  authorize.isAuthor,
+  getArticle.isAuthor,
   validate.editArticle,
   articles.edit,
 );
@@ -23,7 +23,7 @@ router.delete(
   '/articles/:id',
   authorize.haveCorrectToken,
   getArticle.getOne,
-  authorize.isAuthor,
+  getArticle.isAuthor,
   articles.delete,
 );
 router.post(
