@@ -5,7 +5,7 @@ import entities from '../../helpers/db/entities';
 
 class Auth {
   static async signup(req, res) {
-    const newUser = entities.newUser(req.newUser);
+    const newUser = entities.user(req.newUser);
     try {
       const { id, email, isadmin: isAdmin } = await connect.insertUser(newUser);
       const token = helper.generateToken({ id, email, isAdmin });

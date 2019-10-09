@@ -1,9 +1,9 @@
 import connect from './connectToDB';
 import helper from '../../helpers/helper';
 
-const users = () => {
+const users = async () => {
   const queryString = `DROP TABLE IF EXISTS users;
-  CREATE TABLE IF NOT EXISTS users
+  CREATE TABLE users
   (
     id SERIAL PRIMARY KEY,
     firstName VARCHAR(128) NOT NULL,
@@ -16,13 +16,16 @@ const users = () => {
     department VARCHAR(128) NOT NULL,
     isAdmin BOOLEAN
   )`;
-
-  connect.execute(queryString);
+  try {
+    await connect.execute(queryString);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-const articles = () => {
+const articles = async () => {
   const queryString = `DROP TABLE IF EXISTS articles;
-  CREATE TABLE IF NOT EXISTS articles
+  CREATE TABLE articles
   (
     id SERIAL PRIMARY KEY,
     title VARCHAR(128) NOT NULL,
@@ -32,7 +35,11 @@ const articles = () => {
     categories VARCHAR [] NOT NULL
     )`;
 
-  connect.execute(queryString);
+  try {
+    connect.execute(queryString);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const insertUser = async () => {
@@ -47,9 +54,11 @@ const insertUser = async () => {
     'computer science',
     false,
   ];
-
-  const createdUser = await connect.insertUser(user);
-  console.log(createdUser);
+  try {
+    await connect.insertUser(user);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const insertArticle = async () => {
@@ -62,8 +71,11 @@ const insertArticle = async () => {
     1,
     ['technology', 'science'],
   ];
-  const createdArticle = await connect.insertArticles(article);
-  console.log(createdArticle);
+  try {
+    await connect.insertArticles(article);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 users();
