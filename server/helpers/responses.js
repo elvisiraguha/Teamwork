@@ -7,7 +7,7 @@ class ResponseHandler {
     });
   }
 
-  static error(res, status, error) {
+  static error(res, status = 500, error) {
     return res.status(status).json({
       status,
       error,

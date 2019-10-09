@@ -19,6 +19,13 @@ router.patch(
   validate.editArticle,
   articles.edit,
 );
+router.delete(
+  '/articles/:id',
+  authorize.haveCorrectToken,
+  getArticle.getOne,
+  getArticle.isAuthor,
+  articles.delete,
+);
 
 
 export default router;
