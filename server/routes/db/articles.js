@@ -31,6 +31,12 @@ router.get(
   authorize.haveCorrectToken,
   articles.feeds,
 );
+router.get(
+  '/articles/:id',
+  authorize.haveCorrectToken,
+  getArticle.getOne,
+  articles.getOne,
+);
 
 
 export default router;

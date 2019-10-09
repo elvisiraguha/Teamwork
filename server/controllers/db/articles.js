@@ -49,6 +49,11 @@ class Articles {
       return responseHandler.error(res, error.status, error.message);
     }
   }
+
+  static async getOne(req, res) {
+    const { matchArticle } = req;
+    return responseHandler.success(res, 200, 'article successfully fetched', matchArticle);
+  }
 }
 
 export default Articles;
