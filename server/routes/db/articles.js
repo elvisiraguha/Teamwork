@@ -42,6 +42,11 @@ router.get(
   authorize.haveCorrectToken,
   articles.myarticles,
 );
-
+router.post('/articles/:id/comments',
+  authorize.haveCorrectToken,
+  getArticle.getOne,
+  validate.comment,
+  articles.comment,
+);
 
 export default router;

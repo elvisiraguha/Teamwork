@@ -89,7 +89,19 @@ class connectToDB {
         text: 'DELETE FROM articles WHERE id = $1 RETURNING *',
         values,
       };
-      console.log(dbQuery)
+      const result = await pool.query(dbQuery);
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async insertComment(values) {
+    try {
+      const dbQuery = {
+        text: 'INSERT INTO comments (comment, article, articleid, createdon, authorid) VALUES($1, $2, $3, $4, $5) RETURNING *',
+        values,
+      };
       const result = await pool.query(dbQuery);
       return result.rows[0];
     } catch (error) {

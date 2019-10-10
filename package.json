@@ -4,7 +4,9 @@
   "description": "Teamwork is an internal social network for organizations employees.",
   "main": "server/server.js",
   "scripts": {
+    "prestart": "create:tables",
     "start": "nodemon --exec babel-node server/server.js",
+    "dev-start": "nodemon --exec babel-node server/server.js",
     "pretest": "npm run create:tables",
     "test": "nyc mocha --require @babel/register server/tests/test.spec.js --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
