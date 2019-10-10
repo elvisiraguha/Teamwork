@@ -15,14 +15,13 @@ class Entities {
     ];
   }
 
-  static article({ article, title, categories }, { id: authorid }) {
+  static article({ article, title }, { id: authorid }) {
     const createdon = new Date();
     return [
       title,
       article,
       createdon,
       authorid,
-      categories,
     ];
   }
 

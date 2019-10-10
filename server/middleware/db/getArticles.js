@@ -25,6 +25,20 @@ class GetArticles {
     }
     next();
   }
+
+  static async isAlreadyCreated(req, res, next) {
+    const { author, newArticle } = req;
+    try {
+      const articles = await connect.selectWhole('articles', 'authorid', author.id);
+      const isThere = articles.find(article => article.title === newArticle.title);
+      if (isThere) {
+        return responseHandler.error(res, 409, 'Article is already created');
+      }
+      next();
+    } catch (error) {
+      return responseHandler.error(res, error.status, error.message);
+    }
+  }
 }
 
 export default GetArticles;

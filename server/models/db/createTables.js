@@ -1,8 +1,13 @@
-import connect from './connectToDB';
-import helper from '../../helpers/helper';
+import { Pool } from 'pg';
+import { config } from 'dotenv';
 
-const users = async () => {
-  const queryString = `DROP TABLE IF EXISTS users;
+config();
+
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+const createTables = pool.query(
+  `
+  DROP TABLE IF EXISTS users;
   CREATE TABLE users
   (
     id SERIAL PRIMARY KEY,
@@ -15,106 +20,58 @@ const users = async () => {
     address VARCHAR(128) NOT NULL,
     department VARCHAR(128) NOT NULL,
     isAdmin BOOLEAN
-  )`;
-  try {
-    await connect.execute(queryString);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+  );
+  INSERT INTO users 
+    (firstname, lastname, email, password, gender, jobrole, address, department, isadmin)
+  VALUES(
+    'Olivier',
+    'Nshimiye',
+    'olivier@student.edu',
+    '$2b$08$LiYm0VR0borDqRquJrDMt.3E1wiSPwDxvZcGF9I.JpuCkkPZ7yVSS',
+    'male',
+    'student',
+    'Kigali',
+    'computer science',
+    false
+  ) RETURNING *;
 
-const articles = async () => {
-  const queryString = `DROP TABLE IF EXISTS articles;
+  DROP TABLE IF EXISTS articles;
   CREATE TABLE articles
   (
     id SERIAL PRIMARY KEY,
     title VARCHAR(128) NOT NULL,
     article VARCHAR(1048) NOT NULL,
-    createdOn DATE NOT NULL,
-    authorid INT,
-    categories VARCHAR [] NOT NULL
-    )`;
+    createdOn VARCHAR(128) NOT NULL,
+    authorid INT
+  );
+  INSERT INTO articles
+  (title, article, createdon, authorid)
+  VALUES(
+    'Importance of technology',
+    'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae ullam nostrum quo, quaerat illum',
+    '2019-10-10T10:46:34.352+02:00',
+    1
+  ) RETURNING *;
 
-  try {
-    connect.execute(queryString);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-const comments = async () => {
-  const queryString = `DROP TABLE IF EXISTS comments;
+  DROP TABLE IF EXISTS comments;
   CREATE TABLE comments
   (
     id SERIAL PRIMARY KEY,
     comment VARCHAR(128) NOT NULL,
     article VARCHAR(1048) NOT NULL,
     articleid INT,
-    createdOn DATE NOT NULL,
+    createdOn VARCHAR(128) NOT NULL,
     authorid INT
-    )`;
-
-  try {
-    connect.execute(queryString);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-const insertUser = async () => {
-  const user = [
-    'Olivier',
-    'Nshimiye',
-    'olivier@student.edu',
-    helper.hashPassword('olivier'),
-    'male',
-    'student',
-    'Kigali',
-    'computer science',
-    false,
-  ];
-  try {
-    await connect.insertUser(user);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-const insertArticle = async () => {
-  const article = [
-    'Importance of technology',
-    `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae ullam nostrum quo, quaerat illum,
-    aspernatur nihil, soluta id saepe eum dicta sit nulla rem cumque quas repellat velit consequuntur
-    expedita!`,
-    new Date(),
-    1,
-    ['technology', 'science'],
-  ];
-  try {
-    await connect.insertArticles(article);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-const insertComment = async () => {
-  const comment = [
+  );
+  INSERT INTO comments
+  (comment, article, articleid, createdon, authorid)
+  VALUES(
     'this is a comment',
     'Lorem etur Beatae ullam nostrum quo, quaerat illum, aspernatur nihil, soluta id saepe eum dicta sit nulla rem cumque quas repellat velit consequuntur expedita!',
     1,
-    new Date(),
-    2,
-  ];
-  try {
-    await connect.insertComment(comment);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+    '2019-10-10T10:46:34.346+02:00',
+    2
+  ) RETURNING *;`,
+);
 
-users();
-insertUser();
-articles();
-insertArticle();
-comments();
-insertComment();
+export default createTables;

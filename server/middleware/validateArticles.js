@@ -4,9 +4,19 @@ import responseHandler from '../helpers/responses';
 class Validate {
   static newArticle(req, res, next) {
     const schema = Joi.object({
-      title: Joi.string().required().min(10).max(50),
-      article: Joi.string().required().min(20).max(1000),
-      categories: Joi.array().items(Joi.string()).required(),
+      title: Joi
+        .string()
+        .trim()
+        .required()
+        .min(10)
+        .max(50),
+      article: Joi
+        .string()
+        .trim()
+        .required()
+        .min(20)
+        .max(1000),
+      categories: Joi.array().items(Joi.string()),
     });
 
     const { value, error } = schema.validate(req.body);
@@ -30,7 +40,12 @@ class Validate {
 
   static comment(req, res, next) {
     const schema = Joi.object({
-      comment: Joi.string().required().min(5).max(1000),
+      comment: Joi
+        .string()
+        .required()
+        .min(5)
+        .max(1000)
+        .trim(),
     });
 
     const { value, error } = schema.validate(req.body);
