@@ -38,6 +38,17 @@ class Articles {
       return responseHandler.error(res, error.status, error.message);
     }
   }
+
+  static async feeds(req, res) {
+    try {
+      const articles = await connect.selectArticles();
+      const sortedArticles = articles.sort((oldest, latest) => oldest.createdon - latest.createdon);
+
+      return responseHandler.success(res, 200, 'articles successfully loaded', sortedArticles);
+    } catch (error) {
+      return responseHandler.error(res, error.status, error.message);
+    }
+  }
 }
 
 export default Articles;

@@ -18,6 +18,19 @@ class connectToDB {
     }
   }
 
+  static async selectArticles() {
+    try {
+      const dbQuery = {
+        text: 'SELECT * FROM articles',
+        values: [],
+      };
+      const result = await pool.query(dbQuery);
+      return result.rows;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async insertUser(values) {
     try {
       const dbQuery = {
