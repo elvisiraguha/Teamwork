@@ -13,6 +13,20 @@ class Articles {
       return responseHandler.error(res, 400, error.message, { error });
     }
   }
+
+  static async edit(req, res) {
+    const { matchArticle, body } = req;
+
+    const newTitle = body.title || matchArticle.title;
+    const newArticle = body.article || matchArticle.article;
+
+    try {
+      const updatedArticle = await connect.updateArticle([matchArticle.id, newTitle, newArticle]);
+      return responseHandler.success(res, 200, 'article successfully edited', updatedArticle);
+    } catch (error) {
+      return responseHandler.error(res, error.status, error.message);
+    }
+  }
 }
 
 export default Articles;

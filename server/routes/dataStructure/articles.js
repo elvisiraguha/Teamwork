@@ -1,5 +1,5 @@
 import express from 'express';
-import authorize from '../../middleware/authController';
+import authorize from '../../middleware/dataStructure/authController';
 import articles from '../../controllers/dataStructure/articles';
 import validate from '../../middleware/validateArticles';
 import getArticle from '../../middleware/dataStructure/getArticles';
