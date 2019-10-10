@@ -18,6 +18,19 @@ class connectToDB {
     }
   }
 
+  static async selectWhole(table, selector, key) {
+    try {
+      const dbQuery = {
+        text: `SELECT * FROM ${table} WHERE ${selector} = $1;`,
+        values: [key],
+      };
+      const result = await pool.query(dbQuery);
+      return result.rows;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async selectArticles() {
     try {
       const dbQuery = {

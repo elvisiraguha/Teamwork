@@ -37,6 +37,11 @@ router.get(
   getArticle.getOne,
   articles.getOne,
 );
+router.get(
+  '/myarticles',
+  authorize.haveCorrectToken,
+  articles.myarticles,
+);
 
 
 export default router;
