@@ -54,6 +54,17 @@ class Articles {
     const { matchArticle } = req;
     return responseHandler.success(res, 200, 'article successfully fetched', matchArticle);
   }
+
+  static async myarticles(req, res) {
+    const { id } = req.author;
+    try {
+      const articles = await connect.selectWhole('articles', 'authorid', id);
+
+      return responseHandler.success(res, 200, 'articles successfully loaded', articles);
+    } catch (error) {
+      return responseHandler.error(res, error.status, error.message);
+    }
+  }
 }
 
 export default Articles;
