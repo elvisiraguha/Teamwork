@@ -25,6 +25,17 @@ class Entities {
       categories,
     ];
   }
+
+  static comment({ comment }, { article, id: articleId }, { id: authorid }) {
+    const createdon = new Date();
+    return [
+      comment,
+      article,
+      articleId,
+      createdon,
+      authorid,
+    ];
+  }
 }
 
 export default Entities;

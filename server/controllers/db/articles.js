@@ -65,6 +65,18 @@ class Articles {
       return responseHandler.error(res, error.status, error.message);
     }
   }
+
+  static async comment(req, res) {
+    const { matchArticle, author, comment } = req;
+    const newComment = entities.comment(comment, matchArticle, author);
+    try {
+      const storedComment = await connect.insertComment(newComment);
+
+      return responseHandler.success(res, 200, 'comment successfully added', storedComment);
+    } catch (error) {
+      return responseHandler.error(res, error.status, error.message);
+    }
+  }
 }
 
 export default Articles;

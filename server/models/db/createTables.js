@@ -42,6 +42,25 @@ const articles = async () => {
   }
 };
 
+const comments = async () => {
+  const queryString = `DROP TABLE IF EXISTS comments;
+  CREATE TABLE comments
+  (
+    id SERIAL PRIMARY KEY,
+    comment VARCHAR(128) NOT NULL,
+    article VARCHAR(1048) NOT NULL,
+    articleid INT,
+    createdOn DATE NOT NULL,
+    authorid INT
+    )`;
+
+  try {
+    connect.execute(queryString);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const insertUser = async () => {
   const user = [
     'Olivier',
@@ -78,7 +97,24 @@ const insertArticle = async () => {
   }
 };
 
+const insertComment = async () => {
+  const comment = [
+    'this is a comment',
+    'Lorem etur Beatae ullam nostrum quo, quaerat illum, aspernatur nihil, soluta id saepe eum dicta sit nulla rem cumque quas repellat velit consequuntur expedita!',
+    1,
+    new Date(),
+    2,
+  ];
+  try {
+    await connect.insertComment(comment);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 users();
 insertUser();
 articles();
 insertArticle();
+comments();
+insertComment();
