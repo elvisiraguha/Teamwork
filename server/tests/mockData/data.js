@@ -1,13 +1,17 @@
 
 const data = [
-  // 0
-  {},
+  // 0 incorect password
+  {
+    email: 'elvis@student.edu',
+    password: 'incorrectPassword',
+  },
+
   // 1 new user
   {
     firstName: 'Iraguha',
     lastName: 'Elvis',
     password: 'monkey123',
-    address: 'Kigali/Rwanda',
+    address: 'Kigali',
     gender: 'Male',
     jobRole: 'Student',
     email: 'elvis@student.edu',
@@ -18,7 +22,7 @@ const data = [
     firstName: 'Iraguha',
     lastName: 'Elvis',
     password: 'monkey123',
-    address: 'Kigali/Rwanda',
+    address: 'Kigali',
     gender: 'Male',
     jobRole: 'Student',
     email: 'olivier@student.edu',
@@ -34,12 +38,6 @@ const data = [
     email: 'user@nonexisting.mail',
     password: 'password',
   },
-  // 5 incorect password
-  {
-    email: 'elvis@student.edu',
-    password: 'incorrect password',
-  },
-
 ];
 
 export default data;

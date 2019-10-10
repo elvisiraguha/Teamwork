@@ -52,7 +52,8 @@ class Articles {
 
   static async getOne(req, res) {
     const { matchArticle } = req;
-    return responseHandler.success(res, 200, 'article successfully fetched', matchArticle);
+    const comments = await connect.selectWhole('comments', 'articleid', matchArticle.id);
+    return responseHandler.success(res, 200, 'article successfully fetched', { matchArticle, comments });
   }
 
   static async myarticles(req, res) {

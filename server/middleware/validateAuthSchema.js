@@ -6,7 +6,12 @@ class Validate {
     const schema = Joi.object({
       firstName: Joi.string().trim().required().regex(/^[a-zA-Z]{3,}$/),
       lastName: Joi.string().trim().required().regex(/^[a-zA-Z]{3,}$/),
-      email: Joi.string().trim().required(),
+      email: Joi
+        .string()
+        .trim()
+        .required()
+        .min(5)
+        .max(50),
       password: Joi.string().required(),
       gender: Joi
         .string()
@@ -46,7 +51,8 @@ class Validate {
         .string()
         .required()
         .trim()
-        .regex(/^[a-zA-Z]{5,}$/),
+        .min(5)
+        .max(50),
       password: Joi.string().required(),
     });
 
