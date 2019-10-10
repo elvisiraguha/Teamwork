@@ -27,6 +27,17 @@ class Articles {
       return responseHandler.error(res, error.status, error.message);
     }
   }
+
+  static async delete(req, res) {
+    const { matchArticle } = req;
+
+    try {
+      const deletedArticle = await connect.delete([matchArticle.id]);
+      return responseHandler.success(res, 204, 'article successfully deleted', deletedArticle);
+    } catch (error) {
+      return responseHandler.error(res, error.status, error.message);
+    }
+  }
 }
 
 export default Articles;

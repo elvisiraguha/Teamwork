@@ -57,6 +57,20 @@ class connectToDB {
     }
   }
 
+  static async delete(values) {
+    try {
+      const dbQuery = {
+        text: 'DELETE FROM articles WHERE id = $1 RETURNING *',
+        values,
+      };
+      console.log(dbQuery)
+      const result = await pool.query(dbQuery);
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async execute(dbQuery) {
     try {
       const result = await pool.query(dbQuery);
