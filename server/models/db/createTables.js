@@ -34,6 +34,32 @@ const createTables = pool.query(
     'computer science',
     false
   ) RETURNING *;
+  INSERT INTO users 
+    (firstname, lastname, email, password, gender, jobrole, address, department, isadmin)
+  VALUES(
+    'Olivier',
+    'Nshimiye',
+    'seth@student.edu',
+    '$2b$08$LiYm0VR0borDqRquJrDMt.3E1wiSPwDxvZcGF9I.JpuCkkPZ7yVSS',
+    'male',
+    'student',
+    'Kigali',
+    'computer science',
+    false
+  ) RETURNING *;
+  INSERT INTO users 
+    (firstname, lastname, email, password, gender, jobrole, address, department, isadmin)
+  VALUES(
+    'Olivier',
+    'Nshimiye',
+    'nshimiye@student.edu',
+    '$2b$08$LiYm0VR0borDqRquJrDMt.3E1wiSPwDxvZcGF9I.JpuCkkPZ7yVSS',
+    'male',
+    'student',
+    'Kigali',
+    'computer science',
+    false
+  ) RETURNING *;
 
   DROP TABLE IF EXISTS articles;
   CREATE TABLE articles

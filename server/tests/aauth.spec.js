@@ -36,20 +36,6 @@ describe('POST /api/v1/auth/signup', () => {
     done();
   });
 
-  it('test response given the used email address', (done) => {
-    chai
-      .request(app)
-      .post(`${baseURL}/signup`)
-      .send(userData[2])
-      .end((err, res) => {
-        const { body } = res;
-        expect(res).to.have.status(409);
-        expect(body.status).to.equals(409);
-        expect(body.error).to.equals('User with given email already exists');
-      });
-    done();
-  });
-
   it('test response given all required information', (done) => {
     chai
       .request(app)
@@ -62,6 +48,20 @@ describe('POST /api/v1/auth/signup', () => {
         expect(body.message).to.equal('User created successfully');
         expect(body.data).to.be.an('object');
         expect(body.userData.token).to.be.a('string');
+      });
+    done();
+  });
+
+  it.skip('test response given the used email address', (done) => {
+    chai
+      .request(app)
+      .post(`${baseURL}/signup`)
+      .send(userData[1])
+      .end((err, res) => {
+        const { body } = res;
+        expect(res).to.have.status(409);
+        expect(body.status).to.equals(409);
+        expect(body.error).to.equals('User with given email already exists');
       });
     done();
   });
