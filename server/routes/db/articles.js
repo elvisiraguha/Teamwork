@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/articles',
   authorize.haveCorrectToken,
   validate.newArticle,
+  getArticle.isAlreadyCreated,
   articles.create,
 );
 router.patch(

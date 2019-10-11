@@ -60,7 +60,7 @@ class connectToDB {
   static async insertArticles(values) {
     try {
       const dbQuery = {
-        text: 'INSERT INTO articles (title, article, createdon, authorid, categories) VALUES($1, $2, $3, $4, $5) RETURNING *',
+        text: 'INSERT INTO articles (title, article, createdon, authorid) VALUES($1, $2, $3, $4) RETURNING *',
         values,
       };
       const result = await pool.query(dbQuery);

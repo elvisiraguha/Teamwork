@@ -4,14 +4,35 @@ import responseHandler from '../helpers/responses';
 class Validate {
   static signup(req, res, next) {
     const schema = Joi.object({
-      firstName: Joi.string().required().min(3).trim(),
-      lastName: Joi.string().required().min(3).trim(),
-      email: Joi.string().required().min(10).trim(),
-      password: Joi.string().required().min(8).trim(),
-      gender: Joi.string().required().min(4).trim(),
-      jobRole: Joi.string().required().min(4).trim(),
-      department: Joi.string().required().min(4).trim(),
-      address: Joi.string().required().min(4).trim(),
+      firstName: Joi.string().trim().required().regex(/^[a-zA-Z]{3,}$/),
+      lastName: Joi.string().trim().required().regex(/^[a-zA-Z]{3,}$/),
+      email: Joi
+        .string()
+        .trim()
+        .required()
+        .min(5)
+        .max(50),
+      password: Joi.string().required(),
+      gender: Joi
+        .string()
+        .trim()
+        .valid('male', 'Male', 'M', 'female', 'Female', 'F')
+        .required(),
+      jobRole: Joi
+        .string()
+        .trim()
+        .regex(/^[a-zA-Z]{5,}$/)
+        .required(),
+      department: Joi
+        .string()
+        .trim()
+        .valid('Development', 'Design', 'Production', 'Management', 'Human resource')
+        .required(),
+      address: Joi
+        .string()
+        .trim()
+        .required()
+        .regex(/^[a-zA-Z]{5,}$/),
     });
 
     const { value, error } = schema.validate(req.body);
@@ -26,8 +47,13 @@ class Validate {
 
   static signin(req, res, next) {
     const schema = Joi.object({
-      email: Joi.string().required().min(10).trim(),
-      password: Joi.string().required().trim(),
+      email: Joi
+        .string()
+        .required()
+        .trim()
+        .min(5)
+        .max(50),
+      password: Joi.string().required(),
     });
 
     const { value, error } = schema.validate(req.body);

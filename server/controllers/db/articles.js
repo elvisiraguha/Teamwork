@@ -52,7 +52,8 @@ class Articles {
 
   static async getOne(req, res) {
     const { matchArticle } = req;
-    return responseHandler.success(res, 200, 'article successfully fetched', matchArticle);
+    const comments = await connect.selectWhole('comments', 'articleid', matchArticle.id);
+    return responseHandler.success(res, 200, 'article successfully fetched', { matchArticle, comments });
   }
 
   static async myarticles(req, res) {
@@ -72,7 +73,7 @@ class Articles {
     try {
       const storedComment = await connect.insertComment(newComment);
 
-      return responseHandler.success(res, 200, 'comment successfully added', storedComment);
+      return responseHandler.success(res, 201, 'comment successfully added', storedComment);
     } catch (error) {
       return responseHandler.error(res, error.status, error.message);
     }
