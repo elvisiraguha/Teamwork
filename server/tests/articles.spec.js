@@ -18,7 +18,7 @@ describe('GET /api/v2/myarticles', () => {
       });
   });
 
-  it('test response given invalid token', () => {
+  it.skip('test response given invalid token', () => {
     chai
       .request(app)
       .get('/api/v2/myarticles')
@@ -44,7 +44,7 @@ describe('GET /api/v2/myarticles', () => {
       });
   });
 
-  it.skip('test reaponse given the correct token', () => {
+  it('test reaponse given the correct token', () => {
     chai
       .request(app)
       .get('/api/v2/myarticles')
