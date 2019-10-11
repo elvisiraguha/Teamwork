@@ -73,7 +73,7 @@ class Articles {
     try {
       const storedComment = await connect.insertComment(newComment);
 
-      return responseHandler.success(res, 200, 'comment successfully added', storedComment);
+      return responseHandler.success(res, 201, 'comment successfully added', storedComment);
     } catch (error) {
       return responseHandler.error(res, error.status, error.message);
     }

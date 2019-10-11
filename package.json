@@ -8,7 +8,7 @@
     "start": "nodemon --exec babel-node server/server.js",
     "dev-start": "nodemon --exec babel-node server/server.js",
     "pretest": "npm run create:tables",
-    "test": "nyc mocha --require @babel/register server/tests/articles.spec.js --exit",
+    "test": "nyc mocha --require @babel/register server/tests/*.spec.js --timeout 10000 --exit",
     "posttest": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server -d dist",
     "create:tables": "babel-node server/models/db/createTables createTables",
@@ -29,8 +29,6 @@
   },
   "devDependencies": {
     "@babel/register": "7.6.2",
-    "babel-watch": "7.0.0",
-    "braces": "3.0.2",
     "chai": "4.2.0",
     "chai-http": "4.3.0",
     "coveralls": "3.0.6",
