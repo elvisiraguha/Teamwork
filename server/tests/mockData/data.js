@@ -30,8 +30,8 @@ const data = [
   },
   // 3 existing user
   {
-    email: 'elvis@student.edu',
-    password: 'monkey123',
+    email: 'nshimiye@student.edu',
+    password: 'olivier',
   },
   // 4 inexisting user
   {
