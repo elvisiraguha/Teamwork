@@ -44,7 +44,7 @@ describe('GET /api/v2/myarticles', () => {
       });
   });
 
-  it('test reaponse given the correct token', () => {
+  it.skip('test reaponse given the correct token', () => {
     chai
       .request(app)
       .get('/api/v2/myarticles')
