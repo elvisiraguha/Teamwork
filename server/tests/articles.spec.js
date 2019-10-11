@@ -51,6 +51,7 @@ describe('GET /api/v2/myarticles', () => {
       .set('x-access-token', articlesData[3])
       .end((err, res) => {
         const { body } = res;
+        console.log(body)
         expect(res).to.have.status(200);
         expect(body.status).to.equals(200);
         expect(body.data).to.be.an('array');
