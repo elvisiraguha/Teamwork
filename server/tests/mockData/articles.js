@@ -1,3 +1,5 @@
+import helper from '../../helpers/helper';
+
 const articlesData = [
   // 0 new article
   {
@@ -16,10 +18,13 @@ const articlesData = [
     comment: 'Thank you very much for this article',
   },
   // 3 token1
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJvbGl2aWVyQHN0dWRlbnQuZWR1IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU3MDcyMjI5OCwiZXhwIjoxNTcwODk1MDk4fQ.Q6x5RPtJDf8dvL0VOow4EIA79Nn3ASZ2dFVYrAcfDo8',
+  helper.generateToken({ id: 1, email: 'olivier@student.edu', isAdmin: false }),
   // 4 token2
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzZXRoQHN0dWRlbnQuZWR1IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU3MDczMTMwOSwiZXhwIjoxNTcwOTA0MTA5fQ.r3hEisEJQ5Pekb6hjoJS7KLF1iJ6vMnuIEmTO1GJRTY',
+  helper.generateToken({ id: 2, email: 'seth@student.edu', isAdmin: false }),
   // 5 token3
+  helper.generateToken({ id: 3, email: 'nshimiye@student.edu', isAdmin: false }),
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJvbGl2aWVyQHN0dWRlbnQuZWR1IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU3MDcyMjI5OCwiZXhwIjoxNTcwODk1MDk4fQ.Q6x5RPtJDf8dvL0VOow4EIA79Nn3ASZ2dFVYrAcfDo8',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzZXRoQHN0dWRlbnQuZWR1IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU3MDczMTMwOSwiZXhwIjoxNTcwOTA0MTA5fQ.r3hEisEJQ5Pekb6hjoJS7KLF1iJ6vMnuIEmTO1GJRTY',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJuc2hpbWl5ZUBzdHVkZW50LmVkdSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NzA3MzE0MDYsImV4cCI6MTU3MDkwNDIwNn0.VOnskCXAdtFmjTenUjL0NX1FNv4NZTk2Tvi1X_3I0e0',
 
 ];
