@@ -2,7 +2,7 @@
 const data = [
   // 0 incorect password
   {
-    email: 'elvis@student.edu',
+    email: 'olivier@student.edu',
     password: 'incorrectPassword',
   },
 
@@ -30,7 +30,7 @@ const data = [
   },
   // 3 existing user
   {
-    email: 'nshimiye@student.edu',
+    email: 'olivier@student.edu',
     password: 'olivier',
   },
   // 4 inexisting user
