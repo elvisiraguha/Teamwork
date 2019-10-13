@@ -312,7 +312,6 @@ body {
   flex-direction: column;
 }
 .text-input {
-  color: white;
   background: #367dd900;
   width: 100%;
   padding: 4px;
@@ -322,7 +321,6 @@ body {
   border-bottom: 1px solid #000000;
 }
 .compose-article {
-	color: #000;
   background: #fff;
   width: 100%;
 }
