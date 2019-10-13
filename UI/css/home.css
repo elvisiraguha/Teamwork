@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Poiret+One&display=swap');
 
 /* removing defaults for every element */
 
@@ -12,7 +12,7 @@
 /* font for other elements */
 
 body {
-  font: 20px "Montserrat", sans-serif;
+  font: 20px 'Montserrat', sans-serif;
 }
 
 /* for flex class elements */
@@ -30,7 +30,7 @@ body {
 /* an exception font for title class */
 
 .title {
-  font-family: "Poiret One", cursive;
+  font-family: 'Poiret One', cursive;
 }
 
 /* top header */
@@ -259,10 +259,10 @@ body {
   align-items: center;
 }
 .article-control {
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 4px 10px;
   margin: 0 4px;
-  background: #367dd930;
+  background: #367dd9a0;
   flex-direction: column;
   align-items: center;
 }
@@ -282,11 +282,12 @@ body {
   align-items: flex-end;
 }
 .read-more {
-  margin-right: 20px;
+  margin: 10px 20px;
   text-decoration: none;
+  color: #040950;
 }
 .read-more:hover {
-  background: #fff;
+  color: #fff;
 }
 
 /* styles for feedback modal */
@@ -314,9 +315,14 @@ body {
   flex-direction: column;
 }
 .text-input {
+  color: white;
+  background: #367dd900;
   width: 100%;
   padding: 4px;
   font: inherit;
+  border: none;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }
 
 /* exploring and searching for articles */
@@ -328,6 +334,7 @@ body {
 .category-container {
   flex-direction: column;
   align-items: flex-end;
+  justify-content: flex-end;
   margin-bottom: 20px;
 }
 
