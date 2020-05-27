@@ -12,7 +12,9 @@
     "posttest": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server -d dist",
     "create:tables": "babel-node server/models/db/createTables createTables",
-    "migrate": "node dist/models/db/createTables createTables"
+    "migrate": "node dist/models/db/createTables createTables",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -53,6 +55,8 @@
     "dotenv": "8.1.0",
     "express": "4.17.1",
     "jsonwebtoken": "8.5.1",
-    "pg": "7.12.1"
-  }
+    "pg": "7.12.1",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
